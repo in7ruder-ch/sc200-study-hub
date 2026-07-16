@@ -5,7 +5,7 @@ export const locales: Locale[] = ["en", "es"];
 export const copy = {
   en: {
     product: "SC-200 Study Hub", description: "Interactive study reference",
-    learningPaths: "Learning paths", blueprint: "Exam blueprint", practice: "Practice Labs",
+    dashboard: "Dashboard", learningPaths: "Learning paths", blueprint: "Exam blueprint", practice: "Practice Labs",
     comingSoon: "Next migration step", studyWorkspace: "Study workspace",
     heroTitle: "Prepare for SC-200 with a reference that remembers your progress.",
     heroBody: "All nine learning paths now run in the new architecture. Select one to reveal its brief and modules.",
@@ -36,10 +36,15 @@ export const copy = {
     practiceAvailable: "available", practiceInProgress: "In progress", practiceStatusCompleted: "Completed", practiceNotStarted: "Not started", practiceOpenLab: "Explore lab", practiceContinueLab: "Continue lab", practiceReviewLab: "Review lab", practiceBackToCatalog: "Back to all labs",
     practiceSnapshotEyebrow: "Performance snapshot", practiceSnapshotTitle: "Your investigation progress", practiceSnapshotBody: "A live summary of completed stages and the quality of your decisions across every scenario.",
     practiceStagesCompleted: "Stages completed", practiceRecommendedDecisions: "Recommended decisions", practiceLabsCompleted: "Labs completed", practiceDecisionQuality: "Decision quality", practiceDecisionsReviewed: "Decisions reviewed", practiceOf: "of", practiceNoActiveLabs: "No labs currently in progress", practiceNoDecisions: "Complete a stage to start building your decision profile.",
+    dashboardEyebrow: "Study command center", dashboardTitle: "Know what to study next.", dashboardBody: "Bring learning progress and investigation decisions together in one place, then continue from the area that needs your attention.",
+    dashboardLearningProgress: "Learning progress", dashboardLabProgress: "Lab progress", dashboardNeedsReview: "Needs review", dashboardUnitsCompleted: "units completed", dashboardStagesCompleted: "stages completed", dashboardDecisions: "decisions",
+    dashboardReviewTitle: "Review Center", dashboardReviewBody: "Revisit decisions that were acceptable with limitations or risky, understand the tradeoff, and answer them again.", dashboardReviewDecision: "Review decision", dashboardReviewEmptyTitle: "No decisions need review", dashboardReviewEmptyBody: "Your answered stages currently use the recommended response.",
+    dashboardContinueTitle: "Continue studying", dashboardContinueBody: "Pick up the active lab or the next incomplete learning path.", dashboardContinueLab: "Continue active lab", dashboardNextPath: "Next learning path", dashboardOpenPath: "Open learning path", dashboardStartLab: "Open next lab", dashboardAllLabsComplete: "All labs completed",
+    dashboardCoverageTitle: "Learning-path coverage", dashboardCoverageBody: "Completed units across the nine SC-200 learning paths.",
   },
   es: {
     product: "SC-200 Study Hub", description: "Referencia de estudio interactiva",
-    learningPaths: "Learning paths", blueprint: "Exam blueprint", practice: "Laboratorio práctico",
+    dashboard: "Dashboard", learningPaths: "Learning paths", blueprint: "Exam blueprint", practice: "Laboratorio práctico",
     comingSoon: "Próximo paso de migración", studyWorkspace: "Espacio de estudio",
     heroTitle: "Prepará SC-200 con una referencia que recuerda tu progreso.",
     heroBody: "Los nueve learning paths ya funcionan sobre la nueva arquitectura. Seleccioná uno para ver su resumen y sus módulos.",
@@ -70,6 +75,11 @@ export const copy = {
     practiceAvailable: "disponibles", practiceInProgress: "En progreso", practiceStatusCompleted: "Completados", practiceNotStarted: "No iniciado", practiceOpenLab: "Explorar laboratorio", practiceContinueLab: "Continuar laboratorio", practiceReviewLab: "Revisar laboratorio", practiceBackToCatalog: "Volver a todos los laboratorios",
     practiceSnapshotEyebrow: "Resumen de rendimiento", practiceSnapshotTitle: "Tu progreso de investigación", practiceSnapshotBody: "Un resumen en vivo de las etapas completadas y la calidad de tus decisiones en todos los escenarios.",
     practiceStagesCompleted: "Etapas completadas", practiceRecommendedDecisions: "Decisiones recomendadas", practiceLabsCompleted: "Labs completados", practiceDecisionQuality: "Calidad de decisiones", practiceDecisionsReviewed: "Decisiones revisadas", practiceOf: "de", practiceNoActiveLabs: "No hay labs en progreso", practiceNoDecisions: "Completá una etapa para empezar a construir tu perfil de decisiones.",
+    dashboardEyebrow: "Centro de estudio", dashboardTitle: "Sabé qué estudiar a continuación.", dashboardBody: "Reuní el progreso de estudio y tus decisiones de investigación en un solo lugar para continuar desde el área que necesita atención.",
+    dashboardLearningProgress: "Progreso de estudio", dashboardLabProgress: "Progreso en labs", dashboardNeedsReview: "Necesitan revisión", dashboardUnitsCompleted: "unidades completadas", dashboardStagesCompleted: "etapas completadas", dashboardDecisions: "decisiones",
+    dashboardReviewTitle: "Review Center", dashboardReviewBody: "Volvé a las decisiones aceptables con limitaciones o riesgosas, entendé el impacto y respondelas nuevamente.", dashboardReviewDecision: "Revisar decisión", dashboardReviewEmptyTitle: "No hay decisiones para revisar", dashboardReviewEmptyBody: "Las etapas respondidas actualmente usan la respuesta recomendada.",
+    dashboardContinueTitle: "Continuar estudiando", dashboardContinueBody: "Retomá el lab activo o el siguiente learning path incompleto.", dashboardContinueLab: "Continuar lab activo", dashboardNextPath: "Próximo learning path", dashboardOpenPath: "Abrir learning path", dashboardStartLab: "Abrir siguiente lab", dashboardAllLabsComplete: "Todos los labs están completados",
+    dashboardCoverageTitle: "Cobertura por learning path", dashboardCoverageBody: "Unidades completadas en los nueve learning paths de SC-200.",
   },
 } as const;
 
