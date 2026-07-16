@@ -54,3 +54,58 @@ export type ExamBlueprint = {
   officialUrl: string;
   domains: BlueprintDomain[];
 };
+
+export type PracticeDecisionRating = "recommended" | "acceptable" | "risky";
+
+export type PracticeEvidence = {
+  id: string;
+  title: string;
+  category: "incident" | "email" | "identity" | "cloud" | "device" | "hunting";
+  facts: string[];
+};
+
+export type PracticeDecisionOption = {
+  id: string;
+  text: string;
+  rating: PracticeDecisionRating;
+  feedback: string;
+};
+
+export type PracticeStudyReference = BlueprintReference & {
+  reason: string;
+};
+
+export type PracticeLabStage = {
+  id: string;
+  number: number;
+  title: string;
+  objective: string;
+  briefing: string;
+  evidence: PracticeEvidence[];
+  decision: {
+    prompt: string;
+    options: PracticeDecisionOption[];
+  };
+  outcome: string[];
+  hint: string;
+  takeaway: string;
+  references: PracticeStudyReference[];
+};
+
+export type PracticeLabScenario = {
+  id: string;
+  title: string;
+  subtitle: string;
+  difficulty: string;
+  estimatedMinutes: number;
+  primaryDomain: string;
+  products: string[];
+  briefing: string;
+  mission: string;
+  stages: PracticeLabStage[];
+  debrief: {
+    title: string;
+    summary: string;
+    keyLessons: string[];
+  };
+};

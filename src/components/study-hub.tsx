@@ -5,10 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { copy } from "@/lib/i18n";
 import { localProgressRepository } from "@/lib/progress/repository";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
-import type { BlueprintReference, BlueprintReturnTarget, ExamBlueprint, LearningPath, Locale, StudyModule } from "@/lib/types";
+import { PracticeLabView } from "@/components/practice-lab";
+import type { BlueprintReference, BlueprintReturnTarget, ExamBlueprint, LearningPath, Locale, PracticeStudyReference, StudyModule } from "@/lib/types";
 
 type ThemeChoice = "system" | "light" | "dark";
-type AppView = "learning" | "blueprint";
+type AppView = "learning" | "blueprint" | "practice";
+type PracticeReturnTarget = { stageId: string; stageTitle: string };
 
 function ThemeControl({ locale }: { locale: Locale }) {
   const t = copy[locale];
@@ -84,6 +86,8 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const [pendingReference, setPendingReference] = useState<BlueprintReference | null>(null);
   const [blueprintReturnTarget, setBlueprintReturnTarget] = useState<BlueprintReturnTarget | null>(null);
+  const [practiceReturnTarget, setPracticeReturnTarget] = useState<PracticeReturnTarget | null>(null);
+  const [activePracticeLabId, setActivePracticeLabId] = useState<string | null>(null);
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -121,6 +125,15 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
     return () => window.clearTimeout(timeout);
   }, [activeView, pendingReference]);
 
+  useEffect(() => {
+    if (activeView !== "practice" || !practiceReturnTarget) return;
+    const timeout = window.setTimeout(() => {
+      document.getElementById(practiceReturnTarget.stageId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setPracticeReturnTarget(null);
+    }, 350);
+    return () => window.clearTimeout(timeout);
+  }, [activeView, practiceReturnTarget]);
+
   const allUnits = useMemo(() => learningPaths.flatMap((path) => path.modules.flatMap((module) => module.units)), [learningPaths]);
   const completedCount = allUnits.filter((unit) => completed.has(unit.id)).length;
   const returnObjective = useMemo(() => blueprint.domains.flatMap((domain) => domain.groups).flatMap((group) => group.objectives).find((objective) => objective.id === blueprintReturnTarget?.objectiveId), [blueprint, blueprintReturnTarget]);
@@ -156,14 +169,23 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
     setPendingReference(reference);
   }
 
+  function openPracticeReference(reference: PracticeStudyReference, stageId: string, stageTitle: string) {
+    setBlueprintReturnTarget(null);
+    setPracticeReturnTarget({ stageId, stageTitle });
+    setActiveView("learning");
+    setSelectedPathId(reference.pathId);
+    setSelectedModules(new Set([reference.moduleId]));
+    setPendingReference(reference);
+  }
+
   return (
     <div className="app-frame">
       <aside className="sidebar">
         <a className="brand" href={`/${locale}`}><span className="brand-mark">SC</span><span><strong>{t.product}</strong><small>{t.description}</small></span></a>
         <nav aria-label="Primary navigation">
           <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={() => setActiveView("learning")} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
-          <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={() => setActiveView("blueprint")} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
-          <button className="nav-item" disabled><span>03</span>{t.practice}<small>{t.comingSoon}</small></button>
+          <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={() => { setPracticeReturnTarget(null); setActiveView("blueprint"); }} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
+          <button className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={() => { setBlueprintReturnTarget(null); setActiveView("practice"); }} aria-pressed={activeView === "practice"}><span>03</span>{t.practice}</button>
         </nav>
         <div className="sidebar-progress"><ProgressRing completed={completedCount} total={allUnits.length} /><div><strong>{completedCount} / {allUnits.length}</strong><span>{t.units} {t.complete}</span></div></div>
       </aside>
@@ -173,6 +195,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
         <div className="content-shell" id="top">
           {activeView === "learning" ? <>
           {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
+          {practiceReturnTarget && <button className="blueprint-return practice-return" type="button" onClick={() => setActiveView("practice")}><span aria-hidden="true">←</span><span><strong>{t.backToPracticeStage}</strong><small>{practiceReturnTarget.stageTitle}</small></span></button>}
           <section className="hero"><p className="eyebrow">{t.studyWorkspace}</p><h1>{t.heroTitle}</h1><p>{t.heroBody}</p></section>
 
           <section className="path-picker" aria-labelledby="path-picker-title">
@@ -215,7 +238,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
           {!selectedPathId && (
             <section className="empty-state"><span>⌁</span><div><h2>{t.noPathTitle}</h2><p>{t.noPathBody}</p></div></section>
           )}
-          </> : <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} />}
+          </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={setActivePracticeLabId} onOpenReference={openPracticeReference} />}
         </div>
       </main>
       <a className="back-to-top" href="#top" aria-label={t.backToTop}>↑</a>
