@@ -1,0 +1,225 @@
+{
+  "id": "path-4",
+  "number": 4,
+  "title": "Create queries for Microsoft Sentinel using KQL",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-utilize-kql-for-azure-sentinel/",
+  "meta": "4 modules · 29 units · Query construction, aggregation, visualization, multi-table analysis, parsing, and reusable functions",
+  "focusAreas": [
+    {
+      "title": "KQL foundations",
+      "description": "Build statements with filtering, projection, aggregation, time operations, and visualization."
+    },
+    {
+      "title": "Investigation queries",
+      "description": "Analyze multi-table data with joins, unions, parsing, reusable functions, and Sentinel security context."
+    }
+  ],
+  "modules": [
+    {
+      "id": "p4-module-1",
+      "number": 1,
+      "title": "Construct KQL statements for Microsoft Sentinel",
+      "focus": "Focus: the tabular pipeline, broad searches, precise filters, variables, calculated columns, sorting, and output-column control.",
+      "units": [
+        {
+          "id": "p4m1-u1",
+          "number": "01 / 10",
+          "title": "Introduction",
+          "bodyHtml": "<p>Kusto Query Language (KQL) is the read-only query language behind Microsoft Sentinel logs, analytics rules, workbooks, and hunting. This module establishes the operators used to retrieve, filter, transform, sort, and shape security data.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Objectives and prerequisites</small></span></a>"
+        },
+        {
+          "id": "p4m1-u2",
+          "number": "02 / 10",
+          "title": "Understand the Kusto Query Language statement structure",
+          "bodyHtml": "<p>A KQL query is a sequence of statements. A tabular expression begins with a data source and sends its rows through operators separated by the pipe character. Each operator receives the complete result produced on its left.</p><pre><code>SecurityEvent\n| where TimeGenerated &gt; ago(1d)\n| summarize Events = count() by Account\n| top 10 by Events desc</code></pre><div class=\"takeaway\"><strong>Exam takeaway:</strong> operator order changes both meaning and performance. Think: source &rarr; filter &rarr; transform &rarr; aggregate &rarr; present.</div><p>The Microsoft Log Analytics demo environment can be used for practice; its data changes continuously, so widen the time range when a sample returns no rows.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/2-understand-kusto-query-language-statement-structure\" target=\"_blank\" rel=\"noopener\"><span>Official lesson and demo link<small>KQL pipeline and Logs workspace</small></span></a>"
+        },
+        {
+          "id": "p4m1-u3",
+          "number": "03 / 10",
+          "title": "Use the search operator",
+          "bodyHtml": "<p><code>search</code> looks for text across multiple tables and columns. It is useful during discovery when you do not yet know the schema, but it is less efficient than querying a known table and filtering a known column.</p><pre><code>search \"err\"\n\nsearch in (SecurityEvent, SecurityAlert, A*) \"err\"</code></pre><div class=\"takeaway\"><strong>Exam takeaway:</strong> use <code>search</code> to discover where data lives; switch to table-specific <code>where</code> filters for operational queries.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/3-use-search-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Cross-table text search</small></span></a>"
+        },
+        {
+          "id": "p4m1-u4",
+          "number": "04 / 10",
+          "title": "Use the where operator",
+          "bodyHtml": "<p><code>where</code> returns only rows whose Boolean predicate is true. Filter time and high-selectivity fields early to reduce the amount of data processed by later operators.</p><pre><code>SecurityEvent\n| where TimeGenerated &gt; ago(1h)\n| where EventID in (4624, 4625)\n| where AccountType =~ \"user\"</code></pre><ul><li><code>==</code> is case-sensitive; <code>=~</code> is case-insensitive.</li><li><code>in (...)</code> tests a value against a list.</li><li>Multiple <code>where</code> operators can make complex logic easier to read.</li></ul><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/4-use-where-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Predicates, time filters, and lists</small></span></a>"
+        },
+        {
+          "id": "p4m1-u5",
+          "number": "05 / 10",
+          "title": "Use the let statement",
+          "bodyHtml": "<p><code>let</code> binds a name to a scalar value, tabular expression, dynamic list, view, or function. It improves readability, reuse, and consistent thresholds. Each declaration ends with a semicolon.</p><pre><code>let timeframe = 7d;\nlet suspiciousEvents = dynamic([4625, 4672]);\nSecurityEvent\n| where TimeGenerated &gt; ago(timeframe)\n| where EventID in (suspiciousEvents)</code></pre><p>A tabular expression can also be assigned to a name and referenced later as if it were a table. <code>ago()</code> calculates a time relative to the query execution time.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/5-use-let-statement\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Variables, lists, tables, and reuse</small></span></a>"
+        },
+        {
+          "id": "p4m1-u6",
+          "number": "06 / 10",
+          "title": "Use the extend operator",
+          "bodyHtml": "<p><code>extend</code> calculates one or more columns and appends them to the current result. Existing columns remain unless they are later removed with a project operator.</p><pre><code>SecurityEvent\n| where ProcessName != \"\" and Process != \"\"\n| extend StartDir = substring(\n    ProcessName, 0,\n    string_size(ProcessName) - string_size(Process))</code></pre><p>Use it to normalize fields, convert data types, calculate risk flags, or derive fields needed for grouping and correlation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/6-use-extend-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Calculated columns</small></span></a>"
+        },
+        {
+          "id": "p4m1-u7",
+          "number": "07 / 10",
+          "title": "Use the order by operator",
+          "bodyHtml": "<p><code>order by</code> (or <code>sort by</code>) sorts the result by one or more columns. The default direction is descending; specify <code>asc</code> or <code>desc</code> explicitly for clarity.</p><pre><code>SecurityEvent\n| order by TimeGenerated desc, Computer asc</code></pre><p>Sorting can be expensive on large datasets, so filter and project before ordering whenever possible.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/7-use-order-by-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Single- and multi-column sorting</small></span></a>"
+        },
+        {
+          "id": "p4m1-u8",
+          "number": "08 / 10",
+          "title": "Use the project operators",
+          "bodyHtml": "<table><thead><tr><th>Operator</th><th>Purpose</th></tr></thead><tbody><tr><td><code>project</code></td><td>Select, rename, or calculate the output columns.</td></tr><tr><td><code>project-away</code></td><td>Remove specified columns.</td></tr><tr><td><code>project-keep</code></td><td>Keep only specified columns.</td></tr><tr><td><code>project-rename</code></td><td>Rename columns without dropping the rest.</td></tr><tr><td><code>project-reorder</code></td><td>Set the visible column order.</td></tr></tbody></table><pre><code>SecurityEvent\n| where EventID == 4625\n| project TimeGenerated, Computer,\n          User = Account, IpAddress</code></pre><div class=\"takeaway\"><strong>Exam takeaway:</strong> <code>extend</code> adds calculated columns; <code>project</code> defines the final schema and can improve performance by reducing width.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/8-use-project-operators\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Output column selection and naming</small></span></a>"
+        },
+        {
+          "id": "p4m1-u9",
+          "number": "09 / 10",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Be ready to select the correct operator: <code>search</code> for unknown locations, <code>where</code> for row filtering, <code>let</code> for reusable expressions, <code>extend</code> for calculated columns, <code>order by</code> for sorting, and <code>project</code> for output shape.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>KQL construction knowledge check</small></span></a>"
+        },
+        {
+          "id": "p4m1-u10",
+          "number": "10 / 10",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Build readable queries from left to right, apply selective filters early, name reusable logic, derive only necessary fields, and finish with a narrow result schema.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/construct-kusto-query-language-statements/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p4-module-2",
+      "number": 2,
+      "title": "Analyze query results using KQL",
+      "focus": "Focus: aggregation, latest or earliest records, dynamic arrays, time bins, and result visualizations.",
+      "units": [
+        {
+          "id": "p4m2-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Security detections often depend on converting raw events into counts, distinct entities, thresholds, trends, and visual patterns. This module centers on <code>summarize</code> and <code>render</code>.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Objectives and prerequisites</small></span></a>"
+        },
+        {
+          "id": "p4m2-u2",
+          "number": "02 / 07",
+          "title": "Use the summarize operator",
+          "bodyHtml": "<p><code>summarize</code> groups rows and calculates aggregate values. Without a <code>by</code> clause it produces one group; with <code>by</code>, it returns one row per unique grouping combination.</p><pre><code>SecurityEvent\n| where EventID == 4688\n| summarize ProcessStarts = count()\n    by Process, Computer</code></pre><table><thead><tr><th>Function</th><th>Use</th></tr></thead><tbody><tr><td><code>count()</code>, <code>countif()</code></td><td>Count rows, optionally satisfying a condition.</td></tr><tr><td><code>dcount()</code></td><td>Estimate the number of distinct values.</td></tr><tr><td><code>sum()</code>, <code>avg()</code></td><td>Total or average a numeric expression.</td></tr><tr><td><code>min()</code>, <code>max()</code></td><td>Find an extreme scalar value.</td></tr><tr><td><code>percentile()</code>, <code>stdev()</code></td><td>Describe a distribution.</td></tr></tbody></table><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/2-use-summarize-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Grouping and aggregate functions</small></span></a>"
+        },
+        {
+          "id": "p4m2-u3",
+          "number": "03 / 07",
+          "title": "Use the summarize operator to filter results",
+          "bodyHtml": "<p><code>arg_max()</code> and <code>arg_min()</code> return the complete row associated with the maximum or minimum value inside each group.</p><pre><code>SecurityEvent\n| summarize arg_max(TimeGenerated, *) by Account</code></pre><p>Pipeline order is critical. Filtering for Event ID 4624 <em>before</em> <code>arg_max</code> returns each account's latest logon; filtering afterward returns accounts whose latest event of any kind happens to be a logon.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> use <code>max(TimeGenerated)</code> when only the timestamp is needed; use <code>arg_max(TimeGenerated, *)</code> when columns from the corresponding row are needed.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/3-use-summarize-operator-to-filter-results\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Latest and earliest rows per group</small></span></a>"
+        },
+        {
+          "id": "p4m2-u4",
+          "number": "04 / 07",
+          "title": "Use the summarize operator to prepare data",
+          "bodyHtml": "<p><code>make_list()</code> creates a dynamic JSON array containing all values in a group, including duplicates. <code>make_set()</code> creates an array of distinct values.</p><pre><code>SecurityEvent\n| where EventID == 4624\n| summarize Accounts = make_set(Account)\n    by Computer</code></pre><p>Arrays are useful for entity context in analytics rules, grouped investigation output, and later expansion with <code>mv-expand</code>.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/4-use-summarize-operator-to-prepare-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Dynamic lists and sets</small></span></a>"
+        },
+        {
+          "id": "p4m2-u5",
+          "number": "05 / 07",
+          "title": "Use the render operator to create visualizations",
+          "bodyHtml": "<p><code>render</code> converts tabular results into a chart. Supported lesson examples include area, bar, column, pie, scatter, and time charts. Prepare the correct columns with <code>summarize</code> before rendering.</p><pre><code>SecurityEvent\n| summarize Events = count()\n    by bin(TimeGenerated, 1d)\n| render timechart</code></pre><p><code>bin()</code> rounds values down to fixed intervals and is fundamental for time-series grouping. Charts support analysis and workbooks; analytics rules still evaluate the tabular query logic.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/5-use-render-operator-to-create-visualizations\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Charts, time series, and binning</small></span></a>"
+        },
+        {
+          "id": "p4m2-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review grouping versus filtering, <code>count</code> versus <code>dcount</code>, <code>max</code> versus <code>arg_max</code>, <code>make_list</code> versus <code>make_set</code>, and the relationship among <code>bin</code>, <code>summarize</code>, and <code>render</code>.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Analysis knowledge check</small></span></a>"
+        },
+        {
+          "id": "p4m2-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Transform event streams into meaningful security evidence by grouping at the right granularity, retaining the correct representative rows, and visualizing only well-shaped results.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-results-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p4-module-3",
+      "number": 3,
+      "title": "Build multi-table statements using KQL",
+      "focus": "Focus: appending rows from related schemas and correlating rows through matching keys.",
+      "units": [
+        {
+          "id": "p4m3-u1",
+          "number": "01 / 05",
+          "title": "Introduction",
+          "bodyHtml": "<p>Security investigations rarely stay inside one table. KQL provides <code>union</code> to combine event streams vertically and <code>join</code> to correlate tables horizontally by shared attributes.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/build-multi-table-statements-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Multi-table objectives</small></span></a>"
+        },
+        {
+          "id": "p4m3-u2",
+          "number": "02 / 05",
+          "title": "Use the union operator",
+          "bodyHtml": "<p><code>union</code> appends rows from two or more tabular expressions. Columns with compatible names and types align; other columns are null where a source does not provide them.</p><pre><code>union withsource=SourceTable Security*\n| summarize Events = count() by SourceTable</code></pre><p>Wildcards can include many tables. <code>withsource</code> adds source provenance, which is important when analyzing heterogeneous results. Parentheses let one union leg run its own subquery before its rows are appended.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/build-multi-table-statements-kusto-query-language/2-use-union-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Append tables and preserve source</small></span></a>"
+        },
+        {
+          "id": "p4m3-u3",
+          "number": "03 / 05",
+          "title": "Use the join operator",
+          "bodyHtml": "<p><code>join</code> matches rows from a left and right tabular expression by one or more keys, then returns columns according to the selected join flavor.</p><pre><code>SigninLogs\n| where ResultType != 0\n| project UserPrincipalName, IPAddress, TimeGenerated\n| join kind=inner (\n    IdentityInfo\n    | project AccountUPN, Department\n) on $left.UserPrincipalName == $right.AccountUPN</code></pre><table><thead><tr><th>Join flavor</th><th>Result</th></tr></thead><tbody><tr><td><code>inner</code></td><td>Every combination of matching rows.</td></tr><tr><td><code>innerunique</code></td><td>Deduplicates the left side by key before matching; the default.</td></tr><tr><td><code>leftouter</code></td><td>Every left row plus matching right data; null when absent.</td></tr><tr><td><code>leftsemi</code></td><td>Left rows that have a match.</td></tr><tr><td><code>leftanti</code></td><td>Left rows that do not have a match.</td></tr><tr><td><code>fullouter</code></td><td>All rows from both sides, matched where possible.</td></tr></tbody></table><div class=\"takeaway\"><strong>Exam takeaway:</strong> filter and project both sides before joining, and place the smaller dataset on the left when practical.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/build-multi-table-statements-kusto-query-language/3-use-join-operator\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Correlation keys and join flavors</small></span></a>"
+        },
+        {
+          "id": "p4m3-u4",
+          "number": "04 / 05",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Choose <code>union</code> when you need rows from several event sources in one stream. Choose <code>join</code> when you need to enrich or correlate rows using a shared key. Know how join flavor controls unmatched records.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/build-multi-table-statements-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Multi-table knowledge check</small></span></a>"
+        },
+        {
+          "id": "p4m3-u5",
+          "number": "05 / 05",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Combine tables intentionally: append comparable events with source attribution, or correlate reduced datasets on reliable entity keys.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/build-multi-table-statements-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p4-module-4",
+      "number": 4,
+      "title": "Work with data in Microsoft Sentinel using Kusto Query Language",
+      "focus": "Focus: unstructured parsing, dynamic JSON fields, external reference data, and reusable parser functions.",
+      "units": [
+        {
+          "id": "p4m4-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Ingested security logs often store important values inside free-form messages, JSON objects, arrays, or external files. KQL can extract and normalize those values into reusable tabular schemas.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Data manipulation objectives</small></span></a>"
+        },
+        {
+          "id": "p4m4-u2",
+          "number": "02 / 07",
+          "title": "Extract data from unstructured string fields",
+          "bodyHtml": "<p><code>extract()</code> uses a regular expression and capture-group number to return one substring, optionally converted to a type. It returns null if no match exists or conversion fails.</p><pre><code>SecurityEvent\n| extend AccountName = extract(\n    @\"^(.*\\\\)?([^@]*)(@.*)?$\", 2,\n    tolower(Account))</code></pre><p><code>parse</code> matches a larger string pattern and creates several calculated columns at once. Its modes are <code>simple</code>, <code>regex</code>, and <code>relaxed</code>; fields that cannot be parsed become null.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> use <code>extract</code> for a specific regex capture; use <code>parse</code> when a predictable message layout contains multiple fields.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/2-extract-data-from-unstructured-string-fields\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Regex extraction and parse patterns</small></span></a>"
+        },
+        {
+          "id": "p4m4-u3",
+          "number": "03 / 07",
+          "title": "Extract data from structured string data",
+          "bodyHtml": "<p>The <code>dynamic</code> type stores arrays and property bags. Access a property with dot or bracket notation and convert it to a scalar when an operator requires a specific type.</p><pre><code>SigninLogs\n| extend OS = tostring(DeviceDetail.operatingSystem),\n         StatusCode = tostring(Status.errorCode)</code></pre><table><thead><tr><th>Function / operator</th><th>Purpose</th></tr></thead><tbody><tr><td><code>parse_json()</code> / <code>todynamic()</code></td><td>Interpret a JSON string as a dynamic value.</td></tr><tr><td><code>mv-expand</code></td><td>Create one output row for each array or property-bag value.</td></tr><tr><td><code>mv-apply</code></td><td>Run a subquery against each multi-value element and union the results.</td></tr></tbody></table><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/3-extract-data-from-structured-string-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Dynamic fields, JSON, and arrays</small></span></a>"
+        },
+        {
+          "id": "p4m4-u4",
+          "number": "04 / 07",
+          "title": "Integrate external data",
+          "bodyHtml": "<p><code>externaldata</code> defines a table schema inside the query and reads rows from an external storage artifact such as Azure Blob Storage or Data Lake Storage. It is suited to relatively small reference datasets, not high-volume continuous ingestion.</p><pre><code>let KnownIPs = externaldata(IPAddress:string)\n[\n  h@\"https://storage.example/known.csv?...SAS...\"\n]\nwith (format=\"csv\", ignoreFirstRecord=true);\nSigninLogs\n| where IPAddress in (KnownIPs)</code></pre><p>Protect storage credentials and SAS tokens; avoid placing secrets in shared query text. This operator is unavailable in the public demo environment used by the lesson.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/4-integrate-external-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>External reference tables</small></span></a>"
+        },
+        {
+          "id": "p4m4-u5",
+          "number": "05 / 07",
+          "title": "Create parsers with functions",
+          "bodyHtml": "<p>A parser is a KQL function that converts source-specific unstructured data into a stable virtual table. In the Logs window, create and test the query, select <strong>Save</strong>, choose <strong>Save as function</strong>, and assign a function name and optional parameters.</p><pre><code>// Saved as function: PrivLogins\nSecurityEvent\n| where EventID == 4672\n| where AccountType == \"User\"\n\n// Reuse later\nPrivLogins\n| summarize Events = count() by Account</code></pre><p>Functions centralize normalization logic so analytics rules, workbooks, and hunting queries share the same schema and corrections.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/5-create-parsers-functions\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Saved parser functions</small></span></a>"
+        },
+        {
+          "id": "p4m4-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Distinguish <code>extract</code> from <code>parse</code>, scalar values from <code>dynamic</code> fields, <code>mv-expand</code> from <code>mv-apply</code>, external reference data from ingested logs, and an ad hoc query from a saved parser function.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Data manipulation knowledge check</small></span></a>"
+        },
+        {
+          "id": "p4m4-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Normalize security data at query time by extracting stable fields, expanding structured arrays carefully, enriching with governed external data, and saving repeated parsing logic as functions.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/work-with-data-kusto-query-language/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    }
+  ]
+}

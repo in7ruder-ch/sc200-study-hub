@@ -1,0 +1,303 @@
+{
+  "id": "path-9",
+  "number": 9,
+  "title": "Mitigate threats using Microsoft Purview",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-purview/",
+  "meta": "4 modules · 42 units · DLP alerts, insider risk, Audit, eDiscovery, Defender XDR, and investigation workflows",
+  "focusAreas": [
+    {
+      "title": "Data risk response",
+      "description": "Investigate DLP and insider-risk alerts, correlate evidence, remediate activity, and manage cases."
+    },
+    {
+      "title": "Evidence discovery",
+      "description": "Search, validate, retain, and export evidence with Microsoft Purview Audit and eDiscovery."
+    }
+  ],
+  "modules": [
+    {
+      "id": "p9-module-1",
+      "number": 1,
+      "title": "Investigate and respond to Microsoft Purview Data Loss Prevention alerts",
+      "focus": "Focus: DLP alert generation, lifecycle, Purview and Defender investigations, remediation, ownership, and policy tuning.",
+      "units": [
+        {
+          "id": "p9m1-u1",
+          "number": "01 / 11",
+          "title": "Introduction",
+          "bodyHtml": "<p>DLP alerts can become noise without consistent triage. A reliable process confirms what triggered the alert, reviews user and content context, correlates related security evidence, records decisions, responds proportionately, and feeds false-positive findings back into policy design.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>DLP investigation objectives</small></span></a>"
+        },
+        {
+          "id": "p9m1-u2",
+          "number": "02 / 11",
+          "title": "Understand data loss prevention (DLP) alerts",
+          "bodyHtml": "<p>An alert is generated when activity matches a DLP rule condition, either in one event or through aggregated events. It signals policy criteria, not confirmed malicious intent.</p><table><thead><tr><th>Portal</th><th>Best use</th></tr></thead><tbody><tr><td>Microsoft Purview</td><td>Policy, rule, matched content, event, and compliance context; policy tuning.</td></tr><tr><td>Microsoft Defender XDR</td><td>Correlate DLP with endpoint, identity, cloud app, email, and incident evidence.</td></tr></tbody></table><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/understand-data-loss-prevention-alerts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert meaning and portal roles</small></span></a>"
+        },
+        {
+          "id": "p9m1-u3",
+          "number": "03 / 11",
+          "title": "Understand the DLP alert lifecycle",
+          "bodyHtml": "<div class=\"flow\"><div class=\"flow-step\"><strong>Trigger</strong>Activity matches policy logic.</div><div class=\"flow-step\"><strong>Triage</strong>Validate severity, user, content, and event.</div><div class=\"flow-step\"><strong>Investigate</strong>Correlate activities and incidents.</div><div class=\"flow-step\"><strong>Resolve</strong>Remediate, document, close, and tune.</div></div><p>Assign ownership early, preserve evidence, update status as work progresses, and use consistent dispositions so queue metrics remain meaningful.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/data-loss-prevention-alert-lifecycle\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert handling lifecycle</small></span></a>"
+        },
+        {
+          "id": "p9m1-u4",
+          "number": "04 / 11",
+          "title": "Configure DLP policies to generate alerts",
+          "bodyHtml": "<p>Alert behavior is controlled by rule conditions, locations, users or groups, sensitive information thresholds, action severity, and aggregation settings. Choose alerting that reflects risk and operational capacity rather than alerting on every match.</p><p>Use test mode, incident reports, policy tips, overrides, and scoped exceptions to validate behavior before broad enforcement.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/configure-data-loss-prevention-alert-generation\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert-generation controls</small></span></a>"
+        },
+        {
+          "id": "p9m1-u5",
+          "number": "05 / 11",
+          "title": "Investigate DLP alerts in Microsoft Purview",
+          "bodyHtml": "<p>Review the alert summary, policy and rule, severity, status, owner, matched events, user, location, sensitive information types, content metadata, and related activity. Activity explorer helps place the event in a broader pattern.</p><p>Determine whether the match is legitimate business use, accidental exposure, policy misclassification, or potentially malicious behavior before acting.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/investigate-alerts-purview\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Purview alert investigation</small></span></a>"
+        },
+        {
+          "id": "p9m1-u6",
+          "number": "06 / 11",
+          "title": "Investigate DLP alerts in Microsoft Defender XDR",
+          "bodyHtml": "<p>Open the DLP alert or related incident in Defender XDR to correlate it with alerts, devices, identities, cloud applications, files, and timelines. Use the incident graph, evidence, entities, advanced hunting, and action center to determine whether data activity is part of a broader attack.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/investigate-alerts-defender\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Cross-domain XDR investigation</small></span></a>"
+        },
+        {
+          "id": "p9m1-u7",
+          "number": "07 / 11",
+          "title": "Investigate DLP alerts with Security Copilot and AI agents",
+          "bodyHtml": "<p>Security Copilot can summarize alerts, interpret matched activity, highlight related evidence, and suggest investigation steps. AI agents can assist with repeated triage tasks.</p><div class=\"takeaway\"><strong>Analyst responsibility:</strong> validate generated conclusions against source evidence, preserve least privilege and data boundaries, and retain human approval for consequential response.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/investigate-alerts-security-copilot-agents\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>AI-assisted DLP triage</small></span></a>"
+        },
+        {
+          "id": "p9m1-u8",
+          "number": "08 / 11",
+          "title": "Respond to DLP alerts",
+          "bodyHtml": "<p>Response may include contacting the user or manager, removing access, deleting or quarantining content, containing a device, escalating to insider risk or legal teams, updating incident status, and documenting evidence and rationale.</p><p>If a benign pattern repeatedly triggers, adjust policy scope, thresholds, classifiers, exceptions, or alert aggregation—without weakening protection for the real risk scenario.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/respond-data-loss-prevention-alerts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Remediation and policy feedback</small></span></a>"
+        },
+        {
+          "id": "p9m1-u9",
+          "number": "09 / 11",
+          "title": "Exercise - Investigate a DLP alert and related incident",
+          "bodyHtml": "<p>Use Purview to review the DLP rule, matched event, sensitive data, and user context; then pivot to Defender XDR to inspect the incident and related evidence. Assign ownership, record findings, choose response, and close with a defensible disposition.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/exercise-investigate-alert\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Purview-to-Defender investigation</small></span></a>"
+        },
+        {
+          "id": "p9m1-u10",
+          "number": "10 / 11",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review alert generation and aggregation, lifecycle states, Purview versus Defender XDR roles, matched-event evidence, Copilot validation, response options, ownership, closure, and policy tuning.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>DLP alert knowledge check</small></span></a>"
+        },
+        {
+          "id": "p9m1-u11",
+          "number": "11 / 11",
+          "title": "Summary",
+          "bodyHtml": "<p>Strong DLP operations combine policy context in Purview, cross-domain correlation in Defender XDR, proportionate response, complete documentation, and continuous tuning.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-data-loss-prevention-alerts/summary\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Module summary</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p9-module-2",
+      "number": 2,
+      "title": "Investigate insider risk alerts and related activity",
+      "focus": "Focus: alert prioritization, policy tuning, risk factors, activity timelines, Defender correlation, and case management.",
+      "units": [
+        {
+          "id": "p9m2-u1",
+          "number": "01 / 13",
+          "title": "Introduction",
+          "bodyHtml": "<p>Insider Risk Management correlates signals that may indicate accidental or intentional harm by people with legitimate access. Investigation must balance security, privacy, legal requirements, and need-to-know access.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Insider risk objectives</small></span></a>"
+        },
+        {
+          "id": "p9m2-u2",
+          "number": "02 / 13",
+          "title": "Understand insider risk alerts and investigations",
+          "bodyHtml": "<p>Policies combine triggering events, risk indicators, user scope, time windows, and thresholds. Alerts represent risk-scored activity patterns, not proof of wrongdoing. Triage should test business context and corroborating evidence while preserving user privacy.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/understand-insider-risk-alerts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Signals, policies, and alerts</small></span></a>"
+        },
+        {
+          "id": "p9m2-u3",
+          "number": "03 / 13",
+          "title": "Manage alert volume in insider risk management",
+          "bodyHtml": "<p>Control volume through user scope, indicators, thresholds, trigger conditions, time windows, exclusions, and policy health recommendations. Tune from observed false-positive patterns and missed-risk scenarios rather than simply suppressing high-volume sources.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/manage-alert-volume\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Policy thresholds and queue quality</small></span></a>"
+        },
+        {
+          "id": "p9m2-u4",
+          "number": "04 / 13",
+          "title": "Investigate and triage insider risk alerts in Microsoft Purview",
+          "bodyHtml": "<p>Use the Alerts dashboard to prioritize by severity, risk score, policy, detected time, and status. Open the alert to inspect indicators, triggering events, user context, chronology, and content. Dismiss benign alerts or create a case when deeper investigation is warranted.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/investigate-triage-alerts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert dashboard and triage</small></span></a>"
+        },
+        {
+          "id": "p9m2-u5",
+          "number": "05 / 13",
+          "title": "Investigate insider risk alerts with Security Copilot and AI agents",
+          "bodyHtml": "<p>Copilot can summarize alerts, activity patterns, and risk factors; AI agents can accelerate repeatable analysis. Confirm all AI output against underlying records, follow organizational privacy rules, and keep a human accountable for case decisions.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/investigate-alerts-security-copilot-agents\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>AI-assisted insider risk investigation</small></span></a>"
+        },
+        {
+          "id": "p9m2-u6",
+          "number": "06 / 13",
+          "title": "Analyze alert context with the All risk factors tab",
+          "bodyHtml": "<p>The All risk factors tab aggregates contributing indicators and risk events so the analyst can understand why the score increased, compare activity categories, and identify the highest-value pivots. Separate a single unusual event from a sustained, multi-signal pattern.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/all-risk-factors-tab\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Risk-factor context</small></span></a>"
+        },
+        {
+          "id": "p9m2-u7",
+          "number": "07 / 13",
+          "title": "Investigate activity details with the Activity explorer tab",
+          "bodyHtml": "<p>Activity explorer shows event-level details with filters for date, activity type, application, device, domain, and other attributes. Use it to validate the exact operations behind an alert and identify files, destinations, volume, and sequences.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/activity-explorer-tab\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Event-level activity analysis</small></span></a>"
+        },
+        {
+          "id": "p9m2-u8",
+          "number": "08 / 13",
+          "title": "Review patterns over time with the User activity tab",
+          "bodyHtml": "<p>The User activity view places alerts, risk indicators, and events on a timeline. Look for changes from baseline, bursts before a departure event, movement across channels, and repeated actions that are individually low risk but collectively significant.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/user-activity-tab\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>User behavior timeline</small></span></a>"
+        },
+        {
+          "id": "p9m2-u9",
+          "number": "09 / 13",
+          "title": "Investigate insider risk alerts in Microsoft Defender XDR",
+          "bodyHtml": "<p>Pivot to Defender XDR when activity may connect to compromised identity, endpoint malware, cloud app misuse, or another security incident. Correlate the user, devices, alerts, files, network activity, and incident timeline before attributing intent.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/investigate-alerts-defender\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Insider risk and XDR correlation</small></span></a>"
+        },
+        {
+          "id": "p9m2-u10",
+          "number": "10 / 13",
+          "title": "Manage and take action on insider risk cases",
+          "bodyHtml": "<p>Create a case for deeper review, assign contributors, add alerts and evidence, document notes, and coordinate permitted actions such as user notification, escalation, HR or legal referral, or security response. Resolve with an accurate classification and audit trail.</p><p>Use role groups and privacy settings to restrict access and pseudonymize user identity where organizational policy requires it.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/insider-risk-cases\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Case lifecycle and actions</small></span></a>"
+        },
+        {
+          "id": "p9m2-u11",
+          "number": "11 / 13",
+          "title": "Exercise - Investigate potential data theft using Insider Risk Management",
+          "bodyHtml": "<p>Triage a potential data-theft alert, inspect risk factors and detailed activity, review the user timeline, correlate relevant context, create or update a case, and document a proportionate outcome.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/exercise-investigate-alert\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Potential data theft investigation</small></span></a>"
+        },
+        {
+          "id": "p9m2-u12",
+          "number": "12 / 13",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review policy triggers and indicators, alert scoring and thresholds, queue tuning, risk-factor and activity tabs, Copilot validation, Defender XDR pivots, privacy controls, and case actions.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Insider risk knowledge check</small></span></a>"
+        },
+        {
+          "id": "p9m2-u13",
+          "number": "13 / 13",
+          "title": "Summary",
+          "bodyHtml": "<p>Insider risk investigations require contextual evidence, careful attribution, privacy-aware access, cross-team governance, proportionate action, and policy tuning based on outcomes.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-insider-risk-investigate-alerts/summary\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Module summary</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p9-module-3",
+      "number": 3,
+      "title": "Search and investigate with Microsoft Purview Audit",
+      "focus": "Focus: Standard and Premium capabilities, audit configuration, searches, Copilot events, exports, PowerShell, and retention.",
+      "units": [
+        {
+          "id": "p9m3-u1",
+          "number": "01 / 10",
+          "title": "Introduction",
+          "bodyHtml": "<p>Purview Audit records user and administrator activities across Microsoft 365 for investigations, troubleshooting, security analysis, and regulatory evidence.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Audit investigation objectives</small></span></a>"
+        },
+        {
+          "id": "p9m3-u2",
+          "number": "02 / 10",
+          "title": "Microsoft Purview Audit overview",
+          "bodyHtml": "<table><thead><tr><th>Capability</th><th>Standard</th><th>Premium</th></tr></thead><tbody><tr><td>Search, CSV export, PowerShell, API</td><td>Yes</td><td>Yes</td></tr><tr><td>Default retention</td><td>Typically 180 days</td><td>One year for key workloads; otherwise standard defaults</td></tr><tr><td>Custom retention policies</td><td>No</td><td>Yes; longer retention with licensing</td></tr><tr><td>High-value intelligent insights / higher API bandwidth</td><td>No</td><td>Yes</td></tr></tbody></table><p>Retention and licensed features can change; verify the tenant's current entitlement before planning an investigation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-overview\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Standard versus Premium</small></span></a>"
+        },
+        {
+          "id": "p9m3-u3",
+          "number": "03 / 10",
+          "title": "Configure and manage Microsoft Purview Audit",
+          "bodyHtml": "<p>Assign the least-privilege Audit role groups, verify auditing status, understand workload coverage and schema, and use portal, PowerShell, API, or Graph access as appropriate. Protect exported results as sensitive investigation data.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-configure-manage\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Permissions and audit management</small></span></a>"
+        },
+        {
+          "id": "p9m3-u4",
+          "number": "04 / 10",
+          "title": "Conduct searches with Audit (Standard)",
+          "bodyHtml": "<ol><li>Define UTC time range, users, workloads, and activities.</li><li>Name and run the search.</li><li>Inspect operation, record type, actor, target, IP, and workload-specific fields.</li><li>Refine filters or use <code>Search-UnifiedAuditLog</code> for scripted retrieval.</li><li>Save or export results with investigation notes.</li></ol><p>Broad searches can return incomplete-looking samples or require pagination; scope deliberately and preserve query parameters.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-standard-search\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Portal and PowerShell searches</small></span></a>"
+        },
+        {
+          "id": "p9m3-u5",
+          "number": "05 / 10",
+          "title": "Audit Microsoft Copilot for Microsoft 365 interactions",
+          "bodyHtml": "<p>Copilot and supported AI application interactions appear in the unified audit log with operations and record types such as Copilot interaction events. Relevant fields can include app, user, thread or session context, and accessed resources.</p><p>Audit records provide activity metadata, not necessarily full prompt and response content; interpret them alongside licensing, workload, and privacy requirements.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-copilot\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Copilot audit events</small></span></a>"
+        },
+        {
+          "id": "p9m3-u6",
+          "number": "06 / 10",
+          "title": "Investigate activities with Audit (Premium)",
+          "bodyHtml": "<p>Premium supports longer retention and high-value events for forensic investigations, including granular mail access and search activity. Build a timeline, identify affected items and actors, correlate IP and session context, and distinguish normal application access from suspicious patterns.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-premium-investigate\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>High-value forensic events</small></span></a>"
+        },
+        {
+          "id": "p9m3-u7",
+          "number": "07 / 10",
+          "title": "Export audit log data",
+          "bodyHtml": "<p>Export results to CSV for offline analysis or use PowerShell and APIs for repeatable, paginated collection. Preserve the search criteria, export time, timezone, row count, hashes where required, and access controls to support evidence integrity.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-export\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Export and preserve audit evidence</small></span></a>"
+        },
+        {
+          "id": "p9m3-u8",
+          "number": "08 / 10",
+          "title": "Configure audit retention with Audit (Premium)",
+          "bodyHtml": "<p>Retention policies can scope audit records by user, record type, activity, duration, and priority. Higher-priority policies win when scopes overlap. Policies affect new records after creation; they do not retroactively extend existing expiration.</p><p>Align retention with investigation needs, legal obligations, licensing, data minimization, and storage or API strategy.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/audit-premium-retention\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Retention policies and priority</small></span></a>"
+        },
+        {
+          "id": "p9m3-u9",
+          "number": "09 / 10",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review Standard and Premium differences, roles, search filters, PowerShell, Copilot events, high-value records, CSV and API exports, retention scope, priority, and non-retroactive behavior.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Purview Audit knowledge check</small></span></a>"
+        },
+        {
+          "id": "p9m3-u10",
+          "number": "10 / 10",
+          "title": "Summary",
+          "bodyHtml": "<p>Purview Audit supports defensible investigations when access is governed, searches are reproducible, exports preserve context, and retention is planned before an incident occurs.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-audit-search-investigate/summary\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Module summary</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p9-module-4",
+      "number": 4,
+      "title": "Search for content with Microsoft Purview eDiscovery",
+      "focus": "Focus: roles, cases, custodians and data sources, query design, search validation, and export.",
+      "units": [
+        {
+          "id": "p9m4-u1",
+          "number": "01 / 08",
+          "title": "Introduction",
+          "bodyHtml": "<p>Purview eDiscovery searches Microsoft 365 content for legal, regulatory, HR, and security investigations. Cases organize authorized users, searches, data sources, holds, review, and exports around a defined matter.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>eDiscovery search objectives</small></span></a>"
+        },
+        {
+          "id": "p9m4-u2",
+          "number": "02 / 08",
+          "title": "Understand eDiscovery and content search capabilities",
+          "bodyHtml": "<p>Search can locate Exchange mailboxes, SharePoint and OneDrive files, Teams-related content, and other supported Microsoft 365 data. eDiscovery adds case-based permissions, preservation, review, analytics, and export workflows depending on licensing.</p><p>Content search finds potentially relevant items; legal relevance and responsiveness remain human determinations.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/understand-ediscovery\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Content locations and case capabilities</small></span></a>"
+        },
+        {
+          "id": "p9m4-u3",
+          "number": "03 / 08",
+          "title": "Prerequisites for using eDiscovery in Microsoft Purview",
+          "bodyHtml": "<p>Assign appropriate eDiscovery role groups, confirm licensing, create the case, add only authorized members, and identify custodians, noncustodial sources, locations, date ranges, and preservation requirements.</p><p>Separate case administration, investigation, review, and export duties where required. Access to eDiscovery can expose highly sensitive organizational content.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/ediscovery-prerequisites\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Roles, licensing, and case setup</small></span></a>"
+        },
+        {
+          "id": "p9m4-u4",
+          "number": "04 / 08",
+          "title": "Create an eDiscovery search",
+          "bodyHtml": "<ol><li>Create or open a case and add authorized members.</li><li>Select custodians, mailboxes, sites, or other supported data sources.</li><li>Define keywords, properties, conditions, and date ranges.</li><li>Use Copilot-generated query assistance only as a draft.</li><li>Name, save, and document the search purpose and version.</li></ol><p>Use parentheses and Boolean logic carefully; a small syntax change can materially widen or narrow the result set.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/create-ediscovery-search\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Sources and query construction</small></span></a>"
+        },
+        {
+          "id": "p9m4-u5",
+          "number": "05 / 08",
+          "title": "Conduct an eDiscovery search",
+          "bodyHtml": "<p>Run the search, review status, and use statistics, keyword reports, location counts, and random samples to validate whether the query retrieves the intended population. Refine iteratively while retaining prior query versions and rationale.</p><p>Check false positives, missing synonyms, date and timezone assumptions, file types, participants, duplicate content, and location coverage before export.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/conduct-ediscovery-search\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Run and validate searches</small></span></a>"
+        },
+        {
+          "id": "p9m4-u6",
+          "number": "06 / 08",
+          "title": "Export eDiscovery search results",
+          "bodyHtml": "<p>Configure export content and metadata, start the export, monitor progress, and download through the authorized workflow. Preserve the case, search version, export settings, item counts, errors, timestamps, and chain-of-custody information.</p><p>Exports contain sensitive evidence; restrict storage, transfer, review access, and retention according to case requirements.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/export-results\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Export and evidence handling</small></span></a>"
+        },
+        {
+          "id": "p9m4-u7",
+          "number": "07 / 08",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review roles and licensing, case members, custodians and data sources, query syntax and Copilot assistance, statistics and sampling, iterative validation, export settings, and evidence protection.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>eDiscovery search knowledge check</small></span></a>"
+        },
+        {
+          "id": "p9m4-u8",
+          "number": "08 / 08",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>A defensible eDiscovery search is authorized, scoped, versioned, validated with statistics and samples, exported with metadata, and protected throughout its evidence lifecycle.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/purview-ediscovery-search/summary\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Summary and resources</small></span></a>"
+        }
+      ]
+    }
+  ]
+}

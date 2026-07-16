@@ -1,0 +1,419 @@
+{
+  "id": "path-7",
+  "number": 7,
+  "title": "Create detections and perform investigations using Microsoft Sentinel",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-create-detections-perform-investigations-azure-sentinel/",
+  "meta": "8 modules · 56 units · Analytics, automation, playbooks, incidents, UEBA, ASIM, workbooks, and content management",
+  "focusAreas": [
+    {
+      "title": "Detection and response",
+      "description": "Build analytics rules, automate triage, run playbooks, and manage security incidents."
+    },
+    {
+      "title": "Analytics and content",
+      "description": "Apply UEBA, ASIM, KQL, workbooks, Content Hub solutions, and repository-based deployment."
+    }
+  ],
+  "modules": [
+    {
+      "id": "p7-module-1",
+      "number": 1,
+      "title": "Threat detection with Microsoft Sentinel analytics",
+      "focus": "Focus: rule types, templates, custom logic, incident creation, entities, and lifecycle management.",
+      "units": [
+        {
+          "id": "p7m1-u1",
+          "number": "01 / 09",
+          "title": "Introduction",
+          "bodyHtml": "<p>Sentinel analytics turns ingested telemetry into alerts and incidents. Choose a detection method, define actionable logic, map entities, tune noise, and maintain the rule as threats and sources evolve.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Objectives and prerequisites</small></span></a>"
+        },
+        {
+          "id": "p7m1-u2",
+          "number": "02 / 09",
+          "title": "Exercise - Detect threats with Microsoft Sentinel analytics",
+          "bodyHtml": "<p>Deploy a Sentinel workspace and test VM, install the Azure Activity solution, and connect subscription activity through Azure Policy. Retain the resources for the later detection exercise and monitor Azure cost.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/2-exercise-setup\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Prepare the lab</small></span></a>"
+        },
+        {
+          "id": "p7m1-u3",
+          "number": "03 / 09",
+          "title": "What is Microsoft Sentinel Analytics?",
+          "bodyHtml": "<p>Analytics correlates signals from endpoints, identities, networks, cloud services, and threat intelligence. Use cases include compromised accounts, suspicious behavior, exfiltration, insider threats, incident investigation, and hunting. Filter templates by severity, type, ATT&amp;CK tactics, and source.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/3-azure-sentinel-analytics-overview\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Analytics purpose and page</small></span></a>"
+        },
+        {
+          "id": "p7m1-u4",
+          "number": "04 / 09",
+          "title": "Types of analytics rules",
+          "bodyHtml": "<table><thead><tr><th>Type</th><th>Use</th></tr></thead><tbody><tr><td>Scheduled / NRT</td><td>Custom KQL on a schedule or near real time.</td></tr><tr><td>Fusion</td><td>ML correlation of low-fidelity signals into multistage incidents.</td></tr><tr><td>Microsoft security</td><td>Incidents from connected Microsoft security alerts.</td></tr><tr><td>ML / anomaly</td><td>Microsoft-managed behavioral detections.</td></tr><tr><td>Threat intelligence</td><td>Observable matches against organizational events.</td></tr></tbody></table><div class=\"takeaway\"><strong>Exam takeaway:</strong> scheduled rules are customizable; managed Fusion and ML logic is not.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/4-analytics-rules\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Analytics rule families</small></span></a>"
+        },
+        {
+          "id": "p7m1-u5",
+          "number": "05 / 09",
+          "title": "Create an analytics rule from templates",
+          "bodyHtml": "<p>Templates expose severity, required sources, ATT&amp;CK mapping, and rule type. Scheduled and Microsoft security templates allow query or alert-filter tuning; Fusion and ML templates are generally enabled or disabled. A disabled Create rule action often indicates a missing connector.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/5-create-rule-from-templates\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Template workflow</small></span></a>"
+        },
+        {
+          "id": "p7m1-u6",
+          "number": "06 / 09",
+          "title": "Create an analytics rule from wizard",
+          "bodyHtml": "<ol><li>Define metadata, severity, and ATT&amp;CK mapping.</li><li>Enter KQL and set frequency, lookback, threshold, and grouping.</li><li>Map query columns to entities and custom details.</li><li>Configure incidents and automated response.</li><li>Validate and monitor the rule.</li></ol><p>Entity mapping powers correlation, graphs, timelines, and investigation pivots.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/6-create-rule-from-wizard\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Custom rule wizard</small></span></a>"
+        },
+        {
+          "id": "p7m1-u7",
+          "number": "07 / 09",
+          "title": "Manage analytics rules",
+          "bodyHtml": "<p>Enable, disable, edit, duplicate, export, delete, and monitor rules. Tune KQL, thresholds, grouping, suppression, and exclusions using false-positive and missed-detection evidence. Document ownership, data dependencies, expected volume, and change history.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/7-manage-analytics-rules\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Rule lifecycle and tuning</small></span></a>"
+        },
+        {
+          "id": "p7m1-u8",
+          "number": "08 / 09",
+          "title": "Exercise - Detect threats with Microsoft Sentinel analytics",
+          "bodyHtml": "<p>Create a detection for successful Azure VM deletion, map caller and IP entities, generate test activity, and verify the alert and incident.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/8-exercise-detect-threats\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Build and validate a detection</small></span></a>"
+        },
+        {
+          "id": "p7m1-u9",
+          "number": "09 / 09",
+          "title": "Summary",
+          "bodyHtml": "<p>Effective analytics begins with the right data, uses the appropriate rule type, maps entities, creates actionable incidents, and is continuously measured and tuned.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/analyze-data-in-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and assessment</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-2",
+      "number": 2,
+      "title": "Automation in Microsoft Sentinel",
+      "focus": "Focus: automation triggers, conditions, ordered actions, expiration, and incident orchestration.",
+      "units": [
+        {
+          "id": "p7m2-u1",
+          "number": "01 / 05",
+          "title": "Introduction",
+          "bodyHtml": "<p>Automation reduces repetitive triage and coordinates consistent incident handling. Automation rules manage incident properties and invoke playbooks for broader response.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/automation-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Automation objectives</small></span></a>"
+        },
+        {
+          "id": "p7m2-u2",
+          "number": "02 / 05",
+          "title": "Understand automation options",
+          "bodyHtml": "<p>Rules trigger on incident creation or update, or alert creation. Conditions can inspect provider, rule, severity, status, tags, and owner. Native actions assign owners, change status or severity, add tags, and run playbooks. Use playbooks for APIs, enrichment, notification, ticketing, or containment.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/automation-microsoft-sentinel/2-understand-automation-options\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Rules versus playbooks</small></span></a>"
+        },
+        {
+          "id": "p7m2-u3",
+          "number": "03 / 05",
+          "title": "Create automation rules",
+          "bodyHtml": "<ol><li>Select a trigger and scoped conditions.</li><li>Add actions in the intended order.</li><li>Set order relative to other rules.</li><li>Optionally define expiration.</li><li>Enable, test, and monitor.</li></ol><p>Order matters because an earlier rule can change properties evaluated by a later rule.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/automation-microsoft-sentinel/3-create-automation-rules\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Create and prioritize rules</small></span></a>"
+        },
+        {
+          "id": "p7m2-u4",
+          "number": "04 / 05",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review triggers, conditions, native actions, playbook execution, ordering, expiration, and the boundary between Sentinel automation and Logic Apps.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/automation-microsoft-sentinel/4-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Automation knowledge check</small></span></a>"
+        },
+        {
+          "id": "p7m2-u5",
+          "number": "05 / 05",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Use explicit automation rules for deterministic changes and governed playbooks when a workflow crosses services or requires complex logic.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/automation-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-3",
+      "number": 3,
+      "title": "Threat response with Microsoft Sentinel playbooks",
+      "focus": "Focus: Logic Apps SOAR, Sentinel triggers, permissions, and real-time or on-demand execution.",
+      "units": [
+        {
+          "id": "p7m3-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Playbooks are Logic Apps workflows for enrichment, notification, ticketing, containment, and remediation beyond native incident-property changes.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>SOAR objectives</small></span></a>"
+        },
+        {
+          "id": "p7m3-u2",
+          "number": "02 / 07",
+          "title": "Exercise - Create a Microsoft Sentinel playbook",
+          "bodyHtml": "<p>Deploy Sentinel and test resources, connect Azure Activity, and create an NRT rule for successful VM deletion to supply incidents for the playbook exercise.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/2-exercise-setup\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Prepare analytics and test data</small></span></a>"
+        },
+        {
+          "id": "p7m3-u3",
+          "number": "03 / 07",
+          "title": "What are Microsoft Sentinel playbooks?",
+          "bodyHtml": "<p>A playbook has a Logic Apps trigger followed by conditions and actions. Sentinel triggers operate on incidents, alerts, or entities; connectors call Microsoft and third-party services. Prefer managed identities and least-privilege RBAC over personal credentials.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/3-playbook-overview\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Playbook architecture</small></span></a>"
+        },
+        {
+          "id": "p7m3-u4",
+          "number": "04 / 07",
+          "title": "Trigger a playbook in real-time",
+          "bodyHtml": "<p>Use an automation rule to run an incident- or alert-triggered playbook. Grant Sentinel permission to run the Logic App and grant its identity only required permissions. Design for idempotency, retries, rate limits, partial failure, logging, and visible incident comments.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/4-playbook-trigger\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Automated execution</small></span></a>"
+        },
+        {
+          "id": "p7m3-u5",
+          "number": "05 / 07",
+          "title": "Run playbooks on demand",
+          "bodyHtml": "<p>Run eligible playbooks manually from incidents, alerts, or entities when analyst judgment should precede response. This suits enrichment and high-impact containment that should not be automatic.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/5-playbook-on-demand\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Manual response</small></span></a>"
+        },
+        {
+          "id": "p7m3-u6",
+          "number": "06 / 07",
+          "title": "Exercise - Create a Microsoft Sentinel playbook",
+          "bodyHtml": "<p>Create an incident-triggered Logic App, add response actions, authorize connections, attach it through automation, generate a test incident, and inspect run history.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/6-exercise-create-playbook\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Build and test a playbook</small></span></a>"
+        },
+        {
+          "id": "p7m3-u7",
+          "number": "07 / 07",
+          "title": "Summary",
+          "bodyHtml": "<p>Safe SOAR requires least privilege, explicit triggers, controlled automation rules, resilient workflows, and visible execution results.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/threat-response-sentinel-playbooks/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and assessment</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-4",
+      "number": 4,
+      "title": "Security incident management in Microsoft Sentinel",
+      "focus": "Focus: incident structure, evidence, entities, ownership, status, severity, tasks, and resolution.",
+      "units": [
+        {
+          "id": "p7m4-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>An incident groups related alerts, evidence, and entities into a case. Analysts triage priority, establish scope, document findings, respond, and close with an accurate classification.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Incident objectives</small></span></a>"
+        },
+        {
+          "id": "p7m4-u2",
+          "number": "02 / 07",
+          "title": "Exercise - Set up the Azure environment",
+          "bodyHtml": "<p>Deploy the lab, connect Azure Activity, retain the environment, and validate actual log arrival before relying on the investigation workflow.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/2-exercise-setup\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Prepare the investigation lab</small></span></a>"
+        },
+        {
+          "id": "p7m4-u3",
+          "number": "03 / 07",
+          "title": "Understand incidents",
+          "bodyHtml": "<p>Analytics alerts become incidents when creation is enabled. Related alerts can be grouped by entities, tactics, timing, or rule settings. Severity, status, owner, tags, source, and timestamps support triage.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> an alert is a detection signal; an incident is the analyst case containing one or more alerts.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/3-describe-incident-management\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alerts and incidents</small></span></a>"
+        },
+        {
+          "id": "p7m4-u4",
+          "number": "04 / 07",
+          "title": "Incident evidence and entities",
+          "bodyHtml": "<p>Evidence includes events, queries, timelines, comments, tasks, bookmarks, and entities. Entity mapping creates pivots such as account, host, IP, URL, file, process, and resource. Use the investigation graph and entity pages to follow relationships and establish an attack path.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/4-incident-evidence-entities\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Evidence and graph pivots</small></span></a>"
+        },
+        {
+          "id": "p7m4-u5",
+          "number": "05 / 07",
+          "title": "Incident management",
+          "bodyHtml": "<ol><li>Assign ownership and validate severity.</li><li>Set New, Active, or Closed status.</li><li>Use tags, comments, and tasks for handoff.</li><li>Investigate alerts, entities, timelines, and similar incidents.</li><li>Run response actions and close with reason and classification.</li></ol><p>Accurate closure classification improves metrics and tuning.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/5-manage-incidents\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Triage through closure</small></span></a>"
+        },
+        {
+          "id": "p7m4-u6",
+          "number": "06 / 07",
+          "title": "Exercise - Investigate an incident",
+          "bodyHtml": "<p>Generate suspicious activity, locate the incident, assign and activate it, examine alerts and entities, pivot through logs, record findings, and resolve it with the correct classification.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/6-exercise-investigate-incident\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>End-to-end investigation</small></span></a>"
+        },
+        {
+          "id": "p7m4-u7",
+          "number": "07 / 07",
+          "title": "Summary",
+          "bodyHtml": "<p>A disciplined workflow preserves evidence, makes decisions auditable, accelerates response, and feeds quality improvements back into detections.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/incident-management-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and assessment</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-5",
+      "number": 5,
+      "title": "Identify threats with Behavioral Analytics",
+      "focus": "Focus: UEBA baselines, entities, timelines, behavioral insights, investigation priority, and anomalies.",
+      "units": [
+        {
+          "id": "p7m5-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>User and Entity Behavior Analytics adds behavioral context to users, hosts, IPs, applications, and other entities so analysts can prioritize activity that static rules may miss.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>UEBA objectives</small></span></a>"
+        },
+        {
+          "id": "p7m5-u2",
+          "number": "02 / 07",
+          "title": "Understand behavioral analytics",
+          "bodyHtml": "<p>Sentinel builds baselines from entity history, peer groups, organization behavior, time, location, devices, and environments. ML adds anomalous context, sensitivity, relationships, and potential blast radius. The 0-10 investigation priority score is a prioritization signal, not proof of compromise.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/2-understand-user-entity-behavior-analytics\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Baselines and scoring</small></span></a>"
+        },
+        {
+          "id": "p7m5-u3",
+          "number": "03 / 07",
+          "title": "Explore entities",
+          "bodyHtml": "<p>Sentinel merges identifiers such as GUID, UPN, account name, and domain when enough context exists. Entity pages combine identifying facts, a timeline of alerts, bookmarks and activities, and behavioral insights from sign-in, audit, Office, Syslog, SecurityEvent, and BehaviorAnalytics data.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/3-explore-entities\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Entity identity and timelines</small></span></a>"
+        },
+        {
+          "id": "p7m5-u4",
+          "number": "04 / 07",
+          "title": "Display entity behavior information",
+          "bodyHtml": "<p>Search entities and review risk context, activity trends, peers, related alerts, and anomalies. Pivot from incidents or hunting results into the same entity view to keep investigation context connected.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/4-display-entity-behavior-information\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Entity behavior views</small></span></a>"
+        },
+        {
+          "id": "p7m5-u5",
+          "number": "05 / 07",
+          "title": "Use Anomaly detection analytical rule templates",
+          "bodyHtml": "<p>Anomaly templates use Microsoft-managed ML. Review required sources, anomaly details, contributing events, and entity context; combine anomaly evidence with other signals instead of treating it as a verdict.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/4a-use-anomaly-detection-analytical-rule-templates\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Managed anomaly detections</small></span></a>"
+        },
+        {
+          "id": "p7m5-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review baselines, peer comparison, priority scoring, entity identifiers and merging, entity pages, timelines, insights, and anomaly interpretation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/5-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Behavioral analytics knowledge check</small></span></a>"
+        },
+        {
+          "id": "p7m5-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>UEBA depends on complete telemetry, correct entity mapping, and analyst validation of anomalous context.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-entity-behavior-analytics-azure-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-6",
+      "number": 6,
+      "title": "Data normalization in Microsoft Sentinel",
+      "focus": "Focus: ASIM schemas and parsers, parameterized KQL, custom parsers, and DCR transformations.",
+      "units": [
+        {
+          "id": "p7m6-u1",
+          "number": "01 / 08",
+          "title": "Introduction",
+          "bodyHtml": "<p>Normalization maps vendor-specific schemas into a common semantic model so one detection, hunt, or workbook can operate across sources.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>ASIM objectives</small></span></a>"
+        },
+        {
+          "id": "p7m6-u2",
+          "number": "02 / 08",
+          "title": "Understand data normalization",
+          "bodyHtml": "<p>ASIM defines schemas, fields, values, aliases, and parsers for domains such as authentication, network, DNS, process, file, and web activity. Source-specific parsers translate native tables; unifying parsers combine enabled sources.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/2-understand\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>ASIM architecture</small></span></a>"
+        },
+        {
+          "id": "p7m6-u3",
+          "number": "03 / 08",
+          "title": "Use ASIM Parsers",
+          "bodyHtml": "<p>Call an ASIM unifying parser like a KQL function and apply supported parameters early. Filtering within the parser is usually more efficient than filtering after all sources are unioned.</p><pre><code>_Im_Authentication(starttime=ago(1d)) | where EventResult == \"Failure\" | summarize Attempts=count() by TargetUsername, SrcIpAddr</code></pre><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/3-use-asim-parsers\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Query normalized data</small></span></a>"
+        },
+        {
+          "id": "p7m6-u4",
+          "number": "04 / 08",
+          "title": "Understand parameterized KQL functions",
+          "bodyHtml": "<p>Stored functions accept typed parameters and return tabular data. Use parameters for time, source, user, IP, or severity filters. Centralized logic improves reuse, but changes affect every dependent rule, workbook, and query.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/4-understand-parameterized-kql-functions\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Reusable KQL functions</small></span></a>"
+        },
+        {
+          "id": "p7m6-u5",
+          "number": "05 / 08",
+          "title": "Create an ASIM Parser",
+          "bodyHtml": "<ol><li>Select the schema and map native fields.</li><li>Normalize values and types.</li><li>Add filter parameters and metadata.</li><li>Test representative, missing, and malformed records.</li><li>Include the parser in the appropriate unifying parser.</li></ol><p>Quality means semantic correctness, coverage, performance, and ASIM content compatibility.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/5-create-asim-parser\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Build a custom parser</small></span></a>"
+        },
+        {
+          "id": "p7m6-u6",
+          "number": "06 / 08",
+          "title": "Configure Azure Monitor Data Collection Rules",
+          "bodyHtml": "<p>DCR transformations use KQL at ingestion to filter, reshape, enrich, or route records. The query begins with <code>source</code> and must return columns compatible with the destination. Filtering can reduce cost, but discarded data cannot be recovered.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/6-configure-azure-monitor-data-collection-rules\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Ingestion transformations</small></span></a>"
+        },
+        {
+          "id": "p7m6-u7",
+          "number": "07 / 08",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review schemas, source and unifying parsers, normalized fields, parameterized functions, parser creation, DCR transformations, and permanent ingestion filtering.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Normalization knowledge check</small></span></a>"
+        },
+        {
+          "id": "p7m6-u8",
+          "number": "08 / 08",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>ASIM makes content portable; parameterized parsers improve performance, and DCR transformations control data before workspace storage.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/data-normalization-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-7",
+      "number": 7,
+      "title": "Query, visualize, and monitor data in Microsoft Sentinel",
+      "focus": "Focus: Logs, KQL, workbook templates, custom visualizations, and parameters.",
+      "units": [
+        {
+          "id": "p7m7-u1",
+          "number": "01 / 08",
+          "title": "Introduction",
+          "bodyHtml": "<p>Logs supports ad hoc analysis; workbooks turn KQL into reusable interactive views for monitoring, investigation, and reporting.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Query and visualization objectives</small></span></a>"
+        },
+        {
+          "id": "p7m7-u2",
+          "number": "02 / 08",
+          "title": "Exercise - Query and visualize data with Microsoft Sentinel Workbooks",
+          "bodyHtml": "<p>Deploy the Sentinel lab and Azure Activity connector. Confirm records in <code>AzureActivity</code> before building workbook elements.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/2-exercise-setup\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Prepare workbook data</small></span></a>"
+        },
+        {
+          "id": "p7m7-u3",
+          "number": "03 / 08",
+          "title": "Monitor and visualize data",
+          "bodyHtml": "<p>Workbooks combine text, parameters, KQL, metrics, links, tabs, and visualizations. Use charts for comparisons and trends, grids for exact records, and retain drill-down to underlying evidence.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/3-monitor-visualize-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Workbook capabilities</small></span></a>"
+        },
+        {
+          "id": "p7m7-u4",
+          "number": "04 / 08",
+          "title": "Query data using Kusto Query Language",
+          "bodyHtml": "<p>Start with the correct table and time range, filter early, project needed columns, derive fields, aggregate, and order results. Validate cost and meaning before embedding queries in content.</p><pre><code>AzureActivity | where TimeGenerated &gt; ago(24h) | summarize Operations=count() by Caller, ActivityStatusValue</code></pre><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/4-query-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>KQL in Logs</small></span></a>"
+        },
+        {
+          "id": "p7m7-u5",
+          "number": "05 / 08",
+          "title": "Use default Microsoft Sentinel Workbooks",
+          "bodyHtml": "<p>Content Hub solutions install workbook templates. Save a template, confirm required tables have data, and review parameters and queries before trusting its visuals. Saved copies are editable Azure resources.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/5-workbooks\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Template workbooks</small></span></a>"
+        },
+        {
+          "id": "p7m7-u6",
+          "number": "06 / 08",
+          "title": "Create a new Microsoft Sentinel Workbook",
+          "bodyHtml": "<ol><li>Define audience and question.</li><li>Add time or selection parameters.</li><li>Add KQL and suitable visuals.</li><li>Reference parameters safely.</li><li>Save with meaningful resource placement and access control.</li></ol><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/6-create-new-workbook\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Custom workbooks</small></span></a>"
+        },
+        {
+          "id": "p7m7-u7",
+          "number": "07 / 08",
+          "title": "Exercise - Visualize data using Microsoft Sentinel Workbooks",
+          "bodyHtml": "<p>Explore Azure Activity logs, save its workbook template, use filters and tables, enter edit mode, and add a KQL-backed parameter to drive interactive analysis.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/7-exercise-visualize-data\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Interactive workbook view</small></span></a>"
+        },
+        {
+          "id": "p7m7-u8",
+          "number": "08 / 08",
+          "title": "Summary",
+          "bodyHtml": "<p>Reliable workbooks use validated KQL, relevant parameters, appropriate visual encoding, evidence drill-down, and Azure resource governance.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/query-data-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and assessment</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p7-module-8",
+      "number": 8,
+      "title": "Manage content in Microsoft Sentinel",
+      "focus": "Focus: Content Hub solutions and repository-based content deployment.",
+      "units": [
+        {
+          "id": "p7m8-u1",
+          "number": "01 / 05",
+          "title": "Introduction",
+          "bodyHtml": "<p>Sentinel content includes connectors, analytics, hunting queries, workbooks, parsers, watchlists, automation, and playbooks. Content Hub packages solutions; repositories support version-controlled deployment.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-content-microsoft-sentinel/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Content objectives</small></span></a>"
+        },
+        {
+          "id": "p7m8-u2",
+          "number": "02 / 05",
+          "title": "Use solutions from the content hub",
+          "bodyHtml": "<p>Search by product, provider, support model, type, or status. Install a solution, review content and dependencies, configure connectors, and enable only needed rules. Review release notes and customizations before update or removal.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-content-microsoft-sentinel/2-use-solutions-from-content-hub\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Solution lifecycle</small></span></a>"
+        },
+        {
+          "id": "p7m8-u3",
+          "number": "03 / 05",
+          "title": "Use repositories for deployment",
+          "bodyHtml": "<p>Connect GitHub or Azure DevOps, select content paths, and use the generated workflow or pipeline to validate and deploy supported content. Protect branches, require review, separate development and production, keep secrets out of source, and monitor failures.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-content-microsoft-sentinel/3-use-repositories-for-deployment\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Sentinel content as code</small></span></a>"
+        },
+        {
+          "id": "p7m8-u4",
+          "number": "04 / 05",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review Content Hub discovery and lifecycle, solution dependencies, content types, repository connections, automated deployment, and source-control governance.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-content-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Content knowledge check</small></span></a>"
+        },
+        {
+          "id": "p7m8-u5",
+          "number": "05 / 05",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Use Content Hub for supported packages and repositories for controlled, repeatable deployment of customized content across environments.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-content-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    }
+  ]
+}

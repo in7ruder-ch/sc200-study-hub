@@ -1,0 +1,451 @@
+{
+  "id": "path-2",
+  "number": 2,
+  "title": "Microsoft Defender for Endpoint",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-defender-for-endpoint/",
+  "meta": "9 modules · 60 units · 5 hr 49 min · Deployment, attack surface reduction, investigations, response, automation, detections, and vulnerability management",
+  "focusAreas": [
+    {
+      "title": "Endpoint readiness",
+      "description": "Deploy, onboard, configure, and harden devices with Microsoft Defender for Endpoint."
+    },
+    {
+      "title": "Investigation and response",
+      "description": "Investigate devices and evidence, take response actions, automate remediation, and tune detections."
+    }
+  ],
+  "modules": [
+    {
+      "id": "p2-module-1",
+      "number": 1,
+      "title": "Protect against threats with Microsoft Defender for Endpoint",
+      "focus": "Focus: the Defender for Endpoint architecture, security stack, administration, and advanced hunting.",
+      "units": [
+        {
+          "id": "p2m1-u1",
+          "number": "01 / 04",
+          "title": "Introduction to Microsoft Defender for Endpoint",
+          "bodyHtml": "<p>Microsoft Defender for Endpoint is an enterprise endpoint security platform for prevention, detection, investigation, and response. Its telemetry pipeline combines built-in endpoint behavioral sensors, cloud security analytics, and Microsoft threat intelligence.</p>\n        <ul><li><strong>Behavioral sensors:</strong> collect operating-system signals and send them to the tenant's isolated cloud service.</li><li><strong>Cloud analytics:</strong> transform telemetry into detections, insights, and recommended actions.</li><li><strong>Threat intelligence:</strong> recognizes attacker tools, techniques, procedures, and infrastructure.</li></ul>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> remember the protection stack: Vulnerability Management, attack surface reduction, next-generation protection, EDR, automated investigation and remediation, and Microsoft threat experts.</div>\n        <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-security-threat-protect/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>MDE architecture and capabilities</small></span></a>"
+        },
+        {
+          "id": "p2m1-u2",
+          "number": "02 / 04",
+          "title": "Practice security administration",
+          "bodyHtml": "<table><thead><tr><th>Capability</th><th>Purpose</th></tr></thead><tbody><tr><td>Vulnerability Management</td><td>Continuously discover, prioritize, and remediate vulnerabilities and misconfigurations.</td></tr><tr><td>Attack surface reduction</td><td>Reduce exploitable paths with application control, exploit protection, network protection, controlled folder access, ASR rules, and firewall.</td></tr><tr><td>Next-generation protection</td><td>Use cloud-delivered protection, machine learning, real-time scanning, and security intelligence updates.</td></tr><tr><td>EDR</td><td>Continuously collect behavioral telemetry, correlate alerts into incidents, and support investigation.</td></tr><tr><td>AIR</td><td>Automate analyst-like investigation and remediation to reduce alert volume.</td></tr></tbody></table>\n        <p>The MDE sensor communicates in the LocalSystem context through WinHTTP. WinHTTP proxy configuration is separate from user-browser WinINet settings.</p>\n        <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-security-threat-protect/practice-security-administration\" target=\"_blank\" rel=\"noopener\"><span>Official lesson and walkthrough<small>Security administration capabilities</small></span></a>"
+        },
+        {
+          "id": "p2m1-u3",
+          "number": "03 / 04",
+          "title": "Hunt threats within your network",
+          "bodyHtml": "<p>Advanced hunting uses Kusto Query Language (KQL) to query endpoint and cross-domain telemetry proactively. Results can reveal indicators, affected entities, behavior patterns, and candidates for custom detection rules.</p>\n        <pre><code>DeviceProcessEvents\n| where Timestamp > ago(7d)\n| where FileName =~ \"powershell.exe\"\n| where ProcessCommandLine has_any (\"downloadstring\", \"invoke-webrequest\")\n| project Timestamp, DeviceName, AccountName, ProcessCommandLine\n| top 100 by Timestamp desc</code></pre>\n        <ul><li>Filter time and high-selectivity columns early.</li><li>Prefer <code>has</code> for whole tokens over <code>contains</code>.</li><li>Project only required columns before joins.</li><li>Place the smaller table on the left side of a join.</li></ul>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> hunting is proactive; custom detections operationalize a useful query so it runs automatically.</div>\n        <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-security-threat-protect/hunt-threats-within-network\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>KQL hunting and query performance</small></span></a>"
+        },
+        {
+          "id": "p2m1-u4",
+          "number": "04 / 04",
+          "title": "Summary and knowledge check",
+          "bodyHtml": "<p>Review the sensor-cloud-intelligence architecture, the six major MDE capability areas, incident correlation, and the role of KQL in advanced hunting.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-security-threat-protect/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Assessment and summary</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-2",
+      "number": 2,
+      "title": "Deploy the Microsoft Defender for Endpoint environment",
+      "focus": "Focus: tenant creation, platform support, device onboarding, access control, device groups, and advanced features.",
+      "units": [
+        {
+          "id": "p2m2-u1",
+          "number": "01 / 10",
+          "title": "Introduction",
+          "bodyHtml": "<p>Deployment has three connected workstreams: prepare the tenant and network, onboard supported endpoints with an appropriate management method, and apply least-privilege access plus device-group scoping.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Objectives and prerequisites</small></span></a>"
+        },
+        {
+          "id": "p2m2-u2",
+          "number": "02 / 10",
+          "title": "Create your environment",
+          "bodyHtml": "<p>The first endpoint settings visit establishes tenant preferences. A Security Administrator can select the data-storage geography, retention, and preview-feature preference. Storage geography cannot be changed later; default retention in the lesson is six months.</p><p>The sensor runs as LocalSystem and communicates through WinHTTP. Transparent proxy and WPAD are supported autodiscovery approaches.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> use the least-privileged administrative role; reserve Global Administrator for emergency scenarios.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/2-create-your-environment\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Tenant and network configuration</small></span></a>"
+        },
+        {
+          "id": "p2m2-u3",
+          "number": "03 / 10",
+          "title": "Understand operating system compatibility and features",
+          "bodyHtml": "<p>MDE supports Windows, macOS, Linux, Android, and iOS, but capability depth and deployment tooling differ. macOS includes AV, EDR, and vulnerability management and can be managed through Intune or Jamf. Linux supports AV, EDR, and vulnerability management with command-line and common configuration-management options. Mobile platforms emphasize web protection, anti-phishing, unsafe-connection blocking, and Intune/Conditional Access integration.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> verify current platform and version prerequisites in the official documentation before designing rollout groups.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/3-understand-operating-systems-compatibility-features\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Platform compatibility</small></span></a>"
+        },
+        {
+          "id": "p2m2-u4",
+          "number": "04 / 10",
+          "title": "Onboard devices",
+          "bodyHtml": "<ol><li>Configure Device discovery, normally using Standard discovery.</li><li>Verify OS and connectivity prerequisites.</li><li>Select the platform-specific onboarding package and deployment method.</li><li>Deploy through Intune/MDM, Group Policy, Configuration Manager, scripts, or supported third-party tooling.</li><li>Run the detection test and confirm sensor reporting.</li></ol><p>A local script is intended for limited evaluation, not enterprise-scale rollout. Non-persistent VDI requires its dedicated onboarding approach. Offboarding packages and steps are platform-specific.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/4-onboard-devices\" target=\"_blank\" rel=\"noopener\"><span>Official lesson and simulation<small>Onboarding and offboarding</small></span></a>"
+        },
+        {
+          "id": "p2m2-u5",
+          "number": "05 / 10",
+          "title": "Manage access",
+          "bodyHtml": "<p>RBAC controls both actions and visibility. Roles define allowed capabilities; Microsoft Entra security groups receive roles; device groups define the device data and alerts visible to those users. New MDE customers use Unified RBAC.</p><table><thead><tr><th>Entra role</th><th>Initial portal access</th></tr></thead><tbody><tr><td>Security Administrator / Global Administrator</td><td>Full access</td></tr><tr><td>Security Reader</td><td>Read-only access</td></tr></tbody></table><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/5-manage-access\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>RBAC and device groups</small></span></a>"
+        },
+        {
+          "id": "p2m2-u6",
+          "number": "06 / 10",
+          "title": "Create and manage roles for RBAC",
+          "bodyHtml": "<p>Create roles under Settings &gt; Endpoints &gt; Permissions, select granular permissions, and assign an existing Entra security group. Permission families include viewing data, active remediation, alert investigation, security settings, vulnerability-management workflows, Intune endpoint security, and basic or advanced Live Response.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> a role alone is incomplete—associate it with an Entra group and then scope that group to device groups.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/6-create-manage-roles-for-role-based-access-control\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Role creation and permission families</small></span></a>"
+        },
+        {
+          "id": "p2m2-u7",
+          "number": "07 / 10",
+          "title": "Configure device groups",
+          "bodyHtml": "<p>Device groups organize endpoints by name, domain, tag, or OS. They scope analyst visibility and actions and can apply different automated-remediation levels. When rules overlap, the device belongs to the highest-ranked matching group.</p><ol><li>Choose a group name and remediation level.</li><li>Define and preview the matching rule.</li><li>Grant access to eligible Entra groups with RBAC roles.</li><li>Rank the group relative to other groups.</li></ol><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/7-configure-device-groups\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Group matching, scope, and ranking</small></span></a>"
+        },
+        {
+          "id": "p2m2-u8",
+          "number": "08 / 10",
+          "title": "Configure environment advanced features",
+          "bodyHtml": "<p>Advanced features are tenant-level switches. Common examples include Live Response, unsigned Live Response scripts, custom network indicators, Microsoft Intune connection, Microsoft Defender for Cloud Apps integration, web-content filtering, preview features, and device discovery. Enable only capabilities your operational and governance processes support.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> a feature may require both a tenant switch and separate RBAC, endpoint, licensing, or network prerequisites.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/8-configure-environment-advanced-features\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Advanced feature switches</small></span></a>"
+        },
+        {
+          "id": "p2m2-u9",
+          "number": "09 / 10",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Check that you can distinguish tenant settings, platform-specific onboarding, Entra roles, MDE RBAC roles, device groups, and advanced-feature prerequisites.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Deployment knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m2-u10",
+          "number": "10 / 10",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Deployment is successful when supported devices are onboarded and reporting, the service can reach required cloud endpoints, access is least-privileged and device-scoped, and advanced capabilities are deliberately enabled.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/deploy-microsoft-defender-for-endpoints-environment/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-3",
+      "number": 3,
+      "title": "Implement Windows security enhancements with Microsoft Defender for Endpoint",
+      "focus": "Focus: attack surface reduction concepts, rule deployment, operating modes, exclusions, and validation.",
+      "units": [
+        {
+          "id": "p2m3-u1",
+          "number": "01 / 05",
+          "title": "Introduction",
+          "bodyHtml": "<p>Attack surface reduction (ASR) limits the behaviors and application paths attackers commonly abuse, especially Office applications, scripts, email content, credential theft, and executable content.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/implement-windows-10-security-enhancements-with-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>ASR objectives</small></span></a>"
+        },
+        {
+          "id": "p2m3-u2",
+          "number": "02 / 05",
+          "title": "Understand attack surface reduction",
+          "bodyHtml": "<p>ASR rules target risky behaviors rather than only known malware signatures. They complement antivirus, EDR, exploit protection, application control, network protection, and controlled folder access. Rules have unique GUIDs and can be managed individually.</p><ul><li><strong>Block:</strong> prevent the behavior and generate an event.</li><li><strong>Audit:</strong> allow the behavior but record what would have been blocked.</li><li><strong>Warn:</strong> show a user warning that can be bypassed.</li><li><strong>Disabled / Not configured:</strong> do not enforce the rule.</li></ul><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/implement-windows-10-security-enhancements-with-microsoft-defender-for-endpoint/2-understand-attack-surface-reduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>ASR concepts and rule modes</small></span></a>"
+        },
+        {
+          "id": "p2m3-u3",
+          "number": "03 / 05",
+          "title": "Enable attack surface reduction rules",
+          "bodyHtml": "<p>Deploy ASR rules with Microsoft Intune, Configuration Manager, Group Policy, PowerShell, or MDM CSP. A safe rollout starts in audit mode, reviews telemetry and line-of-business impact, adds narrow justified exclusions, then moves selected rules to warn or block in controlled rings.</p><pre><code>Set-MpPreference -AttackSurfaceReductionRules_Ids &lt;rule-guid&gt; `\n  -AttackSurfaceReductionRules_Actions AuditMode</code></pre><div class=\"takeaway\"><strong>Exam takeaway:</strong> exclusions reduce protection and should be narrow, documented, and tested; monitor ASR events through reports and advanced hunting.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/implement-windows-10-security-enhancements-with-microsoft-defender-for-endpoint/3-enable-attack-surface-reduction-rules\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Deployment, modes, and exclusions</small></span></a>"
+        },
+        {
+          "id": "p2m3-u4",
+          "number": "04 / 05",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Be able to choose the correct ASR mode for evaluation versus enforcement and recognize the management channels used to deploy rules.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/implement-windows-10-security-enhancements-with-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>ASR knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m3-u5",
+          "number": "05 / 05",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>ASR reduces attacker opportunity before EDR response is required. Treat deployment as a measured control change: audit, analyze, pilot, enforce, and continuously tune.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/implement-windows-10-security-enhancements-with-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-4",
+      "number": 4,
+      "title": "Perform device investigations in Microsoft Defender for Endpoint",
+      "focus": "Focus: device inventory, device page evidence, behavioral blocking, and device discovery.",
+      "units": [
+        {
+          "id": "p2m4-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Device investigations pivot from an alert or incident into endpoint context: identity, health, exposure, alerts, behavioral timeline, software, vulnerabilities, and response actions.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Investigation objectives</small></span></a>"
+        },
+        {
+          "id": "p2m4-u2",
+          "number": "02 / 07",
+          "title": "Use the device inventory list",
+          "bodyHtml": "<p>The device inventory supports risk-based triage. <strong>Risk level</strong> reflects active alert severity and status; <strong>exposure level</strong> reflects the cumulative impact of pending security recommendations. Health states include active, inactive, and misconfigured, with communication and sensor issues called out separately.</p><p>Use filters and CSV export to validate onboarding, identify nonreporting endpoints, and prioritize high-risk or highly exposed devices.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/2-use-device-inventory-list\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Inventory, risk, exposure, and health</small></span></a>"
+        },
+        {
+          "id": "p2m4-u3",
+          "number": "03 / 07",
+          "title": "Investigate the device",
+          "bodyHtml": "<p>The device page exposes Overview, Alerts, Timeline, Security recommendations, Software inventory, Discovered vulnerabilities, and Missing KBs. The timeline is the primary chronological evidence view and can be searched, filtered, exported, or flagged to build a clean breach sequence.</p><ul><li>Pivot from a timeline event to related entities.</li><li>Use <strong>Hunt for related events</strong> to open a prebuilt advanced hunting query.</li><li>Review logged-on users, active alerts, software, recommendations, and vulnerability context.</li><li>Choose response actions only after establishing scope and business impact.</li></ul><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/3-investigate-device\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Device page and timeline</small></span></a>"
+        },
+        {
+          "id": "p2m4-u4",
+          "number": "04 / 07",
+          "title": "Use behavioral blocking",
+          "bodyHtml": "<p>Behavioral blocking and containment use endpoint telemetry, cloud analytics, threat intelligence, and EDR context to stop suspicious behavior even when the exact file is not known as malware. Examples include blocking credential theft, persistence, process injection, malicious scripts, and observed attack chains.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> post-breach behavioral blocking is part of EDR protection and can operate alongside antivirus to contain behavior after an attack begins.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/4-use-behavioral-blocking\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Behavioral blocking and containment</small></span></a>"
+        },
+        {
+          "id": "p2m4-u5",
+          "number": "05 / 07",
+          "title": "Detect devices with device discovery",
+          "bodyHtml": "<p>Device discovery finds unmanaged devices by observing network activity from onboarded endpoints. Standard discovery is the recommended mode. Discovered devices should be assessed, classified, and onboarded or otherwise controlled to reduce blind spots.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/5-detect-devices-with-device-discovery\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Unmanaged device discovery</small></span></a>"
+        },
+        {
+          "id": "p2m4-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Distinguish device risk from exposure, identify the correct device-page tab for chronological evidence, and understand how discovery identifies unmanaged assets.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Device investigation knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m4-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>A strong device investigation connects alert context to the device timeline, users, software, vulnerabilities, and other entities before selecting containment or remediation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-device-investigations-microsoft-defender-for-endpoints/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-5",
+      "number": 5,
+      "title": "Perform actions on a device using Microsoft Defender for Endpoint",
+      "focus": "Focus: containment, antivirus scans, forensic packages, and Live Response.",
+      "units": [
+        {
+          "id": "p2m5-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Device actions support three goals: contain active attacker access, collect forensic evidence, and remediate malicious artifacts. Actions are tracked in the Action center and device timeline.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Response action objectives</small></span></a>"
+        },
+        {
+          "id": "p2m5-u2",
+          "number": "02 / 07",
+          "title": "Explain device actions",
+          "bodyHtml": "<table><thead><tr><th>Action</th><th>Use</th></tr></thead><tbody><tr><td>Isolate device</td><td>Disconnect network communication while retaining MDE service connectivity; limits command and control, exfiltration, and lateral movement.</td></tr><tr><td>Restrict app execution</td><td>Apply a code-integrity policy so only Microsoft-signed files can run.</td></tr><tr><td>Run antivirus scan</td><td>Remotely run quick or full scanning.</td></tr><tr><td>Automated investigation</td><td>Start analyst-like investigation and remediation.</td></tr><tr><td>Collect package</td><td>Acquire a point-in-time forensic ZIP.</td></tr><tr><td>Live Response</td><td>Open an authorized remote shell for investigation and response.</td></tr></tbody></table><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/2-understand-device-actions\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Containment and investigation actions</small></span></a>"
+        },
+        {
+          "id": "p2m5-u3",
+          "number": "03 / 07",
+          "title": "Run Microsoft Defender Antivirus scan on devices",
+          "bodyHtml": "<p>Choose quick or full scan and document the reason. Scan submissions and resulting detections appear in the Action center, device timeline, and alert queue. Defender Antivirus can scan while in passive mode alongside another antivirus product. CPU throttling settings still apply.</p><p>A general-purpose automated investigation can be started from the device; related alerts and devices may be added while it is running.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/3-run-microsoft-defender-antivirus-scan-on-devices\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Remote scan and automated investigation</small></span></a>"
+        },
+        {
+          "id": "p2m5-u4",
+          "number": "04 / 07",
+          "title": "Collect investigation package from devices",
+          "bodyHtml": "<p>The package captures current forensic state: autoruns, installed programs, network connections and DNS/ARP data, prefetch, processes, scheduled tasks, security logs, services, SMB sessions, system details, temp-directory listings, users/groups, Defender support logs, and a collection summary report.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> packages preserve endpoint state for offline analysis; they are not the same as the continuously collected device timeline.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/4-collect-investigation-package-from-devices\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Investigation package contents</small></span></a>"
+        },
+        {
+          "id": "p2m5-u5",
+          "number": "05 / 07",
+          "title": "Initiate Live Response session",
+          "bodyHtml": "<p>Live Response is a cloud-based remote shell for immediate investigation and remediation. Enable it in Advanced features, assign an appropriate device-group remediation level, and grant basic or advanced RBAC permissions. Unsigned scripts require a separate tenant setting and increase risk.</p><table><thead><tr><th>Basic examples</th><th>Advanced examples</th></tr></thead><tbody><tr><td><code>processes</code>, <code>services</code>, <code>scheduledtasks</code>, <code>persistence</code>, <code>registry</code>, <code>findfile</code></td><td><code>analyze</code>, <code>getfile</code>, <code>putfile</code>, <code>run</code>, <code>remediate</code>, <code>undo</code></td></tr></tbody></table><p>Use <code>-auto</code> where supported to run prerequisites. Commands are audited. Large-scale execution is not supported, and session concurrency and inactivity limits apply.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/5-initiate-live-response-session\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Live Response prerequisites and commands</small></span></a>"
+        },
+        {
+          "id": "p2m5-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Choose containment actions according to objective: isolate network activity, restrict execution, scan for malware, collect evidence, automate investigation, or use Live Response for interactive work.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Device actions knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m5-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Every response action should have a documented reason, least-privilege authorization, Action center verification, and a clear rollback or recovery plan where applicable.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-actions-device-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-6",
+      "number": 6,
+      "title": "Perform evidence and entities investigations using Microsoft Defender for Endpoint",
+      "focus": "Focus: file, user, IP address, and domain entity pages and the pivots between them.",
+      "units": [
+        {
+          "id": "p2m6-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Entity investigation builds scope by pivoting from evidence to related alerts, incidents, devices, users, processes, network destinations, prevalence, and threat intelligence.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Entity investigation objectives</small></span></a>"
+        },
+        {
+          "id": "p2m6-u2",
+          "number": "02 / 07",
+          "title": "Investigate a file",
+          "bodyHtml": "<p>The file page uses a hash as the entity key and shows verdict, prevalence, first/last seen, signer and certificate information, observed devices, related alerts, file names and paths, and execution behavior. Low prevalence, unsigned status, suspicious origin, or links to active alerts increase concern.</p><p>Available actions can include stop and quarantine, add an indicator, download, deep analysis, or go hunt. Always validate scope and business impact before blocking a hash.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/2-investigate-file\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>File evidence, prevalence, and response</small></span></a>"
+        },
+        {
+          "id": "p2m6-u3",
+          "number": "03 / 07",
+          "title": "Investigate a user account",
+          "bodyHtml": "<p>The user page shows identity details, risk and investigation context, related alerts and incidents, observed devices, and user activity. Use it to determine whether activity is isolated to one endpoint or follows the identity across devices and services.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> a user pivot broadens an endpoint investigation into identity scope; correlate with Entra ID and Defender for Identity signals in Defender XDR.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/3-investigate-user-account\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>User entity investigation</small></span></a>"
+        },
+        {
+          "id": "p2m6-u4",
+          "number": "04 / 07",
+          "title": "Investigate an IP address",
+          "bodyHtml": "<p>The IP page combines Microsoft threat intelligence with internal observations: reputation, registration and location context, related alerts, contacted devices, and observed network events. Distinguish external infrastructure from internal addresses and proxies before creating an indicator.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/4-investigate-ip-addresses\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>IP reputation and device observations</small></span></a>"
+        },
+        {
+          "id": "p2m6-u5",
+          "number": "05 / 07",
+          "title": "Investigate a domain",
+          "bodyHtml": "<p>The domain page shows verdict and reputation, related alerts, resolved IPs, communicating devices, and observed URLs or events. Check whether the domain is newly observed, rare, connected to suspicious processes, or part of known infrastructure.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/5-investigate-domain\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Domain evidence and pivots</small></span></a>"
+        },
+        {
+          "id": "p2m6-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Know which entity page answers each question: file prevalence and signer, user/device relationships, IP reputation and contacted devices, or domain resolution and communications.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Evidence and entities knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m6-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Entity pivots turn a single alert into a scoped investigation. Build a relationship graph, establish prevalence and reputation, hunt for additional observations, then contain the smallest justified scope.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-evidence-entities-investigations-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-7",
+      "number": 7,
+      "title": "Configure and manage automation using Microsoft Defender for Endpoint",
+      "focus": "Focus: advanced features, sample handling, automated investigation and remediation, and risky-device access control.",
+      "units": [
+        {
+          "id": "p2m7-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Automation reduces repetitive analysis while retaining governance through permissions, remediation levels, evidence handling, Action center audit, and approval workflows.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Automation objectives</small></span></a>"
+        },
+        {
+          "id": "p2m7-u2",
+          "number": "02 / 07",
+          "title": "Configure advanced features",
+          "bodyHtml": "<p>Enable integrations and automation-related capabilities under Settings &gt; Endpoints &gt; Advanced features. Examples include automated investigation, Live Response, Intune connection, authenticated telemetry sharing, custom network indicators, and preview capabilities.</p><p>Validate licensing, data-sharing implications, RBAC, and endpoint prerequisites before enabling a tenant-wide switch.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/2-configure-advanced-features\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Automation-related tenant features</small></span></a>"
+        },
+        {
+          "id": "p2m7-u3",
+          "number": "03 / 07",
+          "title": "Manage automation upload and folder settings",
+          "bodyHtml": "<p>Sample submission allows Microsoft to analyze suspicious files and improve verdicts. Configure whether samples are submitted automatically and define exclusions for sensitive folders or file extensions where justified. Exclusions can reduce investigation quality, so keep them narrow and review them regularly.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/3-manage-automation-upload-folder-settings\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Sample sharing and exclusions</small></span></a>"
+        },
+        {
+          "id": "p2m7-u4",
+          "number": "04 / 07",
+          "title": "Configure automated investigation and remediation capabilities",
+          "bodyHtml": "<p>AIR inspects evidence, assigns verdicts, and applies or proposes remediation. Device-group automation levels determine whether remediation is fully automatic, requires approval, or is limited. Pending actions are reviewed in the Action center.</p><div class=\"flow\" aria-label=\"Automated investigation flow\"><div class=\"flow-step\"><strong>1 · Trigger</strong>An alert or analyst action starts investigation.</div><div class=\"flow-step\"><strong>2 · Inspect</strong>AIR examines devices, files, processes, services, and persistence.</div><div class=\"flow-step\"><strong>3 · Verdict</strong>Evidence is classified malicious, suspicious, or clean.</div><div class=\"flow-step\"><strong>4 · Remediate</strong>Actions run automatically or wait for approval.</div></div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/4-configure-automated-investigation-remediation-capabilities\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>AIR process and remediation levels</small></span></a>"
+        },
+        {
+          "id": "p2m7-u5",
+          "number": "05 / 07",
+          "title": "Block at-risk devices",
+          "bodyHtml": "<p>MDE sends device-risk signals to Microsoft Intune. Intune compliance policy evaluates that risk, and Microsoft Entra Conditional Access can block access to organizational resources until the endpoint is remediated and becomes compliant again.</p><div class=\"flow\" aria-label=\"Risk-based access flow\"><div class=\"flow-step\"><strong>1 · Detect</strong>MDE calculates device risk.</div><div class=\"flow-step\"><strong>2 · Evaluate</strong>Intune marks the device compliant or noncompliant.</div><div class=\"flow-step\"><strong>3 · Enforce</strong>Conditional Access allows or blocks access.</div><div class=\"flow-step\"><strong>4 · Restore</strong>Remediation lowers risk and restores compliance.</div></div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/5-block-risk-devices\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>MDE, Intune, and Conditional Access</small></span></a>"
+        },
+        {
+          "id": "p2m7-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Differentiate the tenant feature switch, device-group remediation level, Action center approval, sample-upload setting, and Intune/Conditional Access enforcement flow.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Automation knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m7-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Effective automation combines broad telemetry with least privilege, controlled remediation levels, transparent audit history, and clear approval and exception processes.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-8",
+      "number": 8,
+      "title": "Configure for alerts and detections in Microsoft Defender for Endpoint",
+      "focus": "Focus: alert-related features, notifications, tuning, and custom indicators.",
+      "units": [
+        {
+          "id": "p2m8-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Detection configuration should improve analyst signal quality without creating blind spots. The main controls are tenant features, email notification rules, alert tuning, and indicators.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Alert and detection objectives</small></span></a>"
+        },
+        {
+          "id": "p2m8-u2",
+          "number": "02 / 07",
+          "title": "Configure advanced features",
+          "bodyHtml": "<p>Alert-related advanced features include Live Response, unsigned script execution, and custom network indicators. Custom indicators must be enabled before IP, URL, or domain allow/block rules can be enforced.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/2-configure-advanced-features\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Detection-related feature switches</small></span></a>"
+        },
+        {
+          "id": "p2m8-u3",
+          "number": "03 / 07",
+          "title": "Configure alert notifications",
+          "bodyHtml": "<p>Email notification rules select device scope, alert severity, recipients, organization name, tenant link, and optional device details. RBAC limits recipients and administrators to their device-group scope; only appropriately privileged administrators can create global rules.</p><ol><li>Create and name the rule.</li><li>Select all devices or specific device groups.</li><li>Select severity thresholds.</li><li>Add recipients and send a test email.</li><li>Save and periodically validate delivery.</li></ol><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/3-configure-alert-notifications\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Email notification rules</small></span></a>"
+        },
+        {
+          "id": "p2m8-u4",
+          "number": "04 / 07",
+          "title": "Manage alert suppression",
+          "bodyHtml": "<p>Alert tuning suppresses known benign patterns such as approved tools or processes. Rules can be enabled, disabled, edited, or deleted under Settings &gt; Microsoft Defender XDR &gt; Rules &gt; Alert tuning. Changes can optionally release previously suppressed alerts.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> tune a narrowly understood false-positive pattern—never suppress an alert category broadly just to reduce volume.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/4-manage-alert-suppression\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert tuning rules</small></span></a>"
+        },
+        {
+          "id": "p2m8-u5",
+          "number": "05 / 07",
+          "title": "Manage indicators",
+          "bodyHtml": "<p>Indicators define allow, audit, warn, block, or block-and-remediate behavior according to entity type. Supported entities include file hashes, external IP addresses, URLs/domains, and certificates. Scope and expiration reduce operational risk.</p><table><thead><tr><th>Indicator</th><th>Typical actions / prerequisites</th></tr></thead><tbody><tr><td>File</td><td>Allow, audit, warn, block execution, block and remediate; cloud protection and supported Defender AV required.</td></tr><tr><td>IP / URL / domain</td><td>Allow, audit, warn, block; Network Protection and custom network indicators required. Internal IPs and CIDR ranges are not supported in the lesson.</td></tr><tr><td>Certificate</td><td>Allow or block leaf certificates; requires supported AV and cloud protection.</td></tr></tbody></table><p>Indicators are honored by cloud detection, endpoint prevention, and automated investigation. They can be created contextually, manually, or imported by CSV.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/5-manage-indicators\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>IoC types, actions, and prerequisites</small></span></a>"
+        },
+        {
+          "id": "p2m8-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Be ready to select the correct control: notification rule for awareness, alert tuning for a benign recurring pattern, or an indicator for explicit detection/prevention behavior.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Alerts and indicators knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m8-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Good detection engineering balances coverage and precision: notify the right responders, tune verified false positives, and scope time-bound indicators with documented intent.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/configure-settings-for-alerts-detections-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p2-module-9",
+      "number": 9,
+      "title": "Utilize Vulnerability Management in Microsoft Defender for Endpoint",
+      "focus": "Focus: continuous discovery, intelligence-driven prioritization, exposure analysis, and remediation workflow.",
+      "units": [
+        {
+          "id": "p2m9-u1",
+          "number": "01 / 06",
+          "title": "Introduction",
+          "bodyHtml": "<p>Defender Vulnerability Management identifies endpoint weaknesses and connects them to device, threat, and business context so security and IT teams can prioritize and track remediation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Vulnerability Management objectives</small></span></a>"
+        },
+        {
+          "id": "p2m9-u2",
+          "number": "02 / 06",
+          "title": "Understand vulnerability management",
+          "bodyHtml": "<p>The built-in sensor continuously discovers software, vulnerabilities, and configuration weaknesses without periodic network scanning. Prioritization combines exploit activity, active breaches, device value, sensitive data, application runtime, and organizational context.</p><div class=\"flow\" aria-label=\"Vulnerability management lifecycle\"><div class=\"flow-step\"><strong>1 · Discover</strong>Inventory software and configuration continuously.</div><div class=\"flow-step\"><strong>2 · Prioritize</strong>Combine technical severity with threat and business context.</div><div class=\"flow-step\"><strong>3 · Remediate</strong>Create IT tasks or apply alternate mitigations.</div><div class=\"flow-step\"><strong>4 · Track</strong>Monitor progress and exposure reduction.</div></div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/2-understand-threat-vulnerability-management\" target=\"_blank\" rel=\"noopener\"><span>Official lesson and video<small>Real-time discovery and prioritization</small></span></a>"
+        },
+        {
+          "id": "p2m9-u3",
+          "number": "03 / 06",
+          "title": "Explore vulnerabilities on your devices",
+          "bodyHtml": "<p>The Vulnerability Management area includes the dashboard, recommendations, remediation activities, inventories, weaknesses, and event timeline. Core MDE Plan 2 capabilities include discovery, inventories, vulnerability and configuration assessment, risk-based prioritization, remediation tracking, continuous monitoring, and software assessment; add-on or standalone licensing adds capabilities such as security baselines, browser-extension and certificate assessment, vulnerable-application blocking, and network-share analysis.</p><div class=\"takeaway\"><strong>Exam takeaway:</strong> exposure is not the same as incident risk. Exposure reflects weaknesses; risk reflects active alerts and suspected compromise.</div><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/3-explore-vulnerabilities-devices\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Portal areas and licensing</small></span></a>"
+        },
+        {
+          "id": "p2m9-u4",
+          "number": "04 / 06",
+          "title": "Manage remediation",
+          "bodyHtml": "<p>Create remediation activities from security recommendations, assign them to the appropriate IT workflow, define due dates and priority, and monitor status. When a patch is unavailable, use alternate mitigations such as configuration changes, feature restrictions, or compensating controls.</p><p>Validate completion through updated device telemetry and decreasing exposure rather than relying only on a ticket status.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/4-manage-remediation\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Remediation requests and tracking</small></span></a>"
+        },
+        {
+          "id": "p2m9-u5",
+          "number": "05 / 06",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Know how continuous sensor data, threat intelligence, device importance, recommendations, Intune/IT tasks, and remediation tracking form a risk-based vulnerability-management workflow.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Vulnerability Management knowledge check</small></span></a>"
+        },
+        {
+          "id": "p2m9-u6",
+          "number": "06 / 06",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Prioritize what is exploitable and important now, coordinate remediation with IT, apply compensating controls where necessary, and verify exposure reduction continuously.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-threat-vulnerability-management-microsoft-defender-for-endpoint/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "id": "path-1",
+  "number": 1,
+  "title": "Microsoft Defender XDR",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-mitigate-threats-using-microsoft-365-defender/",
+  "meta": "6 modules · 53 units · Defender XDR, Defender for Office 365, Entra ID Protection, Defender for Identity, and Defender for Cloud Apps",
+  "focusAreas": [
+    {
+      "title": "Incident operations",
+      "description": "Correlate, investigate, hunt, and remediate threats across Defender XDR."
+    },
+    {
+      "title": "Domain protection",
+      "description": "Protect email, identities, Active Directory, cloud apps, and sensitive data."
+    }
+  ],
+  "modules": [
+    {
+      "id": "module-1",
+      "number": 1,
+      "title": "Introduction to Microsoft Defender XDR threat protection",
+      "focus": "",
+      "units": [
+        {
+          "id": "xdr-unit-1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Microsoft Defender XDR is an integrated threat-protection suite. It detects activity across four domains: <strong>endpoints, identity, email, and applications</strong>. Correlation turns separate signals into a complete attack-chain story, helping analysts determine sequence, scope, affected entities, and remediation.</p>\n        <table>\n          <thead><tr><th>Domain</th><th>Examples</th><th>Security value</th></tr></thead>\n          <tbody>\n            <tr><td>Endpoint</td><td>Workstations and servers</td><td>Detect malicious processes, files, and device behavior</td></tr>\n            <tr><td>Identity</td><td>Users and Active Directory</td><td>Detect identity compromise and suspicious authentication activity</td></tr>\n            <tr><td>Email</td><td>Messages, links, attachments</td><td>Detect phishing and malicious content</td></tr>\n            <tr><td>Applications</td><td>Cloud apps and sessions</td><td>Detect risky activity and misuse of cloud resources</td></tr>\n          </tbody>\n        </table>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> XDR connects signals across domains to detect, investigate, and respond to attacks as unified incidents.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Introduction</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/defend-attack-chains.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Defender tools across attack chains</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-2",
+          "number": "02 / 07",
+          "title": "Explore XDR response use cases",
+          "bodyHtml": "<p>A malicious attachment can arrive through personal email or a USB drive and bypass the organization's protected email flow. When it runs, Microsoft Defender for Endpoint can still detect the payload. This illustrates defense in depth: one security domain can detect an attack that entered through another path.</p>\n        <div class=\"flow\" aria-label=\"Device risk and access flow\">\n          <div class=\"flow-step\"><strong>1 · Detect</strong>MDE detects malware and raises an alert.</div>\n          <div class=\"flow-step\"><strong>2 · Evaluate</strong>Intune receives the device-risk signal and marks it noncompliant.</div>\n          <div class=\"flow-step\"><strong>3 · Restrict</strong>Entra Conditional Access blocks corporate access.</div>\n          <div class=\"flow-step\"><strong>4 · Restore</strong>After remediation, compliance and access are restored.</div>\n        </div>\n        <h3>Remediation modes</h3>\n        <ul><li>Fully automated remediation</li><li>Automated remediation requiring analyst approval</li><li>Manual investigation and remediation</li></ul>\n        <p>Threat information can also enrich Microsoft Threat Intelligence and help other Microsoft products detect related variants across email, collaboration, Azure, and other parts of the attack surface. Continuous Access Evaluation (CAE) can apply access changes to supported active sessions.</p>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> MDE detects device risk → Intune evaluates compliance → Entra Conditional Access restricts or restores access.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/2-explore-extended-detection-response-use-cases\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>XDR response use cases</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/compromised-endpoint.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Detection of a compromised endpoint</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/suspend-access-compromise.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Suspending access during compromise</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-3",
+          "number": "03 / 07",
+          "title": "Defender XDR in a Security Operations Center",
+          "bodyHtml": "<p>Defender XDR provides integrated detection and response across Microsoft security domains; Microsoft Sentinel can supply broader SIEM visibility and context. Team structure depends on organization size, and tier labels describe specialized functions rather than a ranking of value.</p>\n        <table>\n          <thead><tr><th>Function</th><th>Primary focus</th><th>Typical work</th></tr></thead>\n          <tbody>\n            <tr><td>Tier 1 · Triage</td><td>High-volume reactive alerts</td><td>Rapid review, automated remediation approval, escalation of anomalies</td></tr>\n            <tr><td>Tier 2 · Investigation</td><td>Lower-volume complex incidents</td><td>Behavioral alerts, multistage attacks, critical assets, advanced remediation</td></tr>\n            <tr><td>Tier 3 · Hunting</td><td>Proactive, hypothesis-driven analysis</td><td>Find missed threats, advanced forensics, improve detections and automation</td></tr>\n            <tr><td>Threat intelligence</td><td>Context for all functions</td><td>Research actors, campaigns, trends, techniques, and strategic risk</td></tr>\n          </tbody>\n        </table>\n        <p>Microsoft recommends a high-quality alert feed—approximately <strong>90% true positives</strong> for alerts requiring analyst response. Automation reduces repetitive work, and integration gives analysts a single console for endpoint, email, identity, and application evidence.</p>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> Tier 1 triages, Tier 2 investigates, Tier 3 hunts, and threat intelligence enriches every stage.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/3-understand-defender-security-operations-center\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Defender XDR in a SOC</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/security-operations.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Security operations layers and technologies</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/security-operations-model.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Security operations functions and tools</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-4",
+          "number": "04 / 07",
+          "title": "Explore Microsoft Security Graph",
+          "bodyHtml": "<p>Microsoft Graph is a unified programming model for data across Microsoft 365, Windows, and Enterprise Mobility + Security. REST APIs and SDKs use the single endpoint <code>https://graph.microsoft.com</code>.</p>\n        <p>The Microsoft Graph Security API acts as a broker: it federates a request to applicable security providers, aggregates their responses, and returns a common schema. This supports alert correlation, SIEM streaming, threat-indicator submission, investigation context, reporting, and SecOps automation.</p>\n        <ul><li><strong>v1.0:</strong> stable API surface for production use.</li><li><strong>beta:</strong> preview capabilities that may change without notice.</li></ul>\n        <h3>Advanced hunting through Microsoft Graph</h3>\n        <pre><code>POST https://graph.microsoft.com/v1.0/security/runHuntingQuery\n{\n  \"Query\": \"DeviceProcessEvents\n    | where InitiatingProcessFileName =~ &quot;powershell.exe&quot;\n    | project Timestamp, FileName, InitiatingProcessFileName\n    | order by Timestamp desc\n    | limit 2\"\n}</code></pre>\n        <p>The KQL query searches device process events, filters for PowerShell as the initiating process, selects three fields, sorts newest first, and returns two rows.</p>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> Microsoft Graph is the broad API model; the Graph Security API unifies security providers; <code>runHuntingQuery</code> executes KQL advanced hunting.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/4-explore-microsoft-security-graph\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Microsoft Security Graph</small></span></a>\n          <a class=\"resource\" href=\"https://developer.microsoft.com/en-us/graph/graph-explorer\" target=\"_blank\" rel=\"noopener\"><span>Graph Explorer<small>Run and test Microsoft Graph requests</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/graph/security-concept-overview\" target=\"_blank\" rel=\"noopener\"><span>Graph Security API overview<small>Microsoft documentation</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/graph-security-overview-diagram.png\" target=\"_blank\" rel=\"noopener\"><span>Official diagram<small>Graph Security architecture</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/wwl-sci/introduction-microsoft-365-threat-protection/media/graph-explorer-hunting-kql-query-2023-06-08.png\" target=\"_blank\" rel=\"noopener\"><span>Official screenshot<small>Advanced hunting in Graph Explorer</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-5",
+          "number": "05 / 07",
+          "title": "Investigate security incidents in Defender XDR",
+          "bodyHtml": "<p>This unit delegates its practical content to an interactive Microsoft cloud guide. It demonstrates Defender XDR and Microsoft Sentinel working together during an investigation in a hybrid environment.</p>\n        <ol><li>Review the unified incident and related alerts.</li><li>Examine the attack timeline, evidence, and affected entities.</li><li>Determine scope, entry point, and current status.</li><li>Use Sentinel data when broader hybrid-environment context is needed.</li><li>Contain and remediate the threat, document findings, and close or escalate.</li></ol>\n        <div class=\"takeaway\"><strong>Exam takeaway:</strong> Defender XDR supplies cross-domain detection and response; Sentinel supplies wider SIEM context and orchestration.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/5-investigate-security-incident-defender\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Incident investigation</small></span></a>\n          <a class=\"resource\" href=\"https://mslearn.cloudguides.com/guides/Investigate%20security%20incidents%20in%20a%20hybrid%20environment%20with%20Azure%20Sentinel\" target=\"_blank\" rel=\"noopener\"><span>Interactive cloud guide<small>Unified SIEM and XDR investigation</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<div class=\"answer\"><strong>Active Directory domain compromise → Microsoft Defender for Identity</strong><br>Monitors identity signals and activity associated with on-premises Active Directory.</div>\n        <div class=\"answer\"><strong>Phishing email → Microsoft Defender for Office 365</strong><br>Protects email and collaboration workloads against malicious links, attachments, and phishing.</div>\n        <div class=\"answer\"><strong>Malware installation → Microsoft Defender for Endpoint</strong><br>Detects and responds to malicious behavior occurring on endpoint devices.</div>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/6-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Three knowledge-check questions</small></span></a>\n        </div>"
+        },
+        {
+          "id": "xdr-unit-7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<ul>\n          <li>Defender XDR correlates endpoint, identity, email, and application signals.</li>\n          <li>Unified incidents provide a clearer attack story and improve response.</li>\n          <li>A modern SOC combines triage, investigation, threat hunting, and threat intelligence.</li>\n          <li>Sentinel can add broader SIEM visibility to an XDR investigation.</li>\n          <li>Microsoft Graph enables programmatic security integration and automation.</li>\n        </ul>\n        <div class=\"resources\">\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-threat-protection/7-summary-resources\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Summary and resources</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/security/adoption/mcra\" target=\"_blank\" rel=\"noopener\"><span>Cybersecurity Reference Architectures<small>Microsoft MCRA</small></span></a>\n          <a class=\"resource\" href=\"https://www.youtube.com/watch?v=6iYxNm3TOiI\" target=\"_blank\" rel=\"noopener\"><span>MCRA prerecorded guidance<small>Related Microsoft video on YouTube</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/defender-xdr/microsoft-365-defender\" target=\"_blank\" rel=\"noopener\"><span>What is Microsoft Defender XDR?<small>Product documentation</small></span></a>\n          <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/graph/security-concept-overview\" target=\"_blank\" rel=\"noopener\"><span>Graph Security API overview<small>API documentation</small></span></a>\n        </div>"
+        }
+      ]
+    },
+    {
+      "id": "module-2",
+      "number": 2,
+      "title": "Mitigate incidents using Microsoft Defender",
+      "focus": "Focus: unified incident management, automated investigation and response, advanced hunting, reporting, and Defender portal configuration.",
+      "units": [
+        {
+          "id": "m2-u1",
+          "number": "01 / 15",
+          "title": "Introduction",
+          "bodyHtml": "<p>Defender XDR coordinates pre- and post-breach detection, prevention, investigation, and response. The Defender portal correlates alerts from Endpoint, Identity, Cloud Apps, and other workloads into incidents so analysts can see entry point, scope, impact, and root cause.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> an incident is the cross-product attack story; an alert is one detection within that story.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Introduction</small></span></a>"
+        },
+        {
+          "id": "m2-u2",
+          "number": "02 / 15",
+          "title": "Use the Microsoft Defender portal",
+          "bodyHtml": "<p><code>security.microsoft.com</code> is the central workspace for email, collaboration, identity, endpoint, application, vulnerability, IoT, and Sentinel-connected security. Home-page content is role-aware through RBAC.</p>\n      <ul><li>Unified RBAC maps legacy workload permissions into common groups for security data, response, posture, and settings.</li><li>Apply least privilege; reserve Global Administrator for emergency scenarios.</li><li>Sentinel integration synchronizes Defender XDR incidents and advanced-hunting events.</li><li>Related portals remain accessible through More resources.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> know the difference between portal unification and workload-specific permissions.</div>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/2-use-microsoft-security-center-portal\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Portal and unified RBAC</small></span></a><a class=\"resource\" href=\"https://security.microsoft.com/\" target=\"_blank\" rel=\"noopener\"><span>Microsoft Defender portal<small>Requires tenant access</small></span></a></div>"
+        },
+        {
+          "id": "m2-u3",
+          "number": "03 / 15",
+          "title": "Manage incidents",
+          "bodyHtml": "<p>An incident aggregates correlated alerts affecting devices, users, mailboxes, and apps. The queue normally shows the last 30 days and supports prioritization by severity, impacted assets, alert sources, tactics, status, and assignment.</p>\n      <ul><li>Manage ownership, status, tags, name, classification, and determination.</li><li>Classifications include true positive, false positive, and informational/expected activity categories.</li><li>Automatic investigation may resolve supported alerts; analysts can add remediation.</li><li>Incident naming summarizes affected endpoints, users, sources, or categories.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> accurate classification improves alert quality and future correlation.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/3-manage-incidents\" target=\"_blank\" rel=\"noopener\"><span>Official lesson + embedded video<small>Incident management overview</small></span></a>"
+        },
+        {
+          "id": "m2-u4",
+          "number": "04 / 15",
+          "title": "Investigate incidents",
+          "bodyHtml": "<p>The incident overview exposes attack categories mapped to MITRE ATT&amp;CK, impacted assets, alert chronology, evidence, and remediation status. Pivot through Alerts, Devices, Users, Mailboxes, Apps, Investigations, Evidence and Responses, and the Incident graph.</p>\n      <ul><li>Evidence verdicts: Malicious, Suspicious, or Clean.</li><li>The graph shows entry point, indicators, entities, and relationships.</li><li>Blast radius analysis combines post-breach impact with possible pre-breach propagation to critical assets.</li><li>Blast radius requires Sentinel data lake/graph and appropriate unified RBAC.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> use timeline and graph for sequence; use evidence status and entity tabs for scope and remediation.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/4-investigate-incidents\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Incident investigation and blast radius</small></span></a>"
+        },
+        {
+          "id": "m2-u5",
+          "number": "05 / 15",
+          "title": "Manage and investigate alerts",
+          "bodyHtml": "<p>Alert management includes severity, category, incident linkage, assignment, status, classification, determination, comments, and history. Severity reflects organizational impact, not only the absolute malware severity on one device.</p>\n      <ul><li>Statuses: New, In progress, Resolved.</li><li>Categories align closely with MITRE ATT&amp;CK tactics, plus categories such as Malware, Ransomware, and Unwanted software.</li><li>Suppression can apply to one device or the organization and affects only future matching alerts.</li><li>The alert story explains why the alert fired and shows related entities and events.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> resolve and classify alerts after investigation; use narrow suppression for known benign activity.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/5-manage-investigate-alerts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Alert metadata, story, actions, and suppression</small></span></a>"
+        },
+        {
+          "id": "m2-u6",
+          "number": "06 / 15",
+          "title": "Manage automated investigations",
+          "bodyHtml": "<p>Automated investigation and remediation (AIR) applies analyst-like playbooks to inspect alerts, expand across related devices, assign evidence verdicts, and take or recommend remediation actions.</p>\n      <ul><li>Views: graph, alerts, devices, evidence, entities, log, and pending actions.</li><li>Verdicts: Malicious, Suspicious, No threats found.</li><li>Actions can quarantine files, stop services, remove scheduled tasks, and more.</li><li>Full automation is recommended; semi-automation requires approval based on configured folder scope.</li><li>Expansion to ten or more devices from the same entity requires approval.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> automation level determines whether AIR remediation is automatic or waits for approval.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/6-manage-automated-investigations\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>AIR workflow and automation levels</small></span></a>"
+        },
+        {
+          "id": "m2-u7",
+          "number": "07 / 15",
+          "title": "Use the action center",
+          "bodyHtml": "<p>The unified Action center tracks remediation for devices, email/collaboration content, and identities. <strong>Pending</strong> contains actions awaiting approval; <strong>History</strong> is the audit trail for automated, approved, Live Response, and antivirus actions.</p>\n      <ul><li>Approve or reject pending remediation after reviewing evidence and investigation context.</li><li>Some completed actions, including file quarantine, can be undone.</li><li>Always verify whether an action is pending, completed, failed, or reversible.</li></ul>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/7-use-action-center\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Pending and historical remediation actions</small></span></a>"
+        },
+        {
+          "id": "m2-u8",
+          "number": "08 / 15",
+          "title": "Explore advanced hunting",
+          "bodyHtml": "<p>Advanced hunting uses KQL to query up to 30 days of raw Defender XDR data across Endpoint, Office 365, Cloud Apps, and Identity. Event data arrives near real time; entity data refreshes incrementally and consolidates daily. Timestamps are UTC.</p>\n      <ul><li>Learn schema families: <code>Device*</code>, <code>Email*</code>, <code>Identity*</code>, <code>CloudAppEvents</code>, <code>AlertInfo</code>, and <code>AlertEvidence</code>.</li><li>Custom detection queries must return <code>Timestamp</code>, <code>DeviceId</code>, and <code>ReportId</code> for device-based actions.</li><li>Rules can run every 24/12/3/1 hours or continuously (NRT), create alerts, and act on devices or files.</li><li>Hunting graph visualizes nodes and relationships for lateral movement and exposure analysis.</li></ul>\n      <pre><code>DeviceEvents\n| where Timestamp &gt; ago(7d)\n| where ActionType == \"AntivirusDetection\"\n| summarize (Timestamp, ReportId)=arg_max(Timestamp, ReportId), count() by DeviceId\n| where count_ &gt; 5</code></pre>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> choose the correct table, preserve required event identifiers, tune results, then configure frequency, entities, actions, and scope.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/8-explore-advanced-hunting\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>KQL, custom detections, and Hunting graph</small></span></a>"
+        },
+        {
+          "id": "m2-u9",
+          "number": "09 / 15",
+          "title": "Investigate Microsoft Entra sign-in logs",
+          "bodyHtml": "<table><thead><tr><th>Location</th><th>KQL table</th></tr></thead><tbody><tr><td>Defender XDR Advanced Hunting</td><td><code>AADSignInEventsBeta</code></td></tr><tr><td>Entra ID Log Analytics</td><td><code>SigninLogs</code></td></tr></tbody></table>\n      <p>Review date, user, application, status, Conditional Access result, location, device, and authentication details.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/9-investigate-azure-ad-sign-in-logs\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Sign-in log investigation</small></span></a>"
+        },
+        {
+          "id": "m2-u10",
+          "number": "10 / 15",
+          "title": "Understand Microsoft Secure Score",
+          "bodyHtml": "<p>Secure Score measures security posture and the implementation of recommended actions across identities, apps, devices, email, and third-party integrations. It is an Exposure Management tool—not proof that the organization is breach-free.</p>\n      <p>Recommended-action states include To address, Planned, Risk accepted, Resolved through third party, Resolved through alternate mitigation, and Completed.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> a higher score means more recommendations addressed; use the recommendations to prioritize posture improvements.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/10-understand-microsoft-secure-score\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Secure Score and recommended actions</small></span></a>"
+        },
+        {
+          "id": "m2-u11",
+          "number": "11 / 15",
+          "title": "Threat Intelligence Briefing Agent",
+          "bodyHtml": "<p>The embedded Security Copilot agent generates prioritized briefings from recent threat-actor activity and organizational vulnerability context. It can summarize threats, exposures, and business impact, retain reports in Security Copilot Activity, and expose its activity for review.</p>\n      <ul><li>Requires Security Copilot, Microsoft Threat Intelligence plugins, Defender Vulnerability Management access, and appropriate Security Reader/Admin permissions.</li><li>Briefings can be copied or downloaded as Markdown.</li><li>Analysts should review agent reasoning and provide feedback.</li></ul>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/11-analyze-threat-analytics\" target=\"_blank\" rel=\"noopener\"><span>Official lesson + embedded video<small>Threat Intelligence Briefing Agent</small></span></a>"
+        },
+        {
+          "id": "m2-u12",
+          "number": "12 / 15",
+          "title": "Analyze reports",
+          "bodyHtml": "<p>The Reports blade centralizes security trends plus endpoint and email/collaboration reports. Key endpoint reports cover threat protection, device health, vulnerable devices, web protection, firewall, device control, and attack surface reduction. Email reports can be scheduled or downloaded.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/12-analyze-reports\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Defender reports</small></span></a>"
+        },
+        {
+          "id": "m2-u13",
+          "number": "13 / 15",
+          "title": "Configure the Microsoft Defender portal",
+          "bodyHtml": "<p>Defender XDR email notifications have two primary types: <strong>Incidents</strong> for newly created incidents and <strong>Threat Analytics</strong> for new reports. Configure criteria and recipients under Settings → Microsoft Defender XDR → Email notifications.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/13-configure-microsoft-365-defender-portal\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Email notification rules</small></span></a>"
+        },
+        {
+          "id": "m2-u14",
+          "number": "14 / 15",
+          "title": "Module assessment",
+          "bodyHtml": "<div class=\"answer\"><strong>Incident-page tab → Assets</strong></div><div class=\"answer\"><strong>Incident classification → True positive</strong></div><div class=\"answer\"><strong>Devices page source → Microsoft Defender for Endpoint</strong></div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/14-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Three questions</small></span></a>"
+        },
+        {
+          "id": "m2-u15",
+          "number": "15 / 15",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>You should be able to manage and investigate Defender XDR incidents and alerts, review automated actions, hunt with KQL, and configure the portal.</p>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/mitigate-incidents-microsoft-365-defender/15-summary-resources\" target=\"_blank\" rel=\"noopener\"><span>Official summary<small>Module resources</small></span></a><a class=\"resource\" href=\"https://attack.mitre.org/matrices/enterprise/\" target=\"_blank\" rel=\"noopener\"><span>MITRE ATT&amp;CK Enterprise<small>External framework referenced by Microsoft</small></span></a></div>"
+        }
+      ]
+    },
+    {
+      "id": "module-3",
+      "number": 3,
+      "title": "Remediate threats using Microsoft Defender",
+      "focus": "Focus: Defender for Office 365, AIR, Safe Attachments, Safe Links, anti-phishing, Security Copilot phishing triage, and attack simulation.",
+      "units": [
+        {
+          "id": "m3-u1",
+          "number": "01 / 06",
+          "title": "Introduction to Defender for Office 365",
+          "bodyHtml": "<p>Defender for Office 365 is a cloud email-security service providing zero-day malware protection, time-of-click URL defense, investigation, reporting, automated response, and user training. It can protect Exchange Online, on-premises SMTP environments, and hybrid deployments.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Defender for Office 365 capabilities</small></span></a>"
+        },
+        {
+          "id": "m3-u2",
+          "number": "02 / 06",
+          "title": "Automate, investigate, and remediate",
+          "bodyHtml": "<p>Office 365 AIR playbooks start automatically from alerts or manually from Explorer. The investigation graph correlates URLs, messages, users, sign-ins, devices, and activities.</p>\n      <ul><li>Possible actions: soft-delete messages/clusters, block URLs at time of click, disable external forwarding, and remove delegation.</li><li>Compromised-user workflows can trigger password reset and MFA.</li><li>Actions may run automatically or await approval in Pending actions.</li></ul>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/automate-investigate-remediate\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Office 365 AIR and remediation</small></span></a>"
+        },
+        {
+          "id": "m3-u3",
+          "number": "03 / 06",
+          "title": "Configure, protect, and detect",
+          "bodyHtml": "<h3>Safe Attachments</h3><p>Unknown attachments are detonated in an isolated environment. Actions include Off, Monitor, Block, Replace, and Dynamic delivery. Dynamic delivery releases the body first and attaches the file only after a safe verdict.</p>\n      <h3>Safe Links</h3><p>URLs are rewritten and checked at click time across email, Office apps, and Teams. Policies can scan downloadable content, protect internal messages, track clicks, prevent user click-through, and exclude trusted URLs.</p>\n      <h3>Anti-phishing</h3><p>Policies detect user/domain impersonation and spoofing using machine-learning models, protected users/domains, actions, safety tips, and trusted senders.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> Safe Attachments protects files; Safe Links protects URLs; anti-phishing protects against spoofing and impersonation.</div>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/configure-protect-detect\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Policies and embedded interactive guide</small></span></a><a class=\"resource\" href=\"https://learn-video.azurefd.net/vod/player?id=cc42e343-a62c-4135-afd2-fd20eb0471a9\" target=\"_blank\" rel=\"noopener\"><span>Microsoft video resource<small>Safeguard with Defender for Office 365</small></span></a><a class=\"resource\" href=\"https://mslearn.cloudguides.com/guides/Safeguard%20your%20organization%20with%20Microsoft%20Defender%20for%20Office%20365\" target=\"_blank\" rel=\"noopener\"><span>Interactive cloud guide<small>Defender for Office 365 walkthrough</small></span></a></div>"
+        },
+        {
+          "id": "m3-u4",
+          "number": "04 / 06",
+          "title": "Security Copilot Phishing Triage Agent",
+          "bodyHtml": "<p>The agent analyzes user-reported suspicious messages, applies contextual LLM reasoning, and classifies alerts as true phishing threats or false positives. It records rationale, assigns itself, tags incidents, resolves false positives, and leaves true positives open for analyst action.</p>\n      <ul><li>Requires Security Copilot capacity, Defender for Office 365 Plan 2, unified RBAC, user-reported message monitoring, and the relevant alert policy.</li><li>Suppressed alerts are not classified by the agent.</li><li>Analyst feedback helps improve future classifications.</li></ul>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/phishing-triage-agent\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Phishing Triage Agent</small></span></a><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/defender-xdr/phishing-triage-agent\" target=\"_blank\" rel=\"noopener\"><span>Product documentation + video<small>Requirements, flow, and feedback</small></span></a></div>"
+        },
+        {
+          "id": "m3-u5",
+          "number": "05 / 06",
+          "title": "Simulate attacks",
+          "bodyHtml": "<p>Threat Explorer analyzes recent threats, families, targeted users, sender data, delivery action, and user interaction. Attack Simulation Training runs realistic scenarios such as spear phishing, credential harvest, malicious attachments, password spray, and brute force to identify weaknesses and train users.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/simulate-attacks\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Threat Explorer and attack simulations</small></span></a>"
+        },
+        {
+          "id": "m3-u6",
+          "number": "06 / 06",
+          "title": "Summary and knowledge check",
+          "bodyHtml": "<div class=\"answer\"><strong>Requires endpoint agent → False</strong><br>Defender for Office 365 is a cloud email-security service.</div><div class=\"answer\"><strong>Safe Attachments → routes messages and attachments to an isolated analysis environment</strong></div><div class=\"answer\"><strong>Not an Attack Simulator scenario → Bitcoin mining</strong></div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-remediate/summary-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Summary and three questions</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "module-4",
+      "number": 4,
+      "title": "Manage Microsoft Entra Identity Protection",
+      "focus": "Focus: identity risk detection, risk-based Conditional Access, MFA registration, risky-user investigation, workload identities, and identity-risk agents.",
+      "units": [
+        {
+          "id": "m4-u1",
+          "number": "01 / 11",
+          "title": "Introduction",
+          "bodyHtml": "<p>Identity Protection analyzes user behavior and sign-in patterns to detect identity risk. The module covers risk detections, user and sign-in risk policies, MFA registration, investigation, workload identities, Defender for Identity, and the Identity Risk Management Agent.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson + embedded video<small>Identity Protection overview</small></span></a>"
+        },
+        {
+          "id": "m4-u2",
+          "number": "02 / 11",
+          "title": "Review Identity Protection basics",
+          "bodyHtml": "<p>Identity Protection automates detection/remediation, supports portal investigation, and exports risk data to SIEM and third-party tools. Full capabilities require Microsoft Entra ID Premium P2.</p>\n      <table><thead><tr><th>Risk detection</th><th>Meaning</th></tr></thead><tbody><tr><td>Anonymous or malicious IP</td><td>Sign-in from anonymizers or known malicious infrastructure</td></tr><tr><td>Atypical travel / unfamiliar properties</td><td>Sign-in differs from the user's normal location, device, browser, or network</td></tr><tr><td>Leaked credentials / password spray</td><td>Credentials exposed or common passwords tried across accounts</td></tr><tr><td>Anomalous token / issuer anomaly</td><td>Suspicious token properties, replay, or SAML issuer behavior</td></tr><tr><td>Threat intelligence</td><td>Activity matches known Microsoft threat patterns or actors</td></tr></tbody></table>\n      <p>Security Administrator has broad Identity Protection access; Security Operator can investigate and confirm safe/compromised activity but cannot configure policies or reset passwords; Security Reader is read-only.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> risk signals feed Conditional Access decisions; P2 unlocks risk policies and full reports.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/2-review-identity-protection-basics\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Risks, roles, and licensing</small></span></a>"
+        },
+        {
+          "id": "m4-u3",
+          "number": "03 / 11",
+          "title": "Implement and manage user risk policy",
+          "bodyHtml": "<ul><li><strong>Sign-in risk</strong> estimates whether a specific authentication was performed by someone other than the legitimate user.</li><li><strong>User risk</strong> estimates whether the account itself is compromised.</li></ul>\n      <p>For self-remediation, users must be registered for MFA and SSPR. Microsoft recommends a user-risk threshold of High and a sign-in-risk threshold of Medium and above. Exclude emergency access accounts and review exclusions regularly.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/3-implement-manage-user-risk-policy\" target=\"_blank\" rel=\"noopener\"><span>Official lesson + embedded video<small>Risk policy design and rollout</small></span></a>"
+        },
+        {
+          "id": "m4-u4",
+          "number": "04 / 11",
+          "title": "Exercise: enable risk policies",
+          "bodyHtml": "<div class=\"flow\" aria-label=\"Risk policy controls\"><div class=\"flow-step\"><strong>User risk</strong>High risk → require secure password change.</div><div class=\"flow-step\"><strong>Sign-in risk</strong>Medium and above → require MFA.</div><div class=\"flow-step\"><strong>Assignments</strong>Scope users/groups and exclude emergency accounts.</div><div class=\"flow-step\"><strong>Deployment</strong>Test, enable, monitor, and tune.</div></div>\n      <p>Use the Entra admin center under Identity → Protection → Identity Protection. The lesson UI also shows block controls, but Microsoft's self-remediation recommendation is to allow access with password change for user risk and MFA for sign-in risk.</p>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/4-exercise-enable-sign-risk-policy\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>User and sign-in risk policies</small></span></a><a class=\"resource\" href=\"https://entra.microsoft.com/\" target=\"_blank\" rel=\"noopener\"><span>Microsoft Entra admin center<small>Requires tenant access</small></span></a></div>"
+        },
+        {
+          "id": "m4-u5",
+          "number": "05 / 11",
+          "title": "Exercise: MFA registration policy",
+          "bodyHtml": "<p>MFA registration policy ensures users register a second authentication factor before a risky event occurs. Under Identity Protection, assign users/groups, retain the fixed control <em>Require Microsoft Entra ID multifactor authentication registration</em>, enable the policy, and save.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> registration is a prerequisite for users to satisfy MFA and self-remediate risk.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/5-exercise-configure-multi-factor-authentication-registration-policy\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>MFA registration policy</small></span></a>"
+        },
+        {
+          "id": "m4-u6",
+          "number": "06 / 11",
+          "title": "Monitor, investigate, and remediate risky users",
+          "bodyHtml": "<table><thead><tr><th>Report</th><th>Purpose</th><th>Retention shown</th></tr></thead><tbody><tr><td>Risky users</td><td>User risk state, history, detections, and remediation</td><td>Current/history view</td></tr><tr><td>Risky sign-ins</td><td>Risk, Conditional Access, MFA, device, app, and location</td><td>Up to 30 days</td></tr><tr><td>Risk detections</td><td>Individual detection types, location, and related risks</td><td>Up to 90 days</td></tr></tbody></table>\n      <p>Remediation options include policy-based self-remediation, password reset, confirming compromise/safety, dismissing risk, blocking sign-in, or closing individual detections. Dismissing risk closes events but does not change an exposed password, so use it only when the risk is known to be false or otherwise handled.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> MFA + SSPR enable self-remediation; investigate before dismissing risk.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/6-monitor-investigate-remediate-elevated-risky-users\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Reports, investigation, remediation, and Graph APIs</small></span></a>"
+        },
+        {
+          "id": "m4-u7",
+          "number": "07 / 11",
+          "title": "Implement security for workload identities",
+          "bodyHtml": "<p>Workload identities represent applications, service principals, and managed identities. They cannot perform MFA, often lack lifecycle governance, and must store credentials, which increases risk.</p>\n      <ul><li>Risk detections include threat-intelligence matches, suspicious sign-ins, unusual OAuth credential additions, admin-confirmed compromise, and leaked credentials.</li><li>Requires Entra ID Premium P2 and a Security Administrator, Operator, or Reader role.</li><li>Conditional Access for workload identities can block risky single-tenant service principals; multi-tenant apps, third-party SaaS, and managed identities are outside that policy scope.</li></ul>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/7-implement-security-workload-identities\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Workload identity risk</small></span></a>"
+        },
+        {
+          "id": "m4-u8",
+          "number": "08 / 11",
+          "title": "Explore Microsoft Defender for Identity",
+          "bodyHtml": "<p>Defender for Identity uses on-premises Active Directory signals to detect compromised identities and insider threats. Sensors installed on domain controllers and AD FS observe traffic and authentication events, send parsed data to the cloud service, and surface incidents in the Defender portal.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/8-explore-microsoft-defender-identity\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>MDI process flow and components</small></span></a>"
+        },
+        {
+          "id": "m4-u9",
+          "number": "09 / 11",
+          "title": "Explore the Identity Risk Management Agent",
+          "bodyHtml": "<p>The Security Copilot agent scans at-risk users, investigates risky sign-ins and detections, generates a risk summary and verdict, and suggests remediation such as dismissing risk or resetting a password.</p>\n      <ul><li>Requires Entra ID P2, Security Compute Units, and appropriate roles.</li><li>Triggers: continuous (every five minutes), daily, or manual.</li><li>Scope: selected users/groups, risk level, up to 100 recent risky users, and up to 90 days.</li><li>Security Reader/Global Reader can view; Security Administrator activates and takes action.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> agent suggestions accelerate review but remain governed by scope, permissions, and analyst action.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/8a-identity-risk-management-agent\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Identity Risk Management Agent</small></span></a>"
+        },
+        {
+          "id": "m4-u10",
+          "number": "10 / 11",
+          "title": "Module assessment",
+          "bodyHtml": "<div class=\"answer\"><strong>Security Operator task → Confirm safe sign-in</strong></div><div class=\"answer\"><strong>Second directory risk policy → Sign-in risk policy</strong></div><div class=\"answer\"><strong>Graph APIs → riskDetection, riskyUsers, signIns</strong></div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/9-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Three questions</small></span></a>"
+        },
+        {
+          "id": "m4-u11",
+          "number": "11 / 11",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Review risk policies, combined MFA/SSPR registration, emergency access accounts, managed identities, risk remediation, notifications, and Defender for Identity.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/manage-azure-active-directory-identity-protection/10-summary-resources\" target=\"_blank\" rel=\"noopener\"><span>Official summary<small>Eight linked Microsoft resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "module-5",
+      "number": 5,
+      "title": "Safeguard your environment with Microsoft Defender for Identity",
+      "focus": "Focus: identity posture, sensors, Active Directory attack detection, investigation, remediation, and XDR integrations.",
+      "units": [
+        {
+          "id": "m5-u1",
+          "number": "01 / 05",
+          "title": "Introduction to Defender for Identity",
+          "bodyHtml": "<p>Defender for Identity monitors identity signals from on-premises AD, Entra ID, and supported providers. It builds behavioral baselines, detects anomalies, surfaces posture weaknesses in Secure Score, and identifies attack stages from reconnaissance to domain dominance.</p>\n      <ul><li>Reconnaissance: suspicious LDAP or SMB enumeration.</li><li>Credential compromise: brute force and password spray.</li><li>Lateral movement: pass-the-ticket and overpass-the-hash.</li><li>Domain dominance: DCShadow or rogue domain-controller behavior.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> MDI combines posture assessment with detection across the identity attack kill chain.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-safeguard/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Capabilities, posture, and attack techniques</small></span></a>"
+        },
+        {
+          "id": "m5-u2",
+          "number": "02 / 05",
+          "title": "Configure Defender for Identity sensors",
+          "bodyHtml": "<p>Sensors capture domain-controller network traffic, receive Windows and RADIUS events, resolve users/groups/computers, and send parsed security data to the cloud service.</p>\n      <ul><li>Manage under Defender portal → Settings → Identities → On-premises → Sensors.</li><li>Sensor types include domain controller, AD FS, standalone, Entra Connect, and AD CS.</li><li>Standalone sensors require monitored DC FQDNs and capture adapters; include at least one global catalog.</li><li>Validate the sensor service and error log; verify DNS-query activity as <code>MdiDnsQuery</code>.</li></ul>\n      <div class=\"resources\"><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-safeguard/configure-sensors\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Architecture, configuration, and validation</small></span></a><a class=\"resource\" href=\"https://security.microsoft.com/\" target=\"_blank\" rel=\"noopener\"><span>Defender portal<small>Sensor settings</small></span></a></div>"
+        },
+        {
+          "id": "m5-u3",
+          "number": "03 / 05",
+          "title": "Review compromised accounts or data",
+          "bodyHtml": "<p>MDI alerts include title, description, evidence, affected entities, and an Excel export. Investigation follows the attack chain: reconnaissance → credential compromise → lateral movement → domain dominance → exfiltration.</p>\n      <p>The lesson scenario connects SMB reconnaissance, overpass-the-hash, pass-the-ticket, remote command execution, and creation of a privileged account. The key skill is correlating separate identity alerts into a coherent sequence and identifying where containment must occur.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-safeguard/review-compromised-accounts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Compromised-domain investigation scenario</small></span></a>"
+        },
+        {
+          "id": "m5-u4",
+          "number": "04 / 05",
+          "title": "Integrate with other Microsoft tools",
+          "bodyHtml": "<p>MDI contributes on-premises and Entra identity signals directly to Defender XDR's unified incidents and graphs. Defender for Endpoint adds device-process context; Defender for Cloud Apps adds cloud activity; Security Copilot supports natural-language triage.</p>\n      <p>Other supported integrations include PAM platforms such as CyberArk, Delinea, and BeyondTrust, plus Okta identity activity.</p>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> MDI integration is native in Defender XDR—identity, endpoint, and cloud alerts are automatically correlated.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-safeguard/integrate-microsoft-tools\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>XDR, Endpoint, Cloud Apps, PAM, Okta, and Copilot</small></span></a>"
+        },
+        {
+          "id": "m5-u5",
+          "number": "05 / 05",
+          "title": "Summary and knowledge check",
+          "bodyHtml": "<div class=\"answer\"><strong>Requires on-premises Active Directory → True</strong><br>The sensor-based core protection monitors on-premises identity infrastructure.</div><div class=\"answer\"><strong>Advanced threat category → Reconnaissance</strong></div><div class=\"answer\"><strong>Not listed as an MDI integration → Intune</strong></div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/m365-threat-safeguard/summary-knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Summary and three questions</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "module-6",
+      "number": 6,
+      "title": "Secure your cloud apps and services with Microsoft Defender for Cloud Apps",
+      "focus": "Focus: CASB architecture, Cloud Discovery, Conditional Access App Control, information protection, and anomaly detection.",
+      "units": [
+        {
+          "id": "m6-u1",
+          "number": "01 / 09",
+          "title": "Introduction",
+          "bodyHtml": "<p>Defender for Cloud Apps balances cloud productivity with visibility, control over data movement, and threat analytics. The module covers Shadow IT discovery, real-time access/session controls, sensitive-information protection, and anomaly detection.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Cloud Apps objectives</small></span></a>"
+        },
+        {
+          "id": "m6-u2",
+          "number": "02 / 09",
+          "title": "Understand the Defender for Cloud Apps framework",
+          "bodyHtml": "<p>Defender for Cloud Apps is a cloud access security broker (CASB)—an enforcement point between users and cloud providers. Its four framework pillars are:</p>\n      <ol><li><strong>Discover and control Shadow IT</strong> across SaaS, IaaS, and PaaS.</li><li><strong>Protect sensitive information</strong> with classification and DLP.</li><li><strong>Protect against threats and anomalies</strong> with UEBA, machine learning, and rules.</li><li><strong>Assess cloud-app compliance</strong> against organizational and regulatory requirements.</li></ol>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> remember the four pillars and the CASB intermediary role.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/cloud-app-security-framework\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>CASB and four-part framework</small></span></a>"
+        },
+        {
+          "id": "m6-u3",
+          "number": "03 / 09",
+          "title": "Explore cloud apps with Cloud Discovery",
+          "bodyHtml": "<p>Cloud Discovery analyzes traffic logs against a catalog of more than 16,000 apps and scores them using over 80 risk factors. The dashboard summarizes usage, alerts, risk, top users, source IPs, categories, and app headquarters.</p>\n      <ol><li>Review high-level usage and top users/IPs.</li><li>Analyze categories and sanctioned usage.</li><li>Inspect discovered apps and risk scores from 1–10.</li><li>Mark risky apps Unsanctioned.</li><li>Use Defender for Endpoint integration to block unsanctioned apps automatically.</li></ol>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> Cloud Discovery provides retrospective visibility; sanctioning controls known app risk.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/cloud-discovery\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Shadow IT dashboard and app risk</small></span></a>"
+        },
+        {
+          "id": "m6-u4",
+          "number": "04 / 09",
+          "title": "Conditional Access App Control",
+          "bodyHtml": "<p>Conditional Access App Control uses a reverse-proxy session to enforce controls in real time. Entra Conditional Access decides who, what, and where; eligible sessions are routed through Defender for Cloud Apps for access and session policies.</p>\n      <ul><li>Block download, copy, cut, or print on unmanaged devices.</li><li>Protect files on download with classification and encryption.</li><li>Block upload of unlabeled files.</li><li>Monitor risky sessions and user actions.</li><li>Block access or application-specific activities, such as Teams messages containing sensitive data.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> Conditional Access determines session routing; Cloud Apps applies real-time session controls.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/conditional-access-app-control\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Access and session policies</small></span></a>"
+        },
+        {
+          "id": "m6-u5",
+          "number": "05 / 09",
+          "title": "Walk through discovery and access control",
+          "bodyHtml": "<p>The walkthrough demonstrates Cloud Discovery and Conditional Access App Control in Defender XDR: discover app use, evaluate risk, route sessions through the proxy, and enforce controls on sensitive activity.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/walkthrough\" target=\"_blank\" rel=\"noopener\"><span>Official lesson + embedded video<small>Cloud app protection walkthrough</small></span></a>"
+        },
+        {
+          "id": "m6-u6",
+          "number": "06 / 09",
+          "title": "Classify and protect sensitive information",
+          "bodyHtml": "<div class=\"flow\" aria-label=\"Information protection phases\"><div class=\"flow-step\"><strong>1 · Discover</strong>Connect apps and scan data.</div><div class=\"flow-step\"><strong>2 · Classify</strong>Use sensitive information types and labels.</div><div class=\"flow-step\"><strong>3 · Protect</strong>Apply file policies and governance actions.</div><div class=\"flow-step\"><strong>4 · Monitor</strong>Investigate alerts and report.</div></div>\n      <p>File policies can alert, change sharing, quarantine, remove permissions, or move content to trash. Built-in DLP and Data Classification Services inspect content; Microsoft recommends DCS for unified Microsoft 365 labeling.</p>\n      <p>Common labels: Personal, Public, General, Confidential, and Highly confidential. Policies should use narrow filters to reduce false positives.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/classify-protect-sensitive-information\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Discovery, classification, protection, and monitoring</small></span></a>"
+        },
+        {
+          "id": "m6-u7",
+          "number": "07 / 09",
+          "title": "Detect threats",
+          "bodyHtml": "<p>Anomaly policies use UEBA and machine learning to compare activity with organizational and user baselines. The service learns the environment for the first seven days. Detection is nondeterministic and must be tuned to manage false positives.</p>\n      <ul><li>Risk factors include IP reputation, failures, admin activity, dormant accounts, location, impossible travel, device/user agent, and activity rate.</li><li>Detections include impossible travel, infrequent country, malware, ransomware, suspicious IPs, inbox forwarding, mass downloads, and unusual administration.</li><li>Discovery anomaly policies compare sudden usage, upload, download, transaction, or user increases with the app baseline.</li><li>Suppression and sensitivity settings help control alert fatigue.</li></ul>\n      <div class=\"takeaway\"><strong>Exam takeaway:</strong> anomaly detection depends on deviation from learned behavior—not a fixed signature alone.</div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/detect-threats\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>UEBA, anomaly policies, and tuning</small></span></a>"
+        },
+        {
+          "id": "m6-u8",
+          "number": "08 / 09",
+          "title": "Module assessment",
+          "bodyHtml": "<div class=\"answer\"><strong>At-a-glance app usage → Cloud Discovery Dashboard</strong></div><div class=\"answer\"><strong>Framework element → Discover and control Shadow IT</strong></div><div class=\"answer\"><strong>Conditional Access App Control feature → Protect on download</strong></div><div class=\"answer\"><strong>Send file for administrator review → Put in admin quarantine</strong></div><div class=\"answer\"><strong>Distant locations in a short time → Impossible travel</strong></div>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/knowledge-check\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Five questions</small></span></a>"
+        },
+        {
+          "id": "m6-u9",
+          "number": "09 / 09",
+          "title": "Summary",
+          "bodyHtml": "<p>You should be able to explain the CASB framework, discover and score Shadow IT, apply Conditional Access App Control, classify/protect sensitive information, and detect cloud anomalies.</p>\n      <a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/microsoft-cloud-app-security/summary\" target=\"_blank\" rel=\"noopener\"><span>Official summary<small>Cloud Apps module recap</small></span></a>"
+        }
+      ]
+    }
+  ]
+}

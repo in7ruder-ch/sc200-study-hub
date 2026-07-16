@@ -1,0 +1,725 @@
+{
+  "title": "SC-200 Exam Blueprint",
+  "effectiveDate": "July 28, 2026",
+  "officialUrl": "https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-200",
+  "domains": [
+    {
+      "id": "bp-domain-1",
+      "number": "01",
+      "title": "Manage a security operations environment",
+      "description": "Automation, Sentinel configuration, ingestion, and detection engineering",
+      "weight": "40–45%",
+      "groups": [
+        {
+          "id": "bp-domain-1-group-1",
+          "title": "Configure automation for Microsoft Defender XDR and Microsoft Sentinel",
+          "objectives": [
+            {
+              "id": "bp-objective-1",
+              "text": "Configure email notifications in Microsoft Defender XDR, including incidents, actions, and threat analytics.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-1"
+                },
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-2",
+              "text": "Configure alert notifications in Microsoft Defender XDR, including tuning, suppression, and correlation.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-3",
+              "text": "Configure Microsoft Defender for Endpoint advanced features.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-4",
+              "text": "Configure rules settings in Microsoft Defender for Endpoint.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-5",
+              "text": "Configure custom data collection in Microsoft Defender for Endpoint.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-6",
+              "text": "Configure security policies for Microsoft Defender for Endpoint, including attack surface reduction rules.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-3"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-7",
+              "text": "Manage automated investigation and response capabilities in Microsoft Defender XDR.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                },
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-7"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-8",
+              "text": "Configure automatic attack disruption in Microsoft Defender XDR.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-9",
+              "text": "Configure and manage device groups, permissions, and automation levels in Microsoft Defender for Endpoint.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-7"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-10",
+              "text": "Create and configure automation rules in Microsoft Sentinel.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-11",
+              "text": "Create and configure Microsoft Sentinel playbooks.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-1-group-2",
+          "title": "Configure the Microsoft Sentinel SIEM and platform",
+          "objectives": [
+            {
+              "id": "bp-objective-12",
+              "text": "Specify Microsoft Sentinel roles.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-5",
+                  "moduleId": "p5-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-13",
+              "text": "Manage data retention for XDR and Microsoft Sentinel tables, including Analytics, Data Lake, and XDR tiers.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-5",
+                  "moduleId": "p5-module-2"
+                },
+                {
+                  "pathId": "path-8",
+                  "moduleId": "p8-module-3"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-14",
+              "text": "Create and configure Microsoft Sentinel workbooks.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-7"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-15",
+              "text": "Optimize the Microsoft Sentinel platform, including SOC optimization recommendations.",
+              "status": "gap",
+              "references": []
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-1-group-3",
+          "title": "Ingest data into the Microsoft Sentinel SIEM and platform",
+          "objectives": [
+            {
+              "id": "bp-objective-16",
+              "text": "Select data connectors based on data source requirements, including Windows logs and security events.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-1"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-17",
+              "text": "Configure Windows Security Events via AMA, including data collection rules.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-18",
+              "text": "Plan and configure Windows Security events by using Windows Event Forwarding.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-19",
+              "text": "Plan and configure Syslog via AMA and Common Event Format via AMA connectors.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-5"
+                },
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-6"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-20",
+              "text": "Configure collection of Azure activities by using Azure Policy and resource diagnostic settings.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-21",
+              "text": "Ingest threat indicators into Microsoft Sentinel.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-7"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-22",
+              "text": "Create custom log tables in the workspace to store ingested data.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-6",
+                  "moduleId": "p6-module-1"
+                },
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-6"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-1-group-4",
+          "title": "Configure detections",
+          "objectives": [
+            {
+              "id": "bp-objective-23",
+              "text": "Create custom detection rules by using Advanced Hunting in Microsoft Defender XDR.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                },
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-24",
+              "text": "Manage custom detection rules in Microsoft Defender XDR.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-25",
+              "text": "Configure and manage Sentinel analytics rules, including scheduled, NRT, threat intelligence, and machine learning.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-1"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-26",
+              "text": "Analyze attack vector coverage by using the MITRE ATT&CK matrix.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-8",
+                  "moduleId": "p8-module-1"
+                },
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-1"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-27",
+              "text": "Configure anomalies in Microsoft Sentinel.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-5"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bp-domain-2",
+      "number": "02",
+      "title": "Respond to security incidents",
+      "description": "Cross-domain investigation, endpoint response, Purview, and Microsoft 365 activity",
+      "weight": "35–40%",
+      "groups": [
+        {
+          "id": "bp-domain-2-group-1",
+          "title": "Respond to alerts and incidents in Microsoft Defender XDR",
+          "objectives": [
+            {
+              "id": "bp-objective-28",
+              "text": "Investigate and remediate threats by using Microsoft Defender for Office 365, including automatic attack disruption.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                },
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-3"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-29",
+              "text": "Investigate and remediate threats or compromised entities identified by Microsoft Purview.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-1"
+                },
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-30",
+              "text": "Investigate and remediate alerts and incidents identified by Microsoft Defender for Cloud workload protections.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-3",
+                  "moduleId": "p3-module-6"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-31",
+              "text": "Investigate and remediate security risks identified by Microsoft Defender for Cloud Apps.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-6"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-32",
+              "text": "Investigate and remediate compromised identities identified by Microsoft Entra ID.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-33",
+              "text": "Investigate and remediate security alerts from Microsoft Defender for Identity.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-5"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-34",
+              "text": "Investigate and remediate alerts and incidents identified by Microsoft Sentinel.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-35",
+              "text": "Investigate incidents by using agentic AI, including embedded Microsoft Security Copilot.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-1"
+                },
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-36",
+              "text": "Investigate complex attacks, including multi-stage, multi-domain, and lateral movement.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-1"
+                },
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-37",
+              "text": "Manage security incidents by using case management.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-7",
+                  "moduleId": "p7-module-4"
+                },
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-2-group-2",
+          "title": "Respond to alerts and incidents in Microsoft Defender for Endpoint",
+          "objectives": [
+            {
+              "id": "bp-objective-38",
+              "text": "Investigate device timelines.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-39",
+              "text": "Perform device actions, including live response and collecting investigation packages.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-5"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-40",
+              "text": "Perform evidence and entity investigation.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-6"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-41",
+              "text": "Investigate and remediate incidents identified by automatic attack disruption.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-7"
+                },
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-2-group-3",
+          "title": "Investigate Microsoft 365 activities to identify threats",
+          "objectives": [
+            {
+              "id": "bp-objective-42",
+              "text": "Investigate threats by using Microsoft Purview Audit.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-3"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-43",
+              "text": "Investigate threats by using Content Search in Microsoft Purview eDiscovery.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-9",
+                  "moduleId": "p9-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-44",
+              "text": "Investigate threats by using Microsoft Graph activity logs.",
+              "status": "gap",
+              "references": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bp-domain-3",
+      "number": "03",
+      "title": "Perform threat hunting",
+      "description": "KQL, Advanced Hunting, graphs, Data Lake, summary tables, and notebooks",
+      "weight": "20–25%",
+      "groups": [
+        {
+          "id": "bp-domain-3-group-1",
+          "title": "Detect threats by using Microsoft Defender XDR",
+          "objectives": [
+            {
+              "id": "bp-objective-45",
+              "text": "Identify the appropriate table to use in a KQL query.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-4",
+                  "moduleId": "p4-module-1"
+                },
+                {
+                  "pathId": "path-4",
+                  "moduleId": "p4-module-4"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-46",
+              "text": "Identify threats by using Kusto Query Language.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-4",
+                  "moduleId": "p4-module-1"
+                },
+                {
+                  "pathId": "path-4",
+                  "moduleId": "p4-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-47",
+              "text": "Create Advanced Hunting queries.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                },
+                {
+                  "pathId": "path-2",
+                  "moduleId": "p2-module-8"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-48",
+              "text": "Interpret threat analytics in Microsoft Defender XDR.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-1"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-49",
+              "text": "Create hunting graphs, including blast radius.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-8",
+                  "moduleId": "p8-module-2"
+                },
+                {
+                  "pathId": "path-1",
+                  "moduleId": "module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-50",
+              "text": "Analyze relationships between entities by using Sentinel Graph.",
+              "status": "gap",
+              "references": []
+            }
+          ]
+        },
+        {
+          "id": "bp-domain-3-group-2",
+          "title": "Detect threats by using the Microsoft Sentinel platform",
+          "objectives": [
+            {
+              "id": "bp-objective-51",
+              "text": "Create and monitor hunting queries.",
+              "status": "covered",
+              "references": [
+                {
+                  "pathId": "path-8",
+                  "moduleId": "p8-module-2"
+                }
+              ]
+            },
+            {
+              "id": "bp-objective-52",
+              "text": "Create and manage KQL jobs in Data Lake.",
+              "status": "gap",
+              "references": []
+            },
+            {
+              "id": "bp-objective-53",
+              "text": "Create and manage summary rule tables for querying.",
+              "status": "gap",
+              "references": []
+            },
+            {
+              "id": "bp-objective-54",
+              "text": "Hunt for threats by using notebooks, including connection to the Sentinel MCP Server.",
+              "status": "partial",
+              "references": [
+                {
+                  "pathId": "path-8",
+                  "moduleId": "p8-module-4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

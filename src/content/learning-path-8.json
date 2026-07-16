@@ -1,0 +1,201 @@
+{
+  "id": "path-8",
+  "number": 8,
+  "title": "Perform threat hunting in Microsoft Sentinel",
+  "officialUrl": "https://learn.microsoft.com/en-us/training/paths/sc-200-perform-threat-hunting-azure-sentinel/",
+  "meta": "4 modules · 25 units · Hunting hypotheses, queries, bookmarks, livestream, search jobs, restored logs, and notebooks",
+  "focusAreas": [
+    {
+      "title": "Hunting workflow",
+      "description": "Develop hypotheses, manage hunting queries, preserve evidence with bookmarks, and monitor activity with livestream."
+    },
+    {
+      "title": "Deep investigation",
+      "description": "Use search and restore jobs, notebooks, MSTICPy, APIs, and machine learning for advanced hunts."
+    }
+  ],
+  "modules": [
+    {
+      "id": "p8-module-1",
+      "number": 1,
+      "title": "Explain threat hunting concepts in Microsoft Sentinel",
+      "focus": "Focus: proactive hunting, the hunting lifecycle, hypotheses, documentation, and MITRE ATT&CK.",
+      "units": [
+        {
+          "id": "p8m1-u1",
+          "number": "01 / 06",
+          "title": "Introduction",
+          "bodyHtml": "<p>Threat hunting proactively searches for malicious activity that existing detections have not identified. Sentinel provides the data, KQL, ATT&amp;CK mapping, and hunt-management features needed to turn an idea into repeatable evidence.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Threat hunting objectives</small></span></a>"
+        },
+        {
+          "id": "p8m1-u2",
+          "number": "02 / 06",
+          "title": "Understand cybersecurity threat hunts",
+          "bodyHtml": "<p>True proactive hunting begins without a confirmed alert or known-bad indicator and tests a hypothesis about attacker behavior. Indicator searches and incident-driven pivots are still valuable forms of investigation, but they start from known evidence.</p><div class=\"flow\"><div class=\"flow-step\"><strong>Hypothesis</strong>Define behavior and scope.</div><div class=\"flow-step\"><strong>Plan</strong>Choose data and tools.</div><div class=\"flow-step\"><strong>Execute</strong>Query and investigate anomalies.</div><div class=\"flow-step\"><strong>Improve</strong>Respond, document, and create detections.</div></div><p>Record what, why, how, inputs, outputs, replication steps, findings, and next actions—even when the hunt finds no active threat.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/2-understand-cybersecurity-threat-hunts\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>The continuous hunting process</small></span></a>"
+        },
+        {
+          "id": "p8m1-u3",
+          "number": "03 / 06",
+          "title": "Develop a hypothesis",
+          "bodyHtml": "<p>A useful hypothesis is achievable with available telemetry and expertise, narrowly scoped, time-bound, efficient, and relevant to the organization's threat model. Start with realistic behaviors and mature incrementally.</p><p>Example: accounts executed <code>cmd.exe</code> in the last day although they had not executed it during the preceding week. This states the behavior, comparison, and time window clearly enough to test.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/3-develop-hypothesis\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Build a testable hypothesis</small></span></a>"
+        },
+        {
+          "id": "p8m1-u4",
+          "number": "04 / 06",
+          "title": "Explore MITRE ATT&CK",
+          "bodyHtml": "<p>ATT&amp;CK organizes adversary goals as tactics and observed behaviors as techniques and sub-techniques. Use it to translate threat intelligence into hypotheses, identify telemetry requirements, evaluate detection gaps, and communicate coverage consistently.</p><p>Technique coverage is not binary: validate whether the relevant data exists, the query detects the intended variation, and the SOC can act on the result.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/3a-explore-mitre-att-ck\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>ATT&amp;CK-driven hunting</small></span></a>"
+        },
+        {
+          "id": "p8m1-u5",
+          "number": "05 / 06",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review proactive versus indicator- or incident-driven searches, the hunting lifecycle, documentation, hypothesis quality, threat-model relevance, and ATT&amp;CK tactics and techniques.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Hunting concepts knowledge check</small></span></a>"
+        },
+        {
+          "id": "p8m1-u6",
+          "number": "06 / 06",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>A mature hunt is hypothesis-led, evidence-based, repeatable, documented, and converted into detection or monitoring improvements whenever useful.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/what-is-threat-hunting-azure-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p8-module-2",
+      "number": 2,
+      "title": "Threat hunting with Microsoft Sentinel",
+      "focus": "Focus: hunting-query management, bookmarks, entity pivots, livestream, and the practical hunt workflow.",
+      "units": [
+        {
+          "id": "p8m2-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Sentinel hunting combines reusable KQL queries with bookmarks and livestream. Queries find candidates, bookmarks preserve evidence and context, and livestream continuously watches a query for new matching activity.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Hunting tool objectives</small></span></a>"
+        },
+        {
+          "id": "p8m2-u2",
+          "number": "02 / 07",
+          "title": "Exercise setup",
+          "bodyHtml": "<p>Deploy the Sentinel exercise environment, connect the required telemetry, and verify records before beginning the hunt. Preserve the resources until the final exercise and remove them afterward if they are no longer needed.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/2-exercise-setup\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Prepare hunting telemetry</small></span></a>"
+        },
+        {
+          "id": "p8m2-u3",
+          "number": "03 / 07",
+          "title": "Explore creation and management of threat-hunting queries",
+          "bodyHtml": "<p>The Hunting page includes Microsoft-authored and custom queries. Filter by data source, tactic, technique, result count, or favorite state; run selected queries across a defined time range and inspect results.</p><p>A custom hunting query should include a clear name, description, KQL, tactics, techniques, and entity mappings. Map output columns so findings can pivot into entity pages, bookmarks, and investigations.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/3-query-management-creation\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Create and manage hunting queries</small></span></a>"
+        },
+        {
+          "id": "p8m2-u4",
+          "number": "04 / 07",
+          "title": "Save key findings with bookmarks",
+          "bodyHtml": "<p>A bookmark preserves selected query rows, the query, time range, mapped entities, notes, and tags. Use it to record evidence, group related findings, return to a pivot, or promote findings into an incident.</p><p>Bookmarks are snapshots of investigation context; they do not continuously refresh as source data changes.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/4-bookmarks\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Preserve and promote findings</small></span></a>"
+        },
+        {
+          "id": "p8m2-u5",
+          "number": "05 / 07",
+          "title": "Observe threats over time with livestream",
+          "bodyHtml": "<p>Livestream runs a hunting query continuously and notifies the analyst when new matches appear. Use it for short-lived monitoring during an active investigation or while validating a behavior-based hypothesis.</p><p>Optimize the query before starting livestream, use an appropriate lookback, avoid duplicates, and stop sessions that are no longer required.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/5-livestream\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Continuous query monitoring</small></span></a>"
+        },
+        {
+          "id": "p8m2-u6",
+          "number": "06 / 07",
+          "title": "Exercise - Hunt for threats by using Microsoft Sentinel",
+          "bodyHtml": "<p>Run and refine hunting queries, investigate suspicious results, create bookmarks with mapped entities and notes, review them in the investigation experience, and start livestream for ongoing observation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/6-exercise-hunt-for-threats\" target=\"_blank\" rel=\"noopener\"><span>Official exercise<small>Query, bookmark, and livestream</small></span></a>"
+        },
+        {
+          "id": "p8m2-u7",
+          "number": "07 / 07",
+          "title": "Summary",
+          "bodyHtml": "<p>Use hunting queries to discover evidence, bookmarks to preserve and share it, and livestream to watch for recurrence. Convert repeatable high-value logic into analytics rules.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/hunt-threats-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and assessment</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p8-module-3",
+      "number": 3,
+      "title": "Use Search jobs in Microsoft Sentinel",
+      "focus": "Focus: asynchronous searches over long periods, search-result tables, archived data, and restore jobs.",
+      "units": [
+        {
+          "id": "p8m3-u1",
+          "number": "01 / 05",
+          "title": "Introduction",
+          "bodyHtml": "<p>Search jobs scan large datasets and long time ranges asynchronously when interactive queries are impractical. Restored logs make a selected historical slice available for high-performance interactive analysis.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-search-jobs-microsoft-sentinel/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Historical-search objectives</small></span></a>"
+        },
+        {
+          "id": "p8m3-u2",
+          "number": "02 / 05",
+          "title": "Hunt with a Search Job",
+          "bodyHtml": "<p>Define the source table, time range, and KQL filter, then start the job and monitor status. Results are written to a new table whose name begins with <code>SearchResults_</code>; the table includes the original records plus search metadata.</p><p>Search jobs suit targeted retrieval from Basic or Analytics logs across long retention. Narrow time and predicates to control duration and scan volume.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-search-jobs-microsoft-sentinel/2-hunt-search-job\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Run and inspect search jobs</small></span></a>"
+        },
+        {
+          "id": "p8m3-u3",
+          "number": "03 / 05",
+          "title": "Restore historical data",
+          "bodyHtml": "<p>A restore job materializes a specified time range from archived Analytics logs into a restored table, enabling full KQL and high-performance queries during an investigation. It restores a time slice rather than filtered rows, so estimate volume carefully.</p><p>Restored data is temporary and billable. Query it, export or preserve required evidence, then delete the restored table when work is complete.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-search-jobs-microsoft-sentinel/3-restore-historical-data\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Restore archived Analytics logs</small></span></a>"
+        },
+        {
+          "id": "p8m3-u4",
+          "number": "04 / 05",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review search-job use cases, asynchronous execution, <code>SearchResults_</code> tables, supported log plans, search versus restore, restored-table lifecycle, time ranges, cost, and cleanup.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-search-jobs-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Historical data knowledge check</small></span></a>"
+        },
+        {
+          "id": "p8m3-u5",
+          "number": "05 / 05",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Use a search job for targeted asynchronous retrieval and a restore job when a historical time slice needs interactive, full-KQL investigation.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/use-search-jobs-microsoft-sentinel/\" target=\"_blank\" rel=\"noopener\"><span>Official module<small>Summary and resources</small></span></a>"
+        }
+      ]
+    },
+    {
+      "id": "p8-module-4",
+      "number": 4,
+      "title": "Hunt for threats using notebooks in Microsoft Sentinel",
+      "focus": "Focus: Log Analytics APIs, Kqlmagic, MSTICPy, Azure Machine Learning, notebook creation, and reusable investigation code.",
+      "units": [
+        {
+          "id": "p8m4-u1",
+          "number": "01 / 07",
+          "title": "Introduction",
+          "bodyHtml": "<p>Notebooks combine executable Python, KQL, visualizations, and narrative in a reproducible investigation. They suit enrichment, data fusion, statistics, graph analysis, machine learning, and workflows that exceed portal-query capabilities.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/1-introduction\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Advanced hunting objectives</small></span></a>"
+        },
+        {
+          "id": "p8m4-u2",
+          "number": "02 / 07",
+          "title": "Access Azure Sentinel data with external tools",
+          "bodyHtml": "<p>Sentinel data resides in Log Analytics and is accessible through standard APIs. <strong>Kqlmagic</strong> runs KQL from notebook cells. <strong>MSTICPy</strong> provides data acquisition, predefined security queries, enrichment, analysis, and visualization for Sentinel, Defender, and other sources.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/2-access-azure-sentinel-data-with-external-tools\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Kqlmagic and MSTICPy</small></span></a>"
+        },
+        {
+          "id": "p8m4-u3",
+          "number": "03 / 07",
+          "title": "Hunt with notebooks",
+          "bodyHtml": "<p>Jupyter separates the browser interface from the execution kernel. Sentinel notebook templates run through Azure Machine Learning compute and can use pandas, matplotlib, Bokeh, scikit-learn, MSTICPy, and other Python libraries.</p><p>Use Microsoft templates as working examples, adapt them to local schemas, and treat imported community notebooks as code that must be reviewed before execution.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/3-hunt-with-notebooks\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Notebook components and uses</small></span></a>"
+        },
+        {
+          "id": "p8m4-u4",
+          "number": "04 / 07",
+          "title": "Create a notebook",
+          "bodyHtml": "<ol><li>Configure an Azure Machine Learning workspace from Sentinel.</li><li>Create a notebook from the Getting Started template.</li><li>Launch it in Azure ML Studio and provision compute.</li><li>Select the supported Python kernel and authenticate.</li><li>Initialize MSTICPy and review <code>msticpyconfig.yaml</code>.</li><li>Query the Sentinel workspace and stop compute after use.</li></ol><p>Compute instances incur cost while running; use least privilege and protect secrets in configuration.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/4-create-notebook\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Azure ML notebook setup</small></span></a>"
+        },
+        {
+          "id": "p8m4-u5",
+          "number": "05 / 07",
+          "title": "Explore notebook code",
+          "bodyHtml": "<p>Typical code initializes authentication and providers, executes KQL, converts results to pandas data frames, enriches entities with threat intelligence or GeoIP, visualizes timelines or relationships, and records conclusions.</p><p>Run cells in order, inspect variables and outputs, pin or document package versions, remove secrets, clear sensitive outputs, and preserve enough narrative for another analyst to reproduce the hunt.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/5-explore-notebook-code\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Investigation notebook workflow</small></span></a>"
+        },
+        {
+          "id": "p8m4-u6",
+          "number": "06 / 07",
+          "title": "Module assessment",
+          "bodyHtml": "<p>Review Log Analytics API access, Kqlmagic, MSTICPy capabilities, notebook interface and kernel, Azure ML workspace and compute, authentication, templates, code execution, cost, and reproducibility.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/\" target=\"_blank\" rel=\"noopener\"><span>Official assessment<small>Notebook hunting knowledge check</small></span></a>"
+        },
+        {
+          "id": "p8m4-u7",
+          "number": "07 / 07",
+          "title": "Summary and resources",
+          "bodyHtml": "<p>Notebooks extend Sentinel with programmable acquisition, enrichment, analysis, and visualization. Govern them as investigation code: reviewed, reproducible, least-privileged, cost-aware, and safe for sensitive evidence.</p><a class=\"resource\" href=\"https://learn.microsoft.com/en-us/training/modules/perform-threat-hunting-sentinel-with-notebooks/7-summary-resources\" target=\"_blank\" rel=\"noopener\"><span>Official lesson<small>Summary and resources</small></span></a>"
+        }
+      ]
+    }
+  ]
+}
