@@ -221,7 +221,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
       </aside>
 
       <main>
-        <header className="topbar"><div><span className="status-dot" />{t.migrated}</div><div className="topbar-controls"><LanguageControl locale={locale} /><ThemeControl locale={locale} /></div></header>
+        <header className="topbar"><div className="topbar-controls"><LanguageControl locale={locale} /><ThemeControl locale={locale} /></div></header>
         <div className="content-shell" id="top">
           {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} /> : activeView === "learning" ? <>
           {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
