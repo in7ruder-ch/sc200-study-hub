@@ -204,7 +204,13 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   return (
     <div className="app-frame">
       <aside className="sidebar">
-        <a className="brand" href={`/${locale}`}><span className="brand-mark">SC</span><span><strong>{t.product}</strong><small>{t.description}</small></span></a>
+        <div className="brand-lockup">
+          <a className="brand" href={`/${locale}`}><span className="brand-mark">SC</span><span><strong>{t.product}</strong><small>{t.description}</small></span></a>
+          <div className="brand-author">
+            <p>Created by <strong>in7ruder</strong></p>
+            <div><a href="https://www.linkedin.com/in/mvanarelli/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://in7ruder.com" target="_blank" rel="noreferrer">Website ↗</a></div>
+          </div>
+        </div>
         <nav aria-label="Primary navigation">
           <button className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={openDashboard} aria-pressed={activeView === "dashboard"}><span>00</span>{t.dashboard}</button>
           <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={() => setActiveView("learning")} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
