@@ -6,10 +6,11 @@ import { copy } from "@/lib/i18n";
 import { localProgressRepository } from "@/lib/progress/repository";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
 import { PracticeLabView } from "@/components/practice-lab";
+import { DashboardView } from "@/components/dashboard";
 import type { BlueprintReference, BlueprintReturnTarget, ExamBlueprint, LearningPath, Locale, PracticeStudyReference, StudyModule } from "@/lib/types";
 
 type ThemeChoice = "system" | "light" | "dark";
-type AppView = "learning" | "blueprint" | "practice";
+type AppView = "dashboard" | "learning" | "blueprint" | "practice";
 type PracticeReturnTarget = { stageId: string; stageTitle: string };
 
 function ThemeControl({ locale }: { locale: Locale }) {
@@ -80,7 +81,7 @@ function ModulePanel({ module, completed, onToggle, locale }: { module: StudyMod
 
 export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale; learningPaths: LearningPath[]; blueprint: ExamBlueprint }) {
   const t = copy[locale];
-  const [activeView, setActiveView] = useState<AppView>("learning");
+  const [activeView, setActiveView] = useState<AppView>("dashboard");
   const [selectedPathId, setSelectedPathId] = useState<string | null>(null);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -178,11 +179,34 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
     setPendingReference(reference);
   }
 
+  function openDashboardLearningPath(pathId: string) {
+    setBlueprintReturnTarget(null);
+    setPracticeReturnTarget(null);
+    setSelectedPathId(pathId);
+    setSelectedModules(new Set());
+    setActiveView("learning");
+  }
+
+  function openDashboardPracticeLab(labId: string, stageId?: string, stageTitle?: string) {
+    setBlueprintReturnTarget(null);
+    setActivePracticeLabId(labId);
+    setPracticeReturnTarget(stageId && stageTitle ? { stageId, stageTitle } : null);
+    setActiveView("practice");
+  }
+
+  function openDashboard() {
+    setBlueprintReturnTarget(null);
+    setPracticeReturnTarget(null);
+    setActiveView("dashboard");
+    window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+  }
+
   return (
     <div className="app-frame">
       <aside className="sidebar">
         <a className="brand" href={`/${locale}`}><span className="brand-mark">SC</span><span><strong>{t.product}</strong><small>{t.description}</small></span></a>
         <nav aria-label="Primary navigation">
+          <button className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={openDashboard} aria-pressed={activeView === "dashboard"}><span>00</span>{t.dashboard}</button>
           <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={() => setActiveView("learning")} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
           <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={() => { setPracticeReturnTarget(null); setActiveView("blueprint"); }} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
           <button className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={() => { setBlueprintReturnTarget(null); setActiveView("practice"); }} aria-pressed={activeView === "practice"}><span>03</span>{t.practice}</button>
@@ -193,7 +217,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
       <main>
         <header className="topbar"><div><span className="status-dot" />{t.migrated}</div><div className="topbar-controls"><LanguageControl locale={locale} /><ThemeControl locale={locale} /></div></header>
         <div className="content-shell" id="top">
-          {activeView === "learning" ? <>
+          {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} /> : activeView === "learning" ? <>
           {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
           {practiceReturnTarget && <button className="blueprint-return practice-return" type="button" onClick={() => setActiveView("practice")}><span aria-hidden="true">←</span><span><strong>{t.backToPracticeStage}</strong><small>{practiceReturnTarget.stageTitle}</small></span></button>}
           <section className="hero"><p className="eyebrow">{t.studyWorkspace}</p><h1>{t.heroTitle}</h1><p>{t.heroBody}</p></section>
