@@ -1,4 +1,434 @@
 import type { RemediationPackTranslation } from "../types";
 
-export const spanishRemediationPacks: Record<string, RemediationPackTranslation> = {};
+export const spanishRemediationPacks: Record<string, RemediationPackTranslation> = {
+  "bp-objective-1": {
+    summary: "Microsoft Defender XDR puede enviar notificaciones por correo independientes para incidentes nuevos, acciones de respuesta completadas o con errores e informes de análisis de amenazas nuevos o actualizados. Cada tipo tiene su propia regla, ámbito, destinatarios y flujo de prueba en Configuración > Microsoft Defender XDR > Notificaciones por correo electrónico.",
+    keyConcepts: [
+      "Las reglas de incidentes pueden filtrar por gravedad, origen de detección y grupo de dispositivos. Defender envía un correo por cada incidente nuevo coincidente, no por cada alerta que contiene.",
+      "Las reglas de acciones de respuesta filtran acciones manuales o automatizadas por tipo, grupo de dispositivos y estado de finalización. Las detecciones personalizadas con acciones de respuesta no admiten estas notificaciones.",
+      "Las reglas de análisis de amenazas pueden informar sobre todos los reportes nuevos o actualizados, o sólo sobre tipos de amenaza y etiquetas seleccionados.",
+      "Los vínculos son específicos del tenant y su acceso depende de los permisos del portal y el ámbito del rol. Crear reglas requiere permiso para administrar la configuración de seguridad.",
+    ],
+    examChecklist: [
+      "Elegir la categoría de notificación correcta para un incidente, una acción de respuesta o un informe de inteligencia sobre amenazas.",
+      "Configurar nombre, ámbito o filtros, destinatarios y frecuencia cuando esté disponible.",
+      "Reconocer el efecto de los filtros de gravedad, origen, grupo, estado, tipo de amenaza y etiqueta.",
+      "Enviar una prueba y verificar tanto la entrega como la autorización del destinatario para abrir el registro vinculado.",
+    ],
+    lab: { title: "Crear y validar tres reglas de notificación de Defender XDR", steps: [
+      "Abrir Configuración > Microsoft Defender XDR > Notificaciones por correo electrónico y revisar las pestañas Incidentes, Acciones y Análisis de amenazas.",
+      "Crear una regla de incidentes de ámbito reducido para incidentes de gravedad alta de orígenes seleccionados y agregar un destinatario de prueba.",
+      "Diseñar reglas equivalentes para acciones de respuesta con errores y tipos o etiquetas seleccionados de informes de amenazas.",
+      "Usar la función de prueba, confirmar la entrega y documentar qué eventos activan y cuáles no activan cada regla.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-xdr/m365d-notifications-incidents": { title: "Recibir notificaciones por correo sobre incidentes" },
+      "https://learn.microsoft.com/en-us/defender-xdr/m365d-response-actions-notifications": { title: "Recibir notificaciones por correo sobre acciones de respuesta" },
+      "https://learn.microsoft.com/en-us/defender-xdr/m365d-threat-analytics-notifications": { title: "Recibir notificaciones por correo sobre análisis de amenazas" },
+    },
+  },
+  "bp-objective-2": {
+    summary: "El comportamiento de las alertas en Microsoft Defender XDR se controla mediante directivas de alertas, ajuste de alertas, configuración de detecciones personalizadas y correlación. El objetivo es reducir el ruido benigno conocido sin ocultar evidencia relevante ni impedir que alertas relacionadas formen un incidente coherente.",
+    keyConcepts: [
+      "Una directiva de alertas define la actividad y las condiciones desencadenantes, umbrales o comportamiento inusual, gravedad, categoría, agregación y notificaciones opcionales.",
+      "Las reglas de ajuste suprimen escenarios benignos conocidos para alertas integradas compatibles. Deben usar evidencia precisa y revisarse para no ocultar positivos verdaderos.",
+      "Ajustar una alerta integrada no deshabilita la investigación y respuesta automatizadas; un resultado malicioso o sospechoso puede reactivar la alerta.",
+      "Las reglas de análisis de Sentinel pueden incluirse o excluirse del motor de correlación de Defender XDR. Las excluidas usan su propia agrupación de incidentes.",
+      "Las reglas de detección personalizadas se pueden habilitar, deshabilitar, editar, ejecutar e incluir o excluir explícitamente de la correlación.",
+    ],
+    examChecklist: [
+      "Distinguir generación de alertas, notificación por correo, supresión o ajuste y correlación de incidentes.",
+      "Crear condiciones de ajuste precisas a partir de un falso positivo revisado y prever qué alertas futuras se ocultarán.",
+      "Explicar cómo una investigación automatizada puede invalidar la supresión al encontrar evidencia sospechosa o maliciosa.",
+      "Decidir si una regla de Sentinel o una detección personalizada debe participar en la correlación de XDR.",
+    ],
+    lab: { title: "Ajustar una alerta benigna y verificar la correlación de incidentes", steps: [
+      "Elegir una alerta benigna recurrente y registrar los atributos estables que la distinguen de actividad maliciosa.",
+      "Crear una regla de ajuste con las condiciones más precisas posibles y documentar responsable y fecha de revisión.",
+      "Inspeccionar la detección personalizada o regla de Sentinel y verificar si participa en la correlación de XDR.",
+      "Generar actividad coincidente y no coincidente, y comprobar visibilidad, notificaciones y agrupación de incidentes.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-xdr/alert-policies": { title: "Directivas de alertas en Microsoft Defender XDR" },
+      "https://learn.microsoft.com/en-us/defender-office-365/alert-policies-defender-portal": { title: "Ajuste de directivas de alertas integradas" },
+      "https://learn.microsoft.com/en-us/defender-xdr/exclude-analytics-rules-correlation": { title: "Incluir o excluir reglas de Sentinel de la correlación de XDR" },
+      "https://learn.microsoft.com/en-us/defender-xdr/custom-detection-manage": { title: "Administrar reglas de detección personalizadas" },
+    },
+  },
+  "bp-objective-4": {
+    summary: "La configuración de seguridad de Microsoft Defender for Endpoint puede administrarse desde el portal de Defender mediante directivas de seguridad de endpoints. Una directiva combina plataforma y plantilla, opciones de configuración y asignaciones; su aplicación también depende de precedencia, inscripción, licencias, permisos y conectividad.",
+    keyConcepts: [
+      "En Endpoints > Administración de configuración > Directivas de seguridad de endpoints se eligen plataforma y plantilla, se configuran opciones, se asignan grupos y se revisa la directiva.",
+      "Administrar directivas requiere acceso a todos los dispositivos y el permiso Configuración de seguridad principal (administrar). El rol y los grupos de dispositivos limitan lo visible y modificable.",
+      "Las directivas existentes pueden editarse por secciones. Los cambios deben validarse en los dispositivos de destino y no asumirse a partir del estado del portal.",
+      "Los conflictos pueden proceder de varias autoridades o directivas; se debe identificar el origen ganador y la precedencia compatible.",
+    ],
+    examChecklist: [
+      "Identificar requisitos previos y permisos para administrar la configuración de seguridad de Defender.",
+      "Crear una directiva con plataforma, plantilla, configuración y ámbito de asignación correctos.",
+      "Editar opciones o asignaciones y verificar la implementación y el estado efectivo en dispositivos representativos.",
+      "Solucionar conflictos revisando orígenes, precedencia, incorporación o inscripción y conectividad.",
+    ],
+    lab: { title: "Configurar y solucionar problemas de una directiva de seguridad de endpoints", steps: [
+      "Crear un grupo pequeño de dispositivos de prueba y confirmar permisos y licencias.",
+      "Crear una directiva desde una plataforma y plantilla adecuadas, cambiar una opción auditable y asignarla sólo al grupo de prueba.",
+      "Revisar el estado de implementación y confirmar el valor efectivo en un dispositivo con diagnósticos compatibles.",
+      "Introducir o inspeccionar una directiva en conflicto, identificar el origen efectivo y documentar la resolución segura.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-endpoint/manage-security-policies": { title: "Administrar directivas de seguridad de endpoints en Microsoft Defender" },
+      "https://learn.microsoft.com/en-us/defender-endpoint/troubleshoot-settings": { title: "Solucionar problemas de configuración de Microsoft Defender for Endpoint" },
+      "https://learn.microsoft.com/en-us/training/modules/configure-manage-automation-microsoft-defender-for-endpoint/": { title: "Configurar y administrar la automatización de Defender for Endpoint" },
+    },
+  },
+  "bp-objective-5": {
+    summary: "La recopilación de datos personalizada de Microsoft Defender for Endpoint usa filtros basados en reglas para seleccionar eventos de procesos, carga de imágenes, archivos, red o scripts y enviarlos a un área de trabajo de Microsoft Sentinel conectada. Complementa la telemetría predeterminada y debe reservarse para casos específicos.",
+    keyConcepts: [
+      "Las reglas filtran por atributos como ruta de carpeta, nombre de proceso o conexión de red y escriben en la tabla DeviceCustom*Events correspondiente.",
+      "Los destinos admitidos son DeviceCustomProcessEvents, DeviceCustomImageLoadEvents, DeviceCustomFileEvents, DeviceCustomNetworkEvents y DeviceCustomScriptEvents.",
+      "Se requieren Defender for Endpoint Plan 2 y un área de trabajo de Sentinel conectada; la versión preliminar admite un área conectada por tenant.",
+      "Las asignaciones usan etiquetas dinámicas de dispositivos que deben haberse evaluado al menos una vez.",
+      "La propagación puede tardar entre 20 minutos y una hora; hay que considerar volumen, costo, sistemas compatibles y limitaciones de versión preliminar.",
+    ],
+    examChecklist: [
+      "Relacionar cada tipo de evento con la tabla DeviceCustom*Events correcta.",
+      "Verificar licencias, conexión con Sentinel, endpoints compatibles y etiquetas dinámicas antes de crear la regla.",
+      "Crear filtros y un ámbito precisos que capturen la evidencia necesaria sin volumen innecesario.",
+      "Esperar la propagación, consultar la tabla de destino y distinguir eventos personalizados de la telemetría estándar.",
+    ],
+    lab: { title: "Recopilar un conjunto específico de eventos de endpoint en Sentinel", steps: [
+      "Definir un escenario de prueba y elegir la tabla de eventos personalizados correspondiente.",
+      "Verificar la conexión con Sentinel y crear o confirmar una etiqueta dinámica para un ámbito reducido.",
+      "Crear una regla con filtros precisos, asignar la etiqueta y esperar la propagación.",
+      "Generar el evento, consultar DeviceCustom*Events y registrar latencia, volumen y ajustes necesarios.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-endpoint/custom-data-collection": { title: "Recopilación de datos personalizada en Defender for Endpoint" },
+      "https://learn.microsoft.com/en-us/defender-endpoint/create-custom-data-collection-rules": { title: "Crear reglas de recopilación de datos personalizadas" },
+    },
+  },
+  "bp-objective-13": {
+    summary: "La retención en la plataforma unificada de operaciones de seguridad separa el acceso rápido e interactivo del nivel Analytics, el almacenamiento a largo plazo en Data Lake y la ventana de Búsqueda avanzada de Defender XDR. Los planes de tabla y la retención deben configurarse según velocidad de investigación, dependencias, cumplimiento y costo.",
+    keyConcepts: [
+      "El nivel Analytics admite reglas en tiempo real, búsquedas, libros y consultas interactivas. Las tablas de Sentinel y XDR suelen comenzar con 30 días; algunas tablas de soluciones de Sentinel reciben hasta 90 días sin cargo de retención.",
+      "La retención de Analytics puede ampliarse hasta dos años y la retención total conserva datos antiguos en Data Lake hasta 12 años.",
+      "Los datos exclusivos de Data Lake sirven para almacenamiento histórico económico y análisis asincrónico con trabajos KQL, cuadernos o reglas de resumen; no están disponibles para análisis en tiempo real ni Búsqueda avanzada.",
+      "Búsqueda avanzada de Defender XDR tiene una ventana predeterminada de 30 días. Algunas tablas XDR pueden extender Analytics a 90 días y usar retención total más larga.",
+      "Reducir la retención total espera 30 días antes de eliminar datos; los cambios de Analytics son inmediatos. Sacar una tabla de Analytics puede romper detecciones y búsquedas dependientes.",
+    ],
+    examChecklist: [
+      "Diferenciar retención de Analytics, retención total, almacenamiento exclusivo de Data Lake y la ventana de Búsqueda avanzada.",
+      "Elegir nivel y período según detección en tiempo real, investigación interactiva, análisis histórico, cumplimiento y costo.",
+      "Predecir el impacto de mover una tabla de Analytics a Data Lake sobre reglas, detecciones, búsquedas y libros.",
+      "Configurar retención por tabla y considerar los efectos inmediatos o diferidos de los cambios.",
+    ],
+    lab: { title: "Diseñar y validar una directiva de retención por niveles", steps: [
+      "Seleccionar tres tablas: una para detección en tiempo real, una para investigación frecuente y una para historial de cumplimiento.",
+      "Documentar retención de Analytics y total, plan, uso, dependencias y volumen estimado de cada tabla.",
+      "Proponer cambios y verificar que ninguna regla, detección, libro o consulta pierda el acceso necesario.",
+      "Aplicar el plan en un entorno de prueba y confirmar consultas recientes y el método de acceso histórico.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/manage-data-overview": { title: "Introducción a los niveles y la retención de datos de Microsoft Sentinel" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/manage-table-tiers-retention": { title: "Administrar niveles y retención de tablas" },
+      "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-overview": { title: "Introducción a Búsqueda avanzada" },
+    },
+  },
+  "bp-objective-15": {
+    summary: "La optimización del SOC convierte la telemetría del área de trabajo en recomendaciones para mejorar la cobertura de amenazas, el valor de los datos y la eficiencia operativa. Compara los datos ingeridos y las detecciones habilitadas con los controles necesarios para amenazas y riesgos relevantes.",
+    keyConcepts: [
+      "Las recomendaciones de valor de datos identifican tablas facturables sin uso o infrautilizadas y proponen habilitar detecciones, cambiar el plan, detener la ingesta o ajustar la retención.",
+      "Las recomendaciones de cobertura identifican detecciones u orígenes ausentes y pueden proponer plantillas de reglas, conectores o soluciones completas de Sentinel.",
+      "También pueden incluir etiquetado MITRE ATT&CK asistido por IA y recomendaciones basadas en riesgos; la disponibilidad preliminar puede variar.",
+      "Una recomendación aporta evidencia para decidir, no una instrucción automática. Hay que validar detección, cumplimiento, retención y costo.",
+    ],
+    examChecklist: [
+      "Distinguir optimización del valor de los datos de optimización de cobertura.",
+      "Reconocer la respuesta ante datos sin detecciones, detecciones sin datos o ausencia de ambos.",
+      "Saber que la optimización evalúa ingesta reciente y análisis habilitados para generar recomendaciones accionables.",
+      "Revisar una recomendación, validar su impacto, implementarla y comprobar que se resolvió el problema.",
+    ],
+    lab: { title: "Revisar y resolver una recomendación de optimización del SOC", steps: [
+      "Abrir Microsoft Sentinel en el portal de Defender y localizar Optimización del SOC.",
+      "Elegir una recomendación y registrar evidencia, tablas o detecciones afectadas y acción propuesta.",
+      "Clasificarla como implementar, aplazar o descartar y documentar la justificación de seguridad, costo y cumplimiento.",
+      "Aplicarla en un área de prueba y confirmar el estado resultante del conector, regla, plan o retención.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/soc-optimization/soc-optimization-reference": { title: "Referencia de recomendaciones de optimización del SOC" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/soc-optimization/soc-optimization-access": { title: "Acceder a Optimización del SOC" },
+    },
+  },
+  "bp-objective-22": {
+    summary: "Una tabla personalizada de Log Analytics almacena datos que no encajan en un esquema integrado. Su esquema, destino y transformación se definen mediante una regla de recopilación de datos (DCR), y el método de ingesta debe enviar registros que cumplan ese contrato.",
+    keyConcepts: [
+      "Los nombres de tablas personalizadas usan el sufijo _CL y requieren una columna TimeGenerated. Sólo deben agregarse campos con una necesidad clara de detección, investigación, informes o retención.",
+      "Una DCR define flujo de entrada, transformación, área de trabajo y tabla de destino. El portal puede inferir un esquema y una transformación iniciales desde datos de muestra.",
+      "Si cambia el esquema de la tabla también debe actualizarse la DCR; Azure Monitor no sincroniza el cambio automáticamente.",
+      "Logs Ingestion API autentica una aplicación y envía datos a través de un endpoint DCR. Las transformaciones pueden analizar, filtrar, enriquecer y normalizar antes del almacenamiento.",
+      "Administrar tablas suele requerir Log Analytics Contributor o permisos equivalentes. Antes de producción se validan esquema, acceso, salud, volumen y costo.",
+    ],
+    examChecklist: [
+      "Diseñar un esquema con sufijo _CL, TimeGenerated, tipos correctos y sólo campos útiles.",
+      "Explicar la relación entre carga de origen, endpoint, declaración de flujo DCR, transformación, área y tabla.",
+      "Elegir un método de ingesta y configurar identidad y permisos.",
+      "Probar registros, consultar la tabla, resolver discrepancias y actualizar tabla y DCR cuando evolucione el esquema.",
+    ],
+    lab: { title: "Crear y completar una tabla personalizada de registros de seguridad", steps: [
+      "Preparar una muestra JSON con marca de tiempo, origen, acción, resultado e identificador de investigación.",
+      "Crear una tabla personalizada, revisar el esquema inferido y confirmar el nombre _CL y el mapeo de TimeGenerated.",
+      "Revisar o crear la DCR y la transformación, y enviar muestras mediante el conector o Logs Ingestion API.",
+      "Consultar la tabla, validar valores y tiempos, inspeccionar errores y documentar cómo agregar una columna.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/create-custom-table": { title: "Crear una tabla personalizada en Registros de Azure Monitor" },
+      "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/logs-ingestion-api-overview": { title: "Introducción a Logs Ingestion API" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/data-transformation": { title: "Transformar o personalizar datos ingeridos en Sentinel" },
+      "https://learn.microsoft.com/en-us/azure/azure-monitor/logs/manage-logs-tables": { title: "Administrar tablas en un área de trabajo de Log Analytics" },
+    },
+  },
+  "bp-objective-35": {
+    summary: "La IA agéntica y Microsoft Security Copilot integrado aceleran la investigación en el portal de Defender al resumir evidencia correlacionada, recomendar próximos pasos y automatizar ciertos flujos de triaje. El analista sigue siendo responsable de validar las conclusiones contra alertas, entidades, cronologías y procedimientos.",
+    keyConcepts: [
+      "Copilot integrado puede resumir cronología, recursos, indicadores y amenazas, y ofrecer respuestas guiadas para triaje, contención, investigación y corrección.",
+      "También resume identidades y dispositivos, analiza scripts y archivos, genera consultas de Búsqueda avanzada desde lenguaje natural y crea informes de incidentes.",
+      "Agentes como Security Alert Triage aplican razonamiento autónomo a alertas compatibles y devuelven veredictos con evidencia. Operan dentro de identidad, permisos, desencadenadores y ámbito configurados.",
+      "El acceso requiere capacidad de Security Copilot y permisos de Defender. Se aplica mínimo privilegio y se consideran variables las funciones preliminares.",
+      "La salida de IA puede ser incompleta o incorrecta: hay que verificar afirmaciones y exigir aprobación humana antes de acciones de impacto.",
+    ],
+    examChecklist: [
+      "Distinguir asistencia de Copilot integrado de flujos agénticos autónomos.",
+      "Usar resúmenes, respuestas guiadas, análisis y consultas generadas como aceleradores, no como conclusiones finales.",
+      "Validar cronologías, veredictos, indicadores y recomendaciones contra la evidencia original.",
+      "Considerar aprovisionamiento, RBAC, ámbito de datos, estado preliminar y supervisión humana.",
+    ],
+    lab: { title: "Validar una investigación de incidentes asistida por IA", steps: [
+      "Abrir un incidente con varias alertas y registrar una evaluación propia de cronología, recursos y ruta probable.",
+      "Revisar el resumen y las respuestas de Copilot, y rastrear cada afirmación relevante hasta su registro de origen.",
+      "Usar una función de análisis o consulta generada para investigar una entidad y documentar conclusiones no respaldadas o contradictorias.",
+      "Decidir qué acciones aceptar, modificar o rechazar, explicar el límite de aprobación humana y producir un traspaso respaldado por evidencia.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-xdr/security-copilot-in-microsoft-365-defender": { title: "Microsoft Security Copilot en Microsoft Defender" },
+      "https://learn.microsoft.com/en-us/defender-xdr/application-card-copilot-defender": { title: "Tarjeta de aplicaciones de Microsoft Copilot en Defender" },
+      "https://learn.microsoft.com/en-us/defender-xdr/security-alert-triage-agent": { title: "Agente de triaje de alertas de seguridad en Microsoft Defender" },
+    },
+  },
+  "bp-objective-36": {
+    summary: "Un ataque complejo abarca varias fases, dominios o entidades y puede producir alertas aparentemente inconexas. Defender XDR correlaciona las señales; la historia del ataque, los pivotes, Búsqueda avanzada y el análisis del radio de impacto permiten reconstruir la cronología, identificar movimiento lateral y determinar el impacto.",
+    keyConcepts: [
+      "Comenzar por prioridad, alertas correlacionadas, recursos afectados e historia del ataque para establecer entrada, técnicas, entidades, persistencia, movimiento lateral y respuestas observadas.",
+      "Pivotar entre usuarios, dispositivos, buzones, aplicaciones, IP, archivos, URL y recursos de nube. Usar páginas de entidad y Go hunt para probar relaciones y vincular resultados.",
+      "El grafo del incidente muestra evidencia observada; el radio de impacto agrega rutas posibles hacia objetivos críticos para priorizar por impacto empresarial.",
+      "Las rutas son pistas, no prueba de actividad. Dependen de permisos, actualidad de datos, vectores modelados y longitud; deben corroborarse con eventos y consultas.",
+      "Contener sin perder evidencia de causa raíz, coordinar acciones entre dominios, verificar resultados y reevaluar el alcance.",
+    ],
+    examChecklist: [
+      "Reconstruir un ataque multifase correlacionando tiempos, tácticas, entidades y dominios.",
+      "Usar grafo, páginas de entidad, cronologías, Go hunt y Búsqueda avanzada para investigar movimiento lateral.",
+      "Diferenciar relaciones observadas de rutas posibles del radio de impacto y explicar limitaciones.",
+      "Priorizar contención y corrección por confianza, fase, exposición crítica y riesgo de propagación.",
+    ],
+    lab: { title: "Reconstruir y contener un ataque entre múltiples dominios", steps: [
+      "Elegir un incidente simulado de al menos dos dominios y construir una cronología con entrada, entidades, tácticas y respuestas.",
+      "Recorrer el grafo y las entidades, y usar Go hunt o Búsqueda avanzada para probar una relación de movimiento lateral.",
+      "Revisar el radio de impacto, separar compromiso observado de rutas posibles e identificar el recurso alcanzable de mayor impacto.",
+      "Redactar un plan secuenciado, verificar el resultado esperado y enumerar la evidencia necesaria para cerrar.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-xdr/investigate-incidents": { title: "Investigar incidentes en el portal de Microsoft Defender" },
+      "https://learn.microsoft.com/en-us/defender-xdr/pilot-deploy-investigate-respond": { title: "Investigar y responder mediante Microsoft Defender XDR" },
+      "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-link-to-incident": { title: "Vincular resultados de Búsqueda avanzada con un incidente" },
+    },
+  },
+  "bp-objective-37": {
+    summary: "La gestión de casos del portal de Microsoft Defender da seguimiento a trabajo que puede abarcar varios incidentes, hallazgos, indicadores y equipos. Un caso tiene prioridad, estado, propietario, vencimiento, tareas, comentarios, adjuntos, objetos vinculados e historial propios, conservando cada incidente como registro separado.",
+    keyConcepts: [
+      "Un incidente correlaciona alertas y evidencia; un caso coordina trabajo más amplio. Se usa cuando hay varios incidentes, escalación, colaboración, una búsqueda o un actor que requieren un flujo duradero.",
+      "Se requiere un área de trabajo de Microsoft Sentinel conectada. Los casos se administran en Defender y no son visibles en el portal de Azure.",
+      "La cola admite filtros, orden y búsqueda. Los detalles incluyen prioridad, estado, responsable, descripción, vencimiento, incidentes, tareas, comentarios, adjuntos y registro de actividad.",
+      "Vincular un incidente agrega contexto sin combinarlo ni reemplazarlo. Pueden vincularse varios incidentes de una campaña o escalación.",
+      "El acceso usa RBAC unificado de Defender XDR o roles de Sentinel: Reader ve, Responder crea y administra, y Contributor personaliza estados según el mapeo documentado.",
+    ],
+    examChecklist: [
+      "Elegir correctamente entre administrar un incidente y crear un caso transversal.",
+      "Mantener prioridad, estado, asignación, vencimiento, tareas, comentarios, adjuntos, vínculos e historial.",
+      "Vincular o desvincular incidentes preservando el propósito y ciclo de vida de cada elemento.",
+      "Reconocer el requisito del área conectada y mapear capacidades a permisos RBAC o roles de Sentinel.",
+    ],
+    lab: { title: "Coordinar un caso de SecOps entre varios incidentes", steps: [
+      "Crear un caso para una campaña simulada con dos incidentes y definir prioridad, propietario, estado, descripción y vencimiento.",
+      "Vincular ambos incidentes, agregar tareas de investigación y contención con responsables y registrar la relación.",
+      "Adjuntar o referenciar evidencia no sensible, actualizar tarea y estado y revisar que los cambios sean auditables.",
+      "Cerrar el caso con un resultado conciso y explicar por qué los incidentes conservaron evidencia, clasificación y ciclo propios.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/unified-secops/cases-overview": { title: "Administrar casos de operaciones de seguridad en el portal de Defender" },
+      "https://learn.microsoft.com/en-us/defender-xdr/manage-incidents": { title: "Administrar incidentes en Microsoft Defender" },
+      "https://learn.microsoft.com/en-us/defender-xdr/split-incidents-into-tasks": { title: "Optimizar la respuesta a incidentes mediante tareas" },
+    },
+  },
+  "bp-objective-44": {
+    summary: "Los registros de actividad de Microsoft Graph registran solicitudes HTTP realizadas a Microsoft Graph para recursos del tenant. En Sentinel, MicrosoftGraphActivityLogs puede revelar patrones inusuales de acceso de aplicaciones, entidades de servicio y usuarios que los registros de inicio de sesión no explican por completo.",
+    keyConcepts: [
+      "El conector de Microsoft Entra ID puede ingerir registros de actividad de Microsoft Graph en Microsoft Sentinel.",
+      "Los campos útiles incluyen AppId, ServicePrincipalId, UserId, RequestUri, RequestMethod, ResponseStatusCode, IPAddress, UserAgent y RequestId.",
+      "La investigación debe establecer quién llamó a Graph, qué endpoint accedió, si tuvo éxito, desde dónde y si el volumen o momento es anómalo.",
+      "Las solicitudes deben correlacionarse con inicios de sesión, auditoría, riesgo de identidad y Defender XDR; una solicitud aislada no prueba actividad maliciosa.",
+    ],
+    examChecklist: [
+      "Conocer el propósito de MicrosoftGraphActivityLogs y cómo llegan los datos a Sentinel.",
+      "Pivotar entre AppId, entidad de servicio, usuario, IP, URI de solicitud y código de respuesta.",
+      "Identificar enumeración, errores de autorización repetidos, endpoints inusuales o nuevos autores sobre recursos sensibles.",
+      "Usar RequestId y ventanas temporales para correlacionar con telemetría de Entra y Microsoft 365.",
+    ],
+    lab: { title: "Investigar un autor inusual de llamadas a Microsoft Graph", steps: [
+      "Confirmar que los registros de actividad estén habilitados mediante el conector de Microsoft Entra ID.",
+      "Resumir solicitudes por AppId, ServicePrincipalId, UserId, RequestUri y ResponseStatusCode en una ventana definida.",
+      "Elegir un autor inusual y crear una cronología de endpoints, IP, agentes de usuario, errores y éxitos.",
+      "Correlacionarlo con inicios de sesión y auditoría de Entra y clasificar la actividad.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/connect-azure-active-directory": { title: "Enviar datos de Microsoft Entra ID a Sentinel" },
+      "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs": { title: "Referencia de la tabla MicrosoftGraphActivityLogs" },
+      "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/queries/microsoftgraphactivitylogs": { title: "Ejemplos de consultas de MicrosoftGraphActivityLogs" },
+    },
+  },
+  "bp-objective-49": {
+    summary: "El grafo de búsqueda de Búsqueda avanzada de Microsoft Defender representa entidades de seguridad y sus relaciones en un grafo interactivo. Se crea eligiendo un escenario, proporcionando entidades, aplicando filtros y explorando rutas posibles, puntos de control, exposición y conexiones con recursos críticos.",
+    keyConcepts: [
+      "Se abre desde Investigación y respuesta > Búsqueda > Búsqueda avanzada. Requiere el rol de Entra adecuado, incorporación a Data Lake de Sentinel y acceso de lectura a Security Exposure Management.",
+      "Los escenarios predefinidos responden preguntas sobre rutas hacia recursos críticos, relaciones, rutas entre entidades, acceso sensible o puntos de control mediante consultas integradas.",
+      "Los nodos representan usuarios, dispositivos, IP, aplicaciones o recursos; las aristas dirigidas describen pertenencia, permisos, autenticación, rutas, propiedad o ejecución.",
+      "El escenario se refina con filtros de origen, destino, tipo y dirección de arista, riesgo, vulnerabilidad, exposición o ruta más corta, además de capas visuales.",
+      "Los grafos sirven para explorar rutas posibles; el radio de impacto de un incidente estima alcance actual y potencial, pero no demuestra que se usaran todas las rutas.",
+      "Los resultados dependen de datos, clasificación, actualidad, relaciones modeladas, permisos y límites. Las relaciones importantes deben corroborarse con evidencia de eventos.",
+    ],
+    examChecklist: [
+      "Crear un grafo, elegir el escenario adecuado, proporcionar entidades, aplicar filtros y representarlo.",
+      "Interpretar tipos de nodo, dirección y relación de aristas, agrupaciones, rutas cortas, recursos críticos, vulnerabilidades y puntos de control.",
+      "Diferenciar grafos proactivos, historia del ataque, radio de impacto y análisis personalizado de Sentinel Graph con GQL.",
+      "Validar rutas contra evidencia y considerar requisitos, RBAC, datos incompletos, actualidad y límites de ruta.",
+    ],
+    lab: { title: "Crear y validar un grafo de búsqueda hacia un recurso crítico", steps: [
+      "Definir una hipótesis con una identidad o dispositivo potencialmente comprometido y un objetivo crítico, y registrar evidencia y permisos necesarios.",
+      "Crear un grafo y ejecutar Rutas entre dos entidades o Rutas de ataque a un recurso crítico.",
+      "Filtrar las rutas relevantes y examinar nodos y aristas para identificar exposición, vulnerabilidades y un punto de control.",
+      "Corroborar relaciones con páginas de entidad o una consulta, separar alcance posible de actividad observada y justificar una acción.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-graph": { title: "Buscar amenazas mediante el grafo de búsqueda" },
+      "https://learn.microsoft.com/en-us/defender-xdr/understand-graph-icons": { title: "Comprender los iconos y visualizaciones del grafo" },
+      "https://learn.microsoft.com/en-us/defender-xdr/investigate-incidents": { title: "Investigar incidentes y el radio de impacto" },
+      "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-query-results": { title: "Trabajar con resultados de consultas de Búsqueda avanzada" },
+    },
+  },
+  "bp-objective-50": {
+    summary: "Microsoft Sentinel Graph modela los datos de seguridad como nodos y relaciones dirigidas en lugar de filas aisladas. Los analistas usan experiencias gráficas y Graph Query Language (GQL) para rastrear rutas de acceso, movimiento lateral, radio de impacto y conexiones con recursos críticos.",
+    keyConcepts: [
+      "Los nodos representan identidades, dispositivos, archivos y recursos; las aristas representan acceso, pertenencia, propiedad o actividad.",
+      "Los grafos predefinidos admiten rutas de ataque de identidad, hunting, exposición y análisis del radio de impacto.",
+      "Los grafos personalizados pueden modelar Data Lake de Sentinel y datos ajenos a Microsoft para investigaciones específicas.",
+      "La visualización permite inspeccionar esquemas, detalles, conexiones, filtros, validación tabular y exportación.",
+    ],
+    examChecklist: [
+      "Explicar por qué un grafo revela relaciones difíciles de encontrar con consultas tabulares.",
+      "Identificar nodos, aristas, dirección, propiedades, rutas y radio de impacto.",
+      "Usar el esquema antes de escribir GQL y validar la visualización en la vista de tabla.",
+      "Distinguir análisis proactivo de rutas de investigación del radio de impacto posterior al compromiso.",
+    ],
+    lab: { title: "Rastrear una ruta de identidad hacia un recurso crítico", steps: [
+      "Abrir Microsoft Sentinel > Grafos y elegir un grafo predefinido o personalizado.",
+      "Inspeccionar el esquema para identificar identidades, recursos y relaciones relevantes.",
+      "Partir de una consulta predefinida o un patrón GQL de un salto y filtrar por una identidad o recurso crítico.",
+      "Recorrer recursos conectados, validar la ruta en tabla y registrar la ruta riesgosa más corta y una corrección.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-graph-overview": { title: "Introducción a Microsoft Sentinel Graph" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/identity-attack-graph": { title: "Grafo de ataques de identidad" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/graph-visualization": { title: "Visualizar grafos en Microsoft Sentinel" },
+    },
+  },
+  "bp-objective-52": {
+    summary: "Los trabajos KQL son consultas asincrónicas únicas o programadas sobre datos de Data Lake de Microsoft Sentinel y tablas federadas. Admiten investigaciones largas, joins y unions entre tablas, análisis histórico, enriquecimiento y promoción selectiva de resultados a otro nivel.",
+    keyConcepts: [
+      "El área de trabajo debe estar incorporada a Data Lake de Sentinel antes de ejecutar trabajos KQL.",
+      "Un trabajo define consulta, áreas de origen, área y tabla de destino, y una programación única o recurrente.",
+      "Los resultados pueden escribirse en una tabla nueva o agregarse a una existente con esquema compatible en Analytics o Data Lake.",
+      "Hay que considerar latencia de ingesta, tiempo de espera, costo de destino, compatibilidad de esquema y campos u operadores no admitidos.",
+    ],
+    examChecklist: [
+      "Elegir un trabajo KQL para cargas históricas, multitabla, joins/unions, programadas o de enriquecimiento.",
+      "Conocer incorporación a Data Lake, roles y acceso de identidad administrada para tablas de Analytics.",
+      "Configurar destino, ámbito, programación y retraso o solapamiento para datos tardíos.",
+      "Diferenciar trabajos KQL, reglas de resumen y trabajos de búsqueda por origen, capacidad, programación y destino.",
+    ],
+    lab: { title: "Diseñar un trabajo de enriquecimiento histórico programado", steps: [
+      "Elegir una investigación histórica que requiera join o union entre dos tablas.",
+      "Probar una consulta que proyecte sólo columnas necesarias y conserve el tiempo original.",
+      "Crear un trabajo programado con tabla de destino y retraso apropiado para la disponibilidad de datos.",
+      "Revisar estado y salida, verificar el esquema y documentar cómo ayudan los resultados al hunting o análisis.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/kql-jobs": { title: "Crear trabajos KQL en Data Lake de Sentinel" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/kql-jobs-summary-rules-search-jobs": { title: "Comparar trabajos KQL, reglas de resumen y trabajos de búsqueda" },
+    },
+  },
+  "bp-objective-53": {
+    summary: "Las reglas de resumen ejecutan agregaciones KQL programadas en segundo plano y almacenan resultados compactos en tablas personalizadas del nivel Analytics. Mejoran el rendimiento y controlan costos cuando se consultan repetidamente datos voluminosos o de niveles económicos.",
+    keyConcepts: [
+      "Una regla consta de una agregación KQL, tabla de destino, tamaño de intervalo o frecuencia, retraso y hora de inicio.",
+      "Los resultados usan una tabla personalizada nueva o existente, normalmente con sufijo _CL, y alimentan búsquedas, libros, informes o reglas.",
+      "Se prueban consulta y esquema antes de crearla; se reduce intervalo, filas o campos voluminosos si se acercan límites.",
+      "Se supervisan estado e historial de ejecución y se habilitan diagnósticos SummaryLogs para investigar fallos.",
+    ],
+    examChecklist: [
+      "Elegir reglas de resumen para agregación frecuente de datos voluminosos y análisis repetido rápido.",
+      "Configurar consulta, tabla de destino, frecuencia, retraso e inicio.",
+      "Explicar cómo los datos resumidos en Analytics evitan escaneos repetidos de Basic, Auxiliary o Data Lake.",
+      "Administrar una regla revisando resultados e historial y habilitándola, editándola, deshabilitándola o eliminándola.",
+    ],
+    lab: { title: "Crear y validar una regla de resumen", steps: [
+      "Seleccionar una tabla detallada y definir una métrica de seguridad horaria de uso frecuente.",
+      "Probar una consulta KQL con summarize y verificar esquema e intervalos temporales.",
+      "Crear una regla hacia una tabla personalizada nueva y configurar frecuencia y retraso de ingesta.",
+      "Consultar el destino, revisar historial o SummaryLogs y describir un uso en hunting o análisis.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/summary-rules": { title: "Agregar datos de Sentinel mediante reglas de resumen" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/kql-jobs-summary-rules-search-jobs": { title: "Comparar trabajos KQL, reglas de resumen y trabajos de búsqueda" },
+    },
+  },
+  "bp-objective-54": {
+    summary: "Microsoft Sentinel admite flujos de hunting basados en código y en lenguaje natural. Los cuadernos Jupyter ofrecen un entorno reproducible para adquisición, enriquecimiento, visualización, estadística y machine learning; Sentinel MCP Server expone herramientas de seguridad a clientes de IA compatibles mediante conexiones autenticadas con Microsoft Entra.",
+    keyConcepts: [
+      "Se elige un cuaderno cuando se necesita Python personalizado, transformaciones repetibles, enriquecimiento externo, visualización compleja, estadística, machine learning o un registro duradero de código, resultados y razonamiento.",
+      "MSTICPy agrega proveedores, consultas, enriquecimiento, inteligencia sobre amenazas, geolocalización, cronologías y árboles de procesos. Los secretos se protegen en Key Vault y el proceso se detiene cuando no se usa.",
+      "Sentinel MCP Server es una interfaz hospedada con identidad de Entra; un host y cliente MCP compatibles se conectan a colecciones para exploración, triaje, hunting o agentes.",
+      "Las herramientas MCP operan con los permisos y ámbito del usuario. Se selecciona el área correcta, se aplica mínimo privilegio y se mantiene compatibilidad de autorización.",
+      "Los resultados de cuadernos y MCP son candidatos de evidencia: se validan tablas, tiempos, lógica, entidades, citas y actualidad, y se conservan las consultas finales.",
+      "Las capacidades, límites, clientes y estado preliminar pueden cambiar. Se usan prompts en inglés según el soporte actual y se prueban los flujos antes de producción.",
+    ],
+    examChecklist: [
+      "Elegir cuadernos para análisis programable y reproducible, y MCP para acceso gobernado en lenguaje natural.",
+      "Configurar el entorno, autenticar, consultar con Kqlmagic o MSTICPy, enriquecer y visualizar, proteger secretos y controlar costos.",
+      "Explicar la relación host-cliente-servidor MCP, elegir una colección, autenticar con Entra y definir área y ámbito.",
+      "Validar resultados contra datos de origen, considerar permisos, actualidad, límites y vista previa, y conservar evidencia reproducible.",
+    ],
+    lab: { title: "Ejecutar y validar una búsqueda híbrida con cuaderno y MCP", steps: [
+      "Definir una hipótesis acotada y registrar área, tablas, entidades, permisos y evidencia esperada.",
+      "En un cuaderno, recuperar eventos con Kqlmagic o MSTICPy, normalizarlos, enriquecer una entidad y crear una visualización.",
+      "Desde un cliente conectado a Sentinel MCP, enviar un prompt específico en inglés para el mismo ámbito y registrar herramientas, área, tablas y tiempo.",
+      "Comparar resultados, investigar discrepancias, guardar consulta y narrativa, retirar secretos y documentar una conclusión respaldada.",
+    ] },
+    resources: {
+      "https://learn.microsoft.com/en-us/azure/sentinel/notebooks": { title: "Cuadernos Jupyter con capacidades de hunting de Sentinel" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/notebook-get-started": { title: "Introducción a cuadernos Jupyter y MSTICPy" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-mcp-overview": { title: "Compatibilidad de Microsoft Sentinel con MCP" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-mcp-get-started": { title: "Introducción a Microsoft Sentinel MCP Server" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-mcp-tools-overview": { title: "Colecciones de herramientas de Sentinel MCP" },
+      "https://learn.microsoft.com/en-us/azure/sentinel/datalake/troubleshoot-sentinel-mcp": { title: "Prácticas recomendadas y solución de problemas de Sentinel MCP" },
+    },
+  },
+};
 

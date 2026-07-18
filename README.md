@@ -47,7 +47,7 @@ Each lab contains sequential investigation stages, expandable evidence, decision
 - Responsive layouts for desktop and mobile.
 - Local-first progress with no account required.
 
-The interface is localized in both languages. All four Practice Labs and all nine Learning Paths are fully translated into Spanish; any remaining supporting content continues to use the automatic English fallback.
+The interface is localized in both languages. All four Practice Labs, all nine Learning Paths, and the complete Exam Blueprint are translated into Spanish; any remaining supporting content continues to use the automatic English fallback.
 
 ## How progress works
 

@@ -11,6 +11,7 @@ export type LearningPathTranslation = {
 
 export type ExamBlueprintTranslation = {
   title?: string;
+  effectiveDate?: string;
   domains?: Record<string, {
     title?: string;
     description?: string;
