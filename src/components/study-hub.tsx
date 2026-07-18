@@ -51,12 +51,14 @@ function LanguageControl({ locale, onChange }: { locale: Locale; onChange: (loca
     parts[1] = next;
     onChange(next);
     document.documentElement.lang = next;
-    document.title = next === "es" ? "Centro de estudio SC-200" : "SC-200 Study Hub";
+    document.title = next === "es"
+      ? "Centro de estudio SC-200 | Rutas, laboratorios y simulador"
+      : "SC-200 Study Hub | Learning Paths, Labs & Exam Practice";
     document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute(
       "content",
       next === "es"
-        ? "Una referencia de estudio abierta e interactiva para preparar el examen Microsoft SC-200."
-        : "An interactive, open study reference for the Microsoft SC-200 exam.",
+        ? "Prepará Microsoft SC-200 con rutas bilingües, laboratorios de seguridad, cobertura del temario, seguimiento de progreso y un simulador de 50 preguntas."
+        : "Prepare for Microsoft SC-200 with bilingual learning paths, guided security labs, exam blueprint coverage, progress tracking, and a 50-question simulator.",
     );
     const nextPath = parts.join("/") || `/${next}`;
     window.history.replaceState(null, "", `${nextPath}${window.location.search}${window.location.hash}`);

@@ -71,6 +71,8 @@ Clearing the browser's site data also clears locally stored progress.
 - CSS with system, light, and dark theme tokens
 - Static content versioned in the repository
 - Static generation for the English and Spanish routes
+- Vercel Web Analytics and Speed Insights
+- Generated bilingual metadata, sitemap, robots directives, social cards, and structured data
 
 ## Run locally
 
@@ -92,6 +94,33 @@ Quality checks:
 pnpm lint
 pnpm build
 ```
+
+## Deployment, analytics, and SEO
+
+The application is prepared for deployment on Vercel with a custom production domain. Copy `.env.example` to `.env.local` for local testing, and configure the same values in the Vercel project settings for production:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://sc200.in7ruder.com
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
+```
+
+`NEXT_PUBLIC_SITE_URL` is used for canonical URLs, language alternates, the sitemap, robots directives, and structured data. If it is not configured, the build falls back to Vercel's production URL and then to `http://localhost:3000` locally.
+
+After the production deployment:
+
+1. Add `sc200.in7ruder.com` to the Vercel project and create the DNS record that Vercel provides.
+2. Enable Web Analytics and Speed Insights in the Vercel dashboard.
+3. Add the domain to Google Search Console and complete DNS verification.
+4. Add the verification token to `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` if Google requests HTML-tag verification instead.
+5. Submit `https://sc200.in7ruder.com/sitemap.xml` in Search Console.
+
+Generated discovery endpoints:
+
+- `/robots.txt`
+- `/sitemap.xml`
+- `/manifest.webmanifest`
+- `/en/opengraph-image` and `/es/opengraph-image`
+- `/en/twitter-image` and `/es/twitter-image`
 
 ## Project structure
 
@@ -119,7 +148,7 @@ These scripts support content maintenance and are not runtime dependencies.
 
 ## Project direction
 
-Potential future additions include exam simulation mode, attempt history, deeper readiness metrics by exam domain, additional investigation scenarios, and optional account-based synchronization.
+Potential future additions include route-backed navigation for independently indexable study areas, deeper readiness metrics by exam domain, additional investigation scenarios, product analytics, and optional account-based synchronization.
 
 ## Author
 
