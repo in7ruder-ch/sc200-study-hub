@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { localizeExamBlueprint, localizeLearningPaths } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localProgressRepository } from "@/lib/progress/repository";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
@@ -42,14 +43,23 @@ function ThemeControl({ locale }: { locale: Locale }) {
   return <label className="control"><span>{t.theme}</span><select value={theme} onChange={(event) => updateTheme(event.target.value as ThemeChoice)}><option value="system">{t.system}</option><option value="light">{t.light}</option><option value="dark">{t.dark}</option></select></label>;
 }
 
-function LanguageControl({ locale }: { locale: Locale }) {
-  const router = useRouter();
+function LanguageControl({ locale, onChange }: { locale: Locale; onChange: (locale: Locale) => void }) {
   const pathname = usePathname();
   function updateLocale(next: Locale) {
+    if (next === locale) return;
     const parts = pathname.split("/");
     parts[1] = next;
+    onChange(next);
     document.documentElement.lang = next;
-    router.replace(parts.join("/") || `/${next}`);
+    document.title = next === "es" ? "Centro de estudio SC-200" : "SC-200 Study Hub";
+    document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute(
+      "content",
+      next === "es"
+        ? "Una referencia de estudio abierta e interactiva para preparar el examen Microsoft SC-200."
+        : "An interactive, open study reference for the Microsoft SC-200 exam.",
+    );
+    const nextPath = parts.join("/") || `/${next}`;
+    window.history.replaceState(null, "", `${nextPath}${window.location.search}${window.location.hash}`);
   }
   return <label className="control"><span>{copy[locale].language}</span><select value={locale} onChange={(event) => updateLocale(event.target.value as Locale)}><option value="en">English</option><option value="es">Español</option></select></label>;
 }
@@ -87,7 +97,10 @@ function ModulePanel({ module, completed, onToggle, locale }: { module: StudyMod
   );
 }
 
-export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale; learningPaths: LearningPath[]; blueprint: ExamBlueprint }) {
+export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningPaths, blueprint: sourceBlueprint }: { locale: Locale; learningPaths: LearningPath[]; blueprint: ExamBlueprint }) {
+  const [locale, setLocale] = useState<Locale>(initialLocale);
+  const learningPaths = useMemo(() => localizeLearningPaths(sourceLearningPaths, locale), [sourceLearningPaths, locale]);
+  const blueprint = useMemo(() => localizeExamBlueprint(sourceBlueprint, locale), [sourceBlueprint, locale]);
   const t = copy[locale];
   const [activeView, setActiveView] = useState<AppView>("dashboard");
   const [selectedPathId, setSelectedPathId] = useState<string | null>(null);
@@ -282,7 +295,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
       </aside>
 
       <main>
-        <header className="topbar"><div className="topbar-controls"><LanguageControl locale={locale} /><ThemeControl locale={locale} /></div></header>
+        <header className="topbar"><div className="topbar-controls"><LanguageControl locale={locale} onChange={setLocale} /><ThemeControl locale={locale} /></div></header>
         <div className="content-shell" id="top">
           {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} onOpenExamSimulator={openExamSimulator} /> : activeView === "learning" ? <>
           {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}

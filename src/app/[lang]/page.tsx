@@ -9,7 +9,6 @@ import learningPathSeven from "@/content/learning-path-7.json";
 import learningPathEight from "@/content/learning-path-8.json";
 import learningPathNine from "@/content/learning-path-9.json";
 import examBlueprint from "@/content/exam-blueprint.json";
-import { localizeExamBlueprint, localizeLearningPaths } from "@/content/localization/content";
 import { StudyHub } from "@/components/study-hub";
 import { isLocale, locales } from "@/lib/i18n";
 import type { ExamBlueprint, LearningPath } from "@/lib/types";
@@ -32,7 +31,5 @@ export default async function LocalizedHome({ params }: { params: Promise<{ lang
     learningPathEight,
     learningPathNine,
   ] as LearningPath[];
-  const learningPaths = localizeLearningPaths(englishLearningPaths, lang);
-  const blueprint = localizeExamBlueprint(examBlueprint as ExamBlueprint, lang);
-  return <StudyHub locale={lang} learningPaths={learningPaths} blueprint={blueprint} />;
+  return <StudyHub locale={lang} learningPaths={englishLearningPaths} blueprint={examBlueprint as ExamBlueprint} />;
 }
