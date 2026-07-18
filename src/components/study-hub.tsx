@@ -261,7 +261,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
             <div><a href="https://www.linkedin.com/in/mvanarelli/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://in7ruder.com" target="_blank" rel="noreferrer">Website ↗</a></div>
           </div>
         </div>
-        <nav aria-label="Primary navigation">
+        <nav aria-label={t.primaryNavigation}>
           <button className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={openDashboard} aria-pressed={activeView === "dashboard"}><span>00</span>{t.dashboard}</button>
           <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={openLearningPaths} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
           <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={openBlueprint} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
@@ -292,7 +292,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
                     </button>
                     {active && (
                       <section className="path-workspace">
-                        <header className="path-overview"><div><a href={path.officialUrl} target="_blank" rel="noreferrer">Learning path {String(path.number).padStart(2, "0")} · {path.title} ↗</a><p>{path.meta}</p></div><ProgressRing completed={done} total={pathUnits.length} /></header>
+                        <header className="path-overview"><div><a href={path.officialUrl} target="_blank" rel="noreferrer">{t.learningPathLabel} {String(path.number).padStart(2, "0")} · {path.title} ↗</a><p>{path.meta}</p></div><ProgressRing completed={done} total={pathUnits.length} /></header>
                         <section className="focus-card"><p className="eyebrow">{t.studyFocus}</p><div className="focus-grid">{path.focusAreas.map((area) => <div key={area.title}><strong>{area.title}</strong><p>{area.description}</p></div>)}</div></section>
                         {locale === "es" && <p className="language-note">{t.contentLanguage}</p>}
                         <section className="module-picker">
