@@ -86,7 +86,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
     return <section className="practice-catalog" aria-labelledby="practice-catalog-title">
       <header className="practice-catalog-hero">
         <div><p className="eyebrow">{t.practiceCatalogEyebrow}</p><h1 id="practice-catalog-title">{t.practiceCatalogTitle}</h1><p>{t.practiceCatalogBody}</p></div>
-        <div className="practice-catalog-summary"><span><strong>{practiceLabs.length}</strong>{t.practiceAvailable}</span><span><strong>{activeLabs}</strong>{t.practiceInProgress}</span><span><strong>{completedLabs}</strong>{t.practiceStatusCompleted}</span></div>
+        <div className="practice-catalog-summary"><span><strong>{practiceLabs.length}</strong>{t.practiceAvailable}</span><span><strong>{activeLabs}</strong>{t.practiceInProgress}</span><span><strong>{completedLabs}</strong>{t.practiceStatusCompletedPlural}</span></div>
       </header>
       <section className="practice-insights" aria-labelledby="practice-insights-title">
         <header>
