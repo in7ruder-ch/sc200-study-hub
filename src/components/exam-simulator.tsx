@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { getExamQuestions } from "@/content/localization/content";
+import { captureProductEvent } from "@/lib/analytics";
 import { copy } from "@/lib/i18n";
 import { localExamAttemptRepository, type ExamAttempt, type ExamMode } from "@/lib/progress/exam-repository";
 import type { ExamQuestion, LearningPath, Locale } from "@/lib/types";
@@ -67,13 +68,15 @@ export function ExamSimulatorView({ locale, learningPaths, onBack }: { locale: L
   }, [allQuestions]);
 
   function start(nextMode: ExamMode) {
+    const selectedQuestions = selectQuestions(allQuestions, nextMode);
     setMode(nextMode);
-    setActiveQuestions(selectQuestions(allQuestions, nextMode));
+    setActiveQuestions(selectedQuestions);
     setCurrentIndex(0);
     setAnswers({});
     setRevealed(new Set());
     setResult(null);
     setError("");
+    captureProductEvent("exam_started", { locale, mode: nextMode, question_count: selectedQuestions.length });
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
   }
 
@@ -115,6 +118,13 @@ export function ExamSimulatorView({ locale, learningPaths, onBack }: { locale: L
     setAttempts(localExamAttemptRepository.load());
     setResult(completed);
     setError("");
+    captureProductEvent("exam_completed", {
+      locale,
+      mode: completed.mode,
+      question_count: completed.total,
+      correct_answers: completed.score,
+      score_percentage: Math.round((completed.score / completed.total) * 100),
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 

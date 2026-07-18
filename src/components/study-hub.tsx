@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "r
 import { usePathname } from "next/navigation";
 import { getPracticeLabs, localizeExamBlueprint, localizeLearningPaths } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
+import { captureProductEvent } from "@/lib/analytics";
 import { localProgressRepository } from "@/lib/progress/repository";
 import { studyRouteFromPathname, studyRoutePath, type StudyRoute } from "@/lib/study-routes";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
@@ -260,16 +261,30 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
       return next;
     });
     setModuleToFocus(opening ? id : null);
-    if (selectedPathId) pushRoute({ view: "learning", pathId: selectedPathId, moduleId: opening ? id : undefined });
+    if (selectedPathId) {
+      if (opening) captureProductEvent("module_opened", { locale, path_id: selectedPathId, module_id: id });
+      pushRoute({ view: "learning", pathId: selectedPathId, moduleId: opening ? id : undefined });
+    }
   }
 
   function toggleUnit(id: string) {
-    setCompleted((current) => {
-      const next = new Set(current);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      localProgressRepository.save({ completedUnitIds: [...next] });
-      return next;
-    });
+    const path = learningPaths.find((candidate) => candidate.modules.some((studyModule) => studyModule.units.some((unit) => unit.id === id)));
+    const studyModule = path?.modules.find((candidate) => candidate.units.some((unit) => unit.id === id));
+    const next = new Set(completed);
+    const completing = !next.has(id);
+    if (completing) next.add(id); else next.delete(id);
+    localProgressRepository.save({ completedUnitIds: [...next] });
+    setCompleted(next);
+    if (completing && path && studyModule) {
+      captureProductEvent("unit_completed", {
+        locale,
+        path_id: path.id,
+        module_id: studyModule.id,
+        unit_id: id,
+        completed_units: next.size,
+        total_units: allUnits.length,
+      });
+    }
   }
 
   function togglePath(id: string) {
@@ -277,10 +292,12 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setSelectedPathId(opening ? id : null);
     setSelectedModules(new Set());
     setModuleToFocus(null);
+    if (opening) captureProductEvent("learning_path_opened", { locale, path_id: id, source: "learning_paths" });
     pushRoute(opening ? { view: "learning", pathId: id } : { view: "learning" });
   }
 
   function openStudyReference(reference: BlueprintReference, returnTarget: BlueprintReturnTarget) {
+    captureProductEvent("study_reference_opened", { locale, source: "exam_blueprint", path_id: reference.pathId, module_id: reference.moduleId, context_id: returnTarget.objectiveId });
     setBlueprintReturnTarget(returnTarget);
     setActiveView("learning");
     setSelectedPathId(reference.pathId);
@@ -290,6 +307,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
   }
 
   function openPracticeReference(reference: PracticeStudyReference, stageId: string, stageTitle: string) {
+    captureProductEvent("study_reference_opened", { locale, source: "practice_lab", path_id: reference.pathId, module_id: reference.moduleId, context_id: stageId });
     setBlueprintReturnTarget(null);
     setPracticeReturnTarget({ stageId, stageTitle });
     setActiveView("learning");
@@ -300,6 +318,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
   }
 
   function openDashboardLearningPath(pathId: string) {
+    captureProductEvent("learning_path_opened", { locale, path_id: pathId, source: "dashboard" });
     setBlueprintReturnTarget(null);
     setPracticeReturnTarget(null);
     setSelectedPathId(pathId);

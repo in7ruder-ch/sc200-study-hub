@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getPracticeLabs } from "@/content/localization/content";
+import { captureProductEvent } from "@/lib/analytics";
 import { copy } from "@/lib/i18n";
 import { localPracticeProgressRepository } from "@/lib/progress/practice-repository";
 import { studyRoutePath } from "@/lib/study-routes";
@@ -150,14 +151,37 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
   function startLab() {
     setStarted(true);
     localPracticeProgressRepository.saveLab(activeLab.id, { started: true, answers });
+    captureProductEvent("lab_started", { locale, lab_id: activeLab.id, stage_count: activeLab.stages.length });
   }
 
   function selectAnswer(stageId: string, optionId: string) {
-    setAnswers((current) => {
-      const next = { ...current, [stageId]: optionId };
-      localPracticeProgressRepository.saveLab(activeLab.id, { started: true, answers: next });
-      return next;
-    });
+    const next = { ...answers, [stageId]: optionId };
+    localPracticeProgressRepository.saveLab(activeLab.id, { started: true, answers: next });
+    setAnswers(next);
+    const stage = activeLab.stages.find((candidate) => candidate.id === stageId);
+    const selectedOption = stage?.decision.options.find((option) => option.id === optionId);
+    const firstCompletion = !answers[stageId];
+    if (stage && selectedOption && firstCompletion) {
+      captureProductEvent("lab_stage_completed", {
+        locale,
+        lab_id: activeLab.id,
+        stage_id: stage.id,
+        stage_number: stage.number,
+        rating: selectedOption.rating,
+      });
+      if (activeLab.stages.every((candidate) => Boolean(next[candidate.id]))) {
+        const recommendedDecisions = activeLab.stages.filter((candidate) => {
+          const answer = candidate.decision.options.find((option) => option.id === next[candidate.id]);
+          return answer?.rating === "recommended";
+        }).length;
+        captureProductEvent("lab_completed", {
+          locale,
+          lab_id: activeLab.id,
+          stage_count: activeLab.stages.length,
+          recommended_decisions: recommendedDecisions,
+        });
+      }
+    }
   }
 
   function toggleHint(stageId: string) {
