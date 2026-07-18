@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import { usePathname } from "next/navigation";
-import { localizeExamBlueprint, localizeLearningPaths } from "@/content/localization/content";
+import { getPracticeLabs, localizeExamBlueprint, localizeLearningPaths } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localProgressRepository } from "@/lib/progress/repository";
+import { studyRouteFromPathname, studyRoutePath, type StudyRoute } from "@/lib/study-routes";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
 import { PracticeLabView } from "@/components/practice-lab";
 import { DashboardView } from "@/components/dashboard";
@@ -51,15 +52,6 @@ function LanguageControl({ locale, onChange }: { locale: Locale; onChange: (loca
     parts[1] = next;
     onChange(next);
     document.documentElement.lang = next;
-    document.title = next === "es"
-      ? "Centro de estudio SC-200 | Rutas, laboratorios y simulador"
-      : "SC-200 Study Hub | Learning Paths, Labs & Exam Practice";
-    document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute(
-      "content",
-      next === "es"
-        ? "Prepará Microsoft SC-200 con rutas bilingües, laboratorios de seguridad, cobertura del temario, seguimiento de progreso y un simulador de 50 preguntas."
-        : "Prepare for Microsoft SC-200 with bilingual learning paths, guided security labs, exam blueprint coverage, progress tracking, and a 50-question simulator.",
-    );
     const nextPath = parts.join("/") || `/${next}`;
     window.history.replaceState(null, "", `${nextPath}${window.location.search}${window.location.hash}`);
   }
@@ -99,21 +91,23 @@ function ModulePanel({ module, completed, onToggle, locale }: { module: StudyMod
   );
 }
 
-export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningPaths, blueprint: sourceBlueprint }: { locale: Locale; learningPaths: LearningPath[]; blueprint: ExamBlueprint }) {
+export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningPaths, blueprint: sourceBlueprint, initialRoute }: { locale: Locale; learningPaths: LearningPath[]; blueprint: ExamBlueprint; initialRoute: StudyRoute }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
   const learningPaths = useMemo(() => localizeLearningPaths(sourceLearningPaths, locale), [sourceLearningPaths, locale]);
   const blueprint = useMemo(() => localizeExamBlueprint(sourceBlueprint, locale), [sourceBlueprint, locale]);
+  const practiceLabs = useMemo(() => getPracticeLabs(locale), [locale]);
   const t = copy[locale];
-  const [activeView, setActiveView] = useState<AppView>("dashboard");
-  const [selectedPathId, setSelectedPathId] = useState<string | null>(null);
-  const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
+  const [currentRoute, setCurrentRoute] = useState<StudyRoute>(initialRoute);
+  const [activeView, setActiveView] = useState<AppView>(initialRoute.view);
+  const [selectedPathId, setSelectedPathId] = useState<string | null>(initialRoute.view === "learning" ? initialRoute.pathId ?? null : null);
+  const [selectedModules, setSelectedModules] = useState<Set<string>>(() => new Set(initialRoute.view === "learning" && initialRoute.moduleId ? [initialRoute.moduleId] : []));
   const [moduleToFocus, setModuleToFocus] = useState<string | null>(null);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
-  const [pendingReference, setPendingReference] = useState<BlueprintReference | null>(null);
+  const [pendingReference, setPendingReference] = useState<BlueprintReference | null>(() => initialRoute.view === "learning" && initialRoute.pathId && initialRoute.moduleId ? { pathId: initialRoute.pathId, moduleId: initialRoute.moduleId } : null);
   const [blueprintReturnTarget, setBlueprintReturnTarget] = useState<BlueprintReturnTarget | null>(null);
   const [practiceReturnTarget, setPracticeReturnTarget] = useState<PracticeReturnTarget | null>(null);
-  const [activePracticeLabId, setActivePracticeLabId] = useState<string | null>(null);
-  const [practiceExperience, setPracticeExperience] = useState<"labs" | "exam">("labs");
+  const [activePracticeLabId, setActivePracticeLabId] = useState<string | null>(initialRoute.view === "practice" && initialRoute.experience === "labs" ? initialRoute.labId ?? null : null);
+  const [practiceExperience, setPracticeExperience] = useState<"labs" | "exam">(initialRoute.view === "practice" ? initialRoute.experience : "labs");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
@@ -129,6 +123,78 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     const update = window.setTimeout(() => setSidebarCollapsed(collapsed), 0);
     return () => window.clearTimeout(update);
   }, []);
+
+  useEffect(() => {
+    function restoreRoute() {
+      const route = studyRouteFromPathname(window.location.pathname);
+      if (!route) return;
+      setCurrentRoute(route);
+      setActiveView(route.view);
+      setSelectedPathId(route.view === "learning" ? route.pathId ?? null : null);
+      setSelectedModules(new Set(route.view === "learning" && route.moduleId ? [route.moduleId] : []));
+      setPendingReference(route.view === "learning" && route.pathId && route.moduleId ? { pathId: route.pathId, moduleId: route.moduleId } : null);
+      setModuleToFocus(null);
+      setPracticeExperience(route.view === "practice" ? route.experience : "labs");
+      setActivePracticeLabId(route.view === "practice" && route.experience === "labs" ? route.labId ?? null : null);
+      window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+    }
+    window.addEventListener("popstate", restoreRoute);
+    return () => window.removeEventListener("popstate", restoreRoute);
+  }, []);
+
+  useEffect(() => {
+    const spanish = locale === "es";
+    let title = spanish ? "Centro de estudio SC-200 | Rutas, laboratorios y simulador" : "SC-200 Study Hub | Learning Paths, Labs & Exam Practice";
+    let description = spanish
+      ? "Prepará Microsoft SC-200 con rutas bilingües, laboratorios de seguridad, cobertura del temario, seguimiento de progreso y un simulador de 50 preguntas."
+      : "Prepare for Microsoft SC-200 with bilingual learning paths, guided security labs, exam blueprint coverage, progress tracking, and a 50-question simulator.";
+
+    if (currentRoute.view === "learning") {
+      const path = learningPaths.find((candidate) => candidate.id === currentRoute.pathId);
+      const studyModule = path?.modules.find((candidate) => candidate.id === currentRoute.moduleId);
+      if (studyModule && path) {
+        title = `${studyModule.title} | SC-200 Study Hub`;
+        description = studyModule.focus || (spanish ? `Estudiá ${studyModule.title} dentro de ${path.title} para preparar Microsoft SC-200.` : `Study ${studyModule.title} within ${path.title} while preparing for Microsoft SC-200.`);
+      } else if (path) {
+        title = `${path.title} | SC-200 Study Hub`;
+        description = spanish ? `Explorá ${path.modules.length} módulos de ${path.title}, seguí tu progreso y conectá cada tema con el examen SC-200.` : `Explore ${path.modules.length} modules from ${path.title}, track progress, and connect each topic to the SC-200 exam.`;
+      } else {
+        title = spanish ? "Rutas de aprendizaje SC-200 | Study Hub" : "SC-200 Learning Paths | Study Hub";
+        description = spanish ? "Estudiá las nueve rutas de aprendizaje SC-200 con 54 módulos, 404 unidades y seguimiento local del progreso." : "Study all nine SC-200 learning paths with 54 modules, 404 units, and local progress tracking.";
+      }
+    } else if (currentRoute.view === "blueprint") {
+      title = spanish ? "Temario del examen SC-200 | Study Hub" : "SC-200 Exam Blueprint | Study Hub";
+      description = spanish ? "Explorá los dominios ponderados, grupos funcionales y objetivos oficiales del examen SC-200 con referencias de estudio directas." : "Explore SC-200 weighted domains, functional groups, and official exam objectives with direct study references.";
+    } else if (currentRoute.view === "practice" && currentRoute.experience === "exam") {
+      title = spanish ? "Simulador de examen SC-200 | 50 preguntas" : "SC-200 Exam Simulator | 50 Questions";
+      description = spanish ? "Practicá con un simulador bilingüe de 50 preguntas originales, resultados por dominio, explicaciones y referencias de estudio." : "Practice with a bilingual 50-question SC-200 simulator featuring domain scores, explanations, and study references.";
+    } else if (currentRoute.view === "practice") {
+      const lab = practiceLabs.find((candidate) => candidate.id === currentRoute.labId);
+      title = lab ? `${lab.title} | SC-200 Practice Lab` : spanish ? "Laboratorios prácticos SC-200 | Study Hub" : "SC-200 Practice Labs | Study Hub";
+      description = lab?.subtitle || (spanish ? "Desarrollá criterio de investigación con escenarios guiados de Defender XDR, Sentinel, Endpoint y seguridad cloud." : "Build investigation judgment through guided Defender XDR, Sentinel, Endpoint, and cloud security scenarios.");
+    }
+
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const origin = canonical ? new URL(canonical.href).origin : window.location.origin;
+    const routePath = studyRoutePath(locale, currentRoute);
+    const absoluteUrl = `${origin}${routePath}`;
+    document.title = title;
+    document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute("content", description);
+    canonical?.setAttribute("href", absoluteUrl);
+    document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute("content", title);
+    document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute("content", description);
+    document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute("content", absoluteUrl);
+    document.querySelector<HTMLMetaElement>('meta[property="og:locale"]')?.setAttribute("content", spanish ? "es_ES" : "en_US");
+    document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.setAttribute("content", `${origin}/${locale}/opengraph-image`);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute("content", title);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.setAttribute("content", description);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]')?.setAttribute("content", `${origin}/${locale}/twitter-image`);
+    document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]').forEach((link) => {
+      const language = link.getAttribute("hreflang");
+      const targetLocale: Locale = language === "es" ? "es" : "en";
+      link.href = `${origin}${studyRoutePath(targetLocale, currentRoute)}`;
+    });
+  }, [currentRoute, learningPaths, locale, practiceLabs]);
 
   useEffect(() => {
     if (!selectedPathId) return;
@@ -181,6 +247,11 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
   const returnObjective = useMemo(() => blueprint.domains.flatMap((domain) => domain.groups).flatMap((group) => group.objectives).find((objective) => objective.id === blueprintReturnTarget?.objectiveId), [blueprint, blueprintReturnTarget]);
   const clearBlueprintReturnTarget = useCallback(() => setBlueprintReturnTarget(null), []);
 
+  function pushRoute(route: StudyRoute) {
+    setCurrentRoute(route);
+    window.history.pushState(null, "", studyRoutePath(locale, route));
+  }
+
   function toggleModule(id: string) {
     const opening = !selectedModules.has(id);
     setSelectedModules((current) => {
@@ -189,6 +260,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
       return next;
     });
     setModuleToFocus(opening ? id : null);
+    if (selectedPathId) pushRoute({ view: "learning", pathId: selectedPathId, moduleId: opening ? id : undefined });
   }
 
   function toggleUnit(id: string) {
@@ -201,9 +273,11 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
   }
 
   function togglePath(id: string) {
-    setSelectedPathId((current) => current === id ? null : id);
+    const opening = selectedPathId !== id;
+    setSelectedPathId(opening ? id : null);
     setSelectedModules(new Set());
     setModuleToFocus(null);
+    pushRoute(opening ? { view: "learning", pathId: id } : { view: "learning" });
   }
 
   function openStudyReference(reference: BlueprintReference, returnTarget: BlueprintReturnTarget) {
@@ -212,6 +286,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setSelectedPathId(reference.pathId);
     setSelectedModules(new Set([reference.moduleId]));
     setPendingReference(reference);
+    pushRoute({ view: "learning", pathId: reference.pathId, moduleId: reference.moduleId });
   }
 
   function openPracticeReference(reference: PracticeStudyReference, stageId: string, stageTitle: string) {
@@ -221,6 +296,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setSelectedPathId(reference.pathId);
     setSelectedModules(new Set([reference.moduleId]));
     setPendingReference(reference);
+    pushRoute({ view: "learning", pathId: reference.pathId, moduleId: reference.moduleId });
   }
 
   function openDashboardLearningPath(pathId: string) {
@@ -229,6 +305,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setSelectedPathId(pathId);
     setSelectedModules(new Set());
     setActiveView("learning");
+    pushRoute({ view: "learning", pathId });
   }
 
   function openDashboardPracticeLab(labId: string, stageId?: string, stageTitle?: string) {
@@ -237,28 +314,33 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setPracticeExperience("labs");
     setPracticeReturnTarget(stageId && stageTitle ? { stageId, stageTitle } : null);
     setActiveView("practice");
+    pushRoute({ view: "practice", experience: "labs", labId });
   }
 
   function openDashboard() {
     setBlueprintReturnTarget(null);
     setPracticeReturnTarget(null);
     setActiveView("dashboard");
+    pushRoute({ view: "dashboard" });
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
   }
 
   function openLearningPaths() {
     setActiveView("learning");
+    pushRoute({ view: "learning", pathId: selectedPathId ?? undefined, moduleId: selectedModules.values().next().value });
   }
 
   function openBlueprint() {
     setPracticeReturnTarget(null);
     setActiveView("blueprint");
+    pushRoute({ view: "blueprint" });
   }
 
   function openPracticeLabs() {
     setBlueprintReturnTarget(null);
     setPracticeExperience("labs");
     setActiveView("practice");
+    pushRoute({ view: "practice", experience: "labs", labId: activePracticeLabId ?? undefined });
   }
 
   function openExamSimulator() {
@@ -266,6 +348,17 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
     setPracticeReturnTarget(null);
     setPracticeExperience("exam");
     setActiveView("practice");
+    pushRoute({ view: "practice", experience: "exam" });
+  }
+
+  function selectPracticeLab(labId: string | null) {
+    setActivePracticeLabId(labId);
+    pushRoute({ view: "practice", experience: "labs", labId: labId ?? undefined });
+  }
+
+  function returnFromExam() {
+    setPracticeExperience("labs");
+    pushRoute({ view: "practice", experience: "labs", labId: activePracticeLabId ?? undefined });
   }
 
   function toggleSidebar() {
@@ -288,10 +381,10 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
           </div>
         </div>
         <nav aria-label={t.primaryNavigation}>
-          <button className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={openDashboard} aria-pressed={activeView === "dashboard"}><span>00</span>{t.dashboard}</button>
-          <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={openLearningPaths} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
-          <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={openBlueprint} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
-          <button className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={openPracticeLabs} aria-pressed={activeView === "practice"}><span>03</span>{t.practice}</button>
+          <a href={studyRoutePath(locale, { view: "dashboard" })} className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={(event) => { event.preventDefault(); openDashboard(); }} aria-current={activeView === "dashboard" ? "page" : undefined}><span>00</span>{t.dashboard}</a>
+          <a href={studyRoutePath(locale, { view: "learning" })} className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={(event) => { event.preventDefault(); openLearningPaths(); }} aria-current={activeView === "learning" ? "page" : undefined}><span>01</span>{t.learningPaths}</a>
+          <a href={studyRoutePath(locale, { view: "blueprint" })} className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={(event) => { event.preventDefault(); openBlueprint(); }} aria-current={activeView === "blueprint" ? "page" : undefined}><span>02</span>{t.blueprint}</a>
+          <a href={studyRoutePath(locale, { view: "practice", experience: "labs" })} className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={(event) => { event.preventDefault(); openPracticeLabs(); }} aria-current={activeView === "practice" ? "page" : undefined}><span>03</span>{t.practice}</a>
         </nav>
         <div className="sidebar-progress"><ProgressRing completed={completedCount} total={allUnits.length} /><div><strong>{completedCount} / {allUnits.length}</strong><span>{t.units} {t.complete}</span></div></div>
       </aside>
@@ -300,8 +393,8 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
         <header className="topbar"><div className="topbar-controls"><LanguageControl locale={locale} onChange={setLocale} /><ThemeControl locale={locale} /></div></header>
         <div className="content-shell" id="top">
           {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} onOpenExamSimulator={openExamSimulator} /> : activeView === "learning" ? <>
-          {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
-          {practiceReturnTarget && <button className="blueprint-return practice-return" type="button" onClick={() => setActiveView("practice")}><span aria-hidden="true">←</span><span><strong>{t.backToPracticeStage}</strong><small>{practiceReturnTarget.stageTitle}</small></span></button>}
+          {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={openBlueprint}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
+          {practiceReturnTarget && <button className="blueprint-return practice-return" type="button" onClick={openPracticeLabs}><span aria-hidden="true">←</span><span><strong>{t.backToPracticeStage}</strong><small>{practiceReturnTarget.stageTitle}</small></span></button>}
           <section className="hero"><p className="eyebrow">{t.studyWorkspace}</p><h1>{t.heroTitle}</h1><p>{t.heroBody}</p></section>
 
           <section className="path-picker" aria-labelledby="path-picker-title">
@@ -313,9 +406,9 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
                 const done = pathUnits.filter((unit) => completed.has(unit.id)).length;
                 return (
                   <div className={`path-entry ${active ? "expanded" : ""}`} id={`path-entry-${path.id}`} key={path.id}>
-                    <button className={`path-card ${active ? "selected" : ""}`} onClick={() => togglePath(path.id)} aria-pressed={active}>
+                    <a href={studyRoutePath(locale, { view: "learning", pathId: path.id })} className={`path-card ${active ? "selected" : ""}`} onClick={(event) => { event.preventDefault(); togglePath(path.id); }} aria-expanded={active}>
                       <span className="path-number">{String(path.number).padStart(2, "0")}</span><span><strong>{path.title}</strong><small>{path.meta}</small><em>{done}/{pathUnits.length} {t.units} {t.complete}</em></span><span className="path-action">{active ? "−" : "+"}</span>
-                    </button>
+                    </a>
                     {active && (
                       <section className="path-workspace">
                         <header className="path-overview"><div><a href={path.officialUrl} target="_blank" rel="noreferrer">{t.learningPathLabel} {String(path.number).padStart(2, "0")} · {path.title} ↗</a><p>{path.meta}</p></div><ProgressRing completed={done} total={pathUnits.length} /></header>
@@ -327,7 +420,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
                             {path.modules.map((module) => {
                               const moduleDone = module.units.filter((unit) => completed.has(unit.id)).length;
                               const moduleActive = selectedModules.has(module.id);
-                              return <button key={module.id} className={`module-card ${moduleActive ? "selected" : ""}`} onClick={() => toggleModule(module.id)} aria-pressed={moduleActive}><span>{String(module.number).padStart(2, "0")}</span><span><strong>{module.title}</strong><small>{moduleDone}/{module.units.length} {t.units}</small></span><span>{moduleActive ? "−" : "+"}</span></button>;
+                              return <a href={studyRoutePath(locale, { view: "learning", pathId: path.id, moduleId: module.id })} key={module.id} className={`module-card ${moduleActive ? "selected" : ""}`} onClick={(event) => { event.preventDefault(); toggleModule(module.id); }} aria-expanded={moduleActive}><span>{String(module.number).padStart(2, "0")}</span><span><strong>{module.title}</strong><small>{moduleDone}/{module.units.length} {t.units}</small></span><span>{moduleActive ? "−" : "+"}</span></a>;
                             })}
                           </div>
                         </section>
@@ -344,7 +437,7 @@ export function StudyHub({ locale: initialLocale, learningPaths: sourceLearningP
           {!selectedPathId && (
             <section className="empty-state"><span>⌁</span><div><h2>{t.noPathTitle}</h2><p>{t.noPathBody}</p></div></section>
           )}
-          </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : practiceExperience === "exam" ? <ExamSimulatorView locale={locale} learningPaths={learningPaths} onBack={() => setPracticeExperience("labs")} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={setActivePracticeLabId} onOpenReference={openPracticeReference} onOpenSimulator={openExamSimulator} />}
+          </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : practiceExperience === "exam" ? <ExamSimulatorView locale={locale} learningPaths={learningPaths} onBack={returnFromExam} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={selectPracticeLab} onOpenReference={openPracticeReference} onOpenSimulator={openExamSimulator} />}
         </div>
       </main>
       <nav className="mobile-nav" aria-label={t.mobileNavigation}>
