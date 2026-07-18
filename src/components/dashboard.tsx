@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { practiceLabs } from "@/content/practice-labs";
+import { getPracticeLabs } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localPracticeProgressRepository, type PracticeLabProgress } from "@/lib/progress/practice-repository";
 import type { LearningPath, Locale, PracticeDecisionRating } from "@/lib/types";
@@ -18,6 +18,7 @@ type DashboardProps = {
 
 export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenLearningPath, onOpenPracticeLab }: DashboardProps) {
   const t = copy[locale];
+  const practiceLabs = useMemo(() => getPracticeLabs(locale), [locale]);
   const [practiceProgress, setPracticeProgress] = useState<Record<string, PracticeLabProgress>>({});
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenL
       setPracticeProgress(Object.fromEntries(practiceLabs.map((lab) => [lab.id, localPracticeProgressRepository.loadLab(lab.id)])));
     }, 0);
     return () => window.clearTimeout(timeout);
-  }, []);
+  }, [practiceLabs]);
 
   const summary = useMemo(() => {
     const allUnits = learningPaths.flatMap((path) => path.modules.flatMap((module) => module.units));
@@ -54,7 +55,7 @@ export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenL
       completedStages,
       reviewItems,
     };
-  }, [completedUnitIds, learningPaths, practiceProgress]);
+  }, [completedUnitIds, learningPaths, practiceLabs, practiceProgress]);
 
   const activeLab = practiceLabs.find((lab) => {
     const progress = practiceProgress[lab.id];

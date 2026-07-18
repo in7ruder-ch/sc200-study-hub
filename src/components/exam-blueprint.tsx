@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { remediationPacks, type RemediationPack } from "@/content/remediation-packs";
+import { getRemediationPacks } from "@/content/localization/content";
+import type { RemediationPack } from "@/content/remediation-packs";
 import { copy } from "@/lib/i18n";
 import type { BlueprintReference, BlueprintReturnTarget, ExamBlueprint, LearningPath, Locale } from "@/lib/types";
 
@@ -22,7 +23,7 @@ export function ExamBlueprintView({
 }) {
   const t = copy[locale];
   const objectives = useMemo(() => blueprint.domains.flatMap((domain) => domain.groups.flatMap((group) => group.objectives)), [blueprint]);
-  const packs = useMemo(() => new Map(remediationPacks.map((pack) => [pack.objectiveId, pack])), []);
+  const packs = useMemo(() => new Map(getRemediationPacks(locale).map((pack) => [pack.objectiveId, pack])), [locale]);
   const [openGroupIds, setOpenGroupIds] = useState<Set<string>>(new Set());
   const [highlightedObjectiveId, setHighlightedObjectiveId] = useState<string | null>(null);
 

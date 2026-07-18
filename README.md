@@ -47,7 +47,7 @@ Each lab contains sequential investigation stages, expandable evidence, decision
 - Responsive layouts for desktop and mobile.
 - Local-first progress with no account required.
 
-The interface is localized in both languages. The underlying Microsoft Learn study notes and lab scenarios currently remain in English.
+The interface is localized in both languages. Spanish content is being added incrementally with automatic English fallback; all four Practice Labs are fully translated, while the Microsoft Learn study notes currently remain in English.
 
 ## How progress works
 
