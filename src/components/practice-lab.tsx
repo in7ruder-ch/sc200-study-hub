@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { practiceLabs } from "@/content/practice-labs";
+import { getPracticeLabs } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localPracticeProgressRepository } from "@/lib/progress/practice-repository";
 import type { PracticeLabProgress } from "@/lib/progress/practice-repository";
-import type { LearningPath, Locale, PracticeDecisionRating, PracticeLabScenario, PracticeStudyReference } from "@/lib/types";
+import type { LearningPath, Locale, PracticeDecisionRating, PracticeEvidence, PracticeLabScenario, PracticeStudyReference } from "@/lib/types";
 
 function validStoredAnswers(lab: PracticeLabScenario, stored: Record<string, string>) {
   const answers: Record<string, string> = {};
@@ -18,6 +18,7 @@ function validStoredAnswers(lab: PracticeLabScenario, stored: Record<string, str
 
 export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelectLab, onOpenReference }: { locale: Locale; learningPaths: LearningPath[]; selectedLabId: string | null; onSelectLab: (labId: string | null) => void; onOpenReference: (reference: PracticeStudyReference, stageId: string, stageTitle: string) => void }) {
   const t = copy[locale];
+  const practiceLabs = useMemo(() => getPracticeLabs(locale), [locale]);
   const lab = practiceLabs.find((candidate) => candidate.id === selectedLabId);
   const [started, setStarted] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -42,7 +43,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
       setConfirmingReset(false);
     }, 0);
     return () => window.clearTimeout(timeout);
-  }, [lab]);
+  }, [lab, practiceLabs]);
 
   const completedStages = useMemo(() => lab?.stages.filter((stage) => Boolean(answers[stage.id])).length ?? 0, [answers, lab]);
   const completionPercentage = lab ? Math.round((completedStages / lab.stages.length) * 100) : 0;
@@ -52,6 +53,14 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
     recommended: t.practiceRecommended,
     acceptable: t.practiceAcceptable,
     risky: t.practiceRisky,
+  };
+  const evidenceCategoryLabels: Record<PracticeEvidence["category"], string> = {
+    incident: t.practiceCategoryIncident,
+    email: t.practiceCategoryEmail,
+    identity: t.practiceCategoryIdentity,
+    cloud: t.practiceCategoryCloud,
+    device: t.practiceCategoryDevice,
+    hunting: t.practiceCategoryHunting,
   };
 
   if (!lab) {
@@ -234,7 +243,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
                     <section className="practice-evidence" aria-labelledby={`${stage.id}-evidence`}>
                       <div className="practice-section-title"><span>{t.practiceEvidence}</span><small>{stage.evidence.length}</small></div>
                       <div className="practice-evidence-grid">
-                        {stage.evidence.map((evidence) => <details key={evidence.id}><summary><span>{evidence.category}</span><strong>{evidence.title}</strong></summary><ul>{evidence.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul></details>)}
+                        {stage.evidence.map((evidence) => <details key={evidence.id}><summary><span>{evidenceCategoryLabels[evidence.category]}</span><strong>{evidence.title}</strong></summary><ul>{evidence.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul></details>)}
                       </div>
                     </section>
 
