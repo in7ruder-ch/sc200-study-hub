@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getPracticeLabs } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localPracticeProgressRepository, type PracticeLabProgress } from "@/lib/progress/practice-repository";
+import { localExamAttemptRepository, type ExamAttempt } from "@/lib/progress/exam-repository";
 import type { LearningPath, Locale, PracticeDecisionRating } from "@/lib/types";
 
 type ReviewRating = Exclude<PracticeDecisionRating, "recommended">;
@@ -14,16 +15,19 @@ type DashboardProps = {
   completedUnitIds: Set<string>;
   onOpenLearningPath: (pathId: string) => void;
   onOpenPracticeLab: (labId: string, stageId?: string, stageTitle?: string) => void;
+  onOpenExamSimulator: () => void;
 };
 
-export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenLearningPath, onOpenPracticeLab }: DashboardProps) {
+export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenLearningPath, onOpenPracticeLab, onOpenExamSimulator }: DashboardProps) {
   const t = copy[locale];
   const practiceLabs = useMemo(() => getPracticeLabs(locale), [locale]);
   const [practiceProgress, setPracticeProgress] = useState<Record<string, PracticeLabProgress>>({});
+  const [examAttempts, setExamAttempts] = useState<ExamAttempt[]>([]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       setPracticeProgress(Object.fromEntries(practiceLabs.map((lab) => [lab.id, localPracticeProgressRepository.loadLab(lab.id)])));
+      setExamAttempts(localExamAttemptRepository.load());
     }, 0);
     return () => window.clearTimeout(timeout);
   }, [practiceLabs]);
@@ -66,6 +70,7 @@ export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenL
   const learningPercentage = summary.totalUnits ? Math.round((summary.completedUnits / summary.totalUnits) * 100) : 0;
   const labPercentage = summary.totalStages ? Math.round((summary.completedStages / summary.totalStages) * 100) : 0;
   const ratingLabels: Record<ReviewRating, string> = { acceptable: t.practiceAcceptable, risky: t.practiceRisky };
+  const latestExamAttempt = examAttempts[0];
 
   return <section className="dashboard-view" aria-labelledby="dashboard-title">
     <header className="dashboard-hero">
@@ -126,6 +131,7 @@ export function DashboardView({ locale, learningPaths, completedUnitIds, onOpenL
           <strong>{nextPath.modules.flatMap((module) => module.units).filter((unit) => completedUnitIds.has(unit.id)).length}/{nextPath.modules.flatMap((module) => module.units).length} {t.units}</strong>
           <button type="button" onClick={() => onOpenLearningPath(nextPath.id)}>{t.dashboardOpenPath} →</button>
         </section>}
+        <section className="dashboard-exam-entry"><small>{t.examSimulatorEyebrow}</small><h3>{t.examSimulator}</h3>{latestExamAttempt && <strong>{t.examLatestScore}: {Math.round((latestExamAttempt.score / latestExamAttempt.total) * 100)}%</strong>}<button type="button" onClick={onOpenExamSimulator}>{t.examOpenSimulator} →</button></section>
       </aside>
     </div>
 

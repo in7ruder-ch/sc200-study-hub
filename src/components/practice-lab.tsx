@@ -16,7 +16,7 @@ function validStoredAnswers(lab: PracticeLabScenario, stored: Record<string, str
   return answers;
 }
 
-export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelectLab, onOpenReference }: { locale: Locale; learningPaths: LearningPath[]; selectedLabId: string | null; onSelectLab: (labId: string | null) => void; onOpenReference: (reference: PracticeStudyReference, stageId: string, stageTitle: string) => void }) {
+export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelectLab, onOpenReference, onOpenSimulator }: { locale: Locale; learningPaths: LearningPath[]; selectedLabId: string | null; onSelectLab: (labId: string | null) => void; onOpenReference: (reference: PracticeStudyReference, stageId: string, stageTitle: string) => void; onOpenSimulator: () => void }) {
   const t = copy[locale];
   const practiceLabs = useMemo(() => getPracticeLabs(locale), [locale]);
   const lab = practiceLabs.find((candidate) => candidate.id === selectedLabId);
@@ -88,6 +88,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
         <div><p className="eyebrow">{t.practiceCatalogEyebrow}</p><h1 id="practice-catalog-title">{t.practiceCatalogTitle}</h1><p>{t.practiceCatalogBody}</p></div>
         <div className="practice-catalog-summary"><span><strong>{practiceLabs.length}</strong>{t.practiceAvailable}</span><span><strong>{activeLabs}</strong>{t.practiceInProgress}</span><span><strong>{completedLabs}</strong>{t.practiceStatusCompletedPlural}</span></div>
       </header>
+      <section className="exam-entry-card" aria-labelledby="exam-entry-title"><div><p className="eyebrow">{t.examSimulatorEyebrow}</p><h2 id="exam-entry-title">{t.examSimulator}</h2><p>{t.examSimulatorBody}</p></div><button type="button" onClick={onOpenSimulator}>{t.examOpenSimulator} →</button></section>
       <section className="practice-insights" aria-labelledby="practice-insights-title">
         <header>
           <div><p className="eyebrow">{t.practiceSnapshotEyebrow}</p><h2 id="practice-insights-title">{t.practiceSnapshotTitle}</h2></div>

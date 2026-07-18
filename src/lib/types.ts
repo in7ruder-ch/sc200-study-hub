@@ -55,6 +55,19 @@ export type ExamBlueprint = {
   domains: BlueprintDomain[];
 };
 
+export type ExamQuestionOption = { id: string; text: string };
+
+export type ExamQuestion = {
+  id: string;
+  domainId: "bp-domain-1" | "bp-domain-2" | "bp-domain-3";
+  domainTitle: string;
+  prompt: string;
+  options: ExamQuestionOption[];
+  correctOptionId: string;
+  explanation: string;
+  references: PracticeStudyReference[];
+};
+
 export type PracticeDecisionRating = "recommended" | "acceptable" | "risky";
 
 export type PracticeEvidence = {
