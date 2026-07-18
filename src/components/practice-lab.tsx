@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getPracticeLabs } from "@/content/localization/content";
 import { copy } from "@/lib/i18n";
 import { localPracticeProgressRepository } from "@/lib/progress/practice-repository";
+import { studyRoutePath } from "@/lib/study-routes";
 import type { PracticeLabProgress } from "@/lib/progress/practice-repository";
 import type { LearningPath, Locale, PracticeDecisionRating, PracticeEvidence, PracticeLabScenario, PracticeStudyReference } from "@/lib/types";
 
@@ -88,7 +89,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
         <div><p className="eyebrow">{t.practiceCatalogEyebrow}</p><h1 id="practice-catalog-title">{t.practiceCatalogTitle}</h1><p>{t.practiceCatalogBody}</p></div>
         <div className="practice-catalog-summary"><span><strong>{practiceLabs.length}</strong>{t.practiceAvailable}</span><span><strong>{activeLabs}</strong>{t.practiceInProgress}</span><span><strong>{completedLabs}</strong>{t.practiceStatusCompletedPlural}</span></div>
       </header>
-      <section className="exam-entry-card" aria-labelledby="exam-entry-title"><div><p className="eyebrow">{t.examSimulatorEyebrow}</p><h2 id="exam-entry-title">{t.examSimulator}</h2><p>{t.examSimulatorBody}</p></div><button type="button" onClick={onOpenSimulator}>{t.examOpenSimulator} →</button></section>
+      <section className="exam-entry-card" aria-labelledby="exam-entry-title"><div><p className="eyebrow">{t.examSimulatorEyebrow}</p><h2 id="exam-entry-title">{t.examSimulator}</h2><p>{t.examSimulatorBody}</p></div><a href={studyRoutePath(locale, { view: "practice", experience: "exam" })} onClick={(event) => { event.preventDefault(); onOpenSimulator(); }}>{t.examOpenSimulator} →</a></section>
       <section className="practice-insights" aria-labelledby="practice-insights-title">
         <header>
           <div><p className="eyebrow">{t.practiceSnapshotEyebrow}</p><h2 id="practice-insights-title">{t.practiceSnapshotTitle}</h2></div>
@@ -137,7 +138,7 @@ export function PracticeLabView({ locale, learningPaths, selectedLabId, onSelect
             <dl><div><dt>{t.practiceDifficulty}</dt><dd>{candidate.difficulty}</dd></div><div><dt>{t.practiceEstimatedTime}</dt><dd>{candidate.estimatedMinutes} min</dd></div><div><dt>{t.practiceStages}</dt><dd>{candidate.stages.length}</dd></div></dl>
             <div className="practice-catalog-products">{candidate.products.map((product) => <span key={product}>{product}</span>)}</div>
             <div className="practice-card-progress"><div><span>{t.practiceProgress}</span><strong>{done}/{candidate.stages.length}</strong></div><div><span style={{ width: `${percentage}%` }} /></div></div>
-            <button type="button" onClick={() => onSelectLab(candidate.id)}>{action} →</button>
+            <a href={studyRoutePath(locale, { view: "practice", experience: "labs", labId: candidate.id })} onClick={(event) => { event.preventDefault(); onSelectLab(candidate.id); }}>{action} →</a>
           </article>;
         })}
       </div>

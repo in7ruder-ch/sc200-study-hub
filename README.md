@@ -51,6 +51,8 @@ Each lab contains sequential investigation stages, expandable evidence, decision
 ### Interface
 
 - English and Spanish interface routes at `/en` and `/es`.
+- Shareable, indexable URLs for learning paths, individual modules, the exam blueprint, Practice Labs, and the Exam Simulator.
+- Browser back, forward, refresh, and language switching preserve the active study area.
 - System, light, and dark themes.
 - Responsive layouts for desktop and mobile.
 - Local-first progress with no account required.
@@ -122,6 +124,19 @@ Generated discovery endpoints:
 - `/en/opengraph-image` and `/es/opengraph-image`
 - `/en/twitter-image` and `/es/twitter-image`
 
+Public study routes follow the same structure in both languages:
+
+```text
+/{lang}
+/{lang}/learning-paths
+/{lang}/learning-paths/{pathId}
+/{lang}/learning-paths/{pathId}/{moduleId}
+/{lang}/exam-blueprint
+/{lang}/practice-labs
+/{lang}/practice-labs/{labId}
+/{lang}/exam-simulator
+```
+
 ## Project structure
 
 ```text
@@ -148,7 +163,7 @@ These scripts support content maintenance and are not runtime dependencies.
 
 ## Project direction
 
-Potential future additions include route-backed navigation for independently indexable study areas, deeper readiness metrics by exam domain, additional investigation scenarios, product analytics, and optional account-based synchronization.
+Potential future additions include deeper readiness metrics by exam domain, additional investigation scenarios, product analytics, and optional account-based synchronization.
 
 ## Author
 

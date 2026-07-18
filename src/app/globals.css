@@ -80,7 +80,7 @@ a { color: inherit; }
 .brand-author a { padding: .28rem .42rem; border: 1px solid #31546a; background: #172d3b; color: var(--sidebar-text); font-size: .62rem; font-weight: 700; text-decoration: none; }
 .brand-author a:hover { border-color: #5689aa; color: #9ed9ff; }
 .sidebar nav { display: grid; gap: .55rem; }
-.nav-item { width: 100%; min-height: 48px; display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: .45rem; padding: .65rem .7rem; border: 1px solid transparent; background: transparent; color: var(--sidebar-muted); text-align: left; cursor: pointer; }
+.nav-item { width: 100%; min-height: 48px; display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: .45rem; padding: .65rem .7rem; border: 1px solid transparent; background: transparent; color: var(--sidebar-muted); text-align: left; text-decoration: none; cursor: pointer; }
 .nav-item > span { color: #6caed7; font-size: .72rem; font-weight: 800; }
 .nav-item small { grid-column: 2; opacity: .72; font-size: .66rem; }
 .nav-item.active { border-color: #31546a; background: #172d3b; color: #fff; }
@@ -114,7 +114,7 @@ main { min-width: 0; }
 .path-entry.expanded { min-height: calc(100vh - 92px); margin: .35rem 0 1rem; padding: .65rem; border: 1px solid var(--line-strong); border-top: 4px solid var(--accent); background: color-mix(in srgb, var(--surface-accent) 62%, transparent); box-shadow: var(--shadow); }
 .path-entry.expanded > .path-card { position: sticky; top: 72px; z-index: 8; border-left-width: 1px; box-shadow: var(--shadow); }
 .path-entry.expanded .path-workspace { padding-top: .75rem; }
-.path-card { width: 100%; display: grid; grid-template-columns: 62px minmax(0, 1fr) 38px; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 5px; background: var(--surface); color: var(--text); text-align: left; cursor: pointer; box-shadow: var(--shadow); }
+.path-card { width: 100%; display: grid; grid-template-columns: 62px minmax(0, 1fr) 38px; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 5px; background: var(--surface); color: var(--text); text-align: left; text-decoration: none; cursor: pointer; box-shadow: var(--shadow); }
 .path-card:hover, .path-card.selected { border-color: var(--accent); background: var(--surface-accent); }
 .path-number { height: 48px; display: grid; place-items: center; border-right: 1px solid var(--line-strong); color: var(--accent); font-weight: 900; }
 .path-card > span:nth-child(2) { min-width: 0; display: grid; gap: .25rem; }
@@ -144,7 +144,7 @@ main { min-width: 0; }
 .language-note { margin: 0; padding: .8rem 1rem; background: var(--warning-soft); border-left: 3px solid #b98519; color: var(--text); }
 .module-picker { padding: 1.4rem 0; }
 .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
-.module-card { min-height: 84px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 24px; align-items: center; gap: .85rem; padding: .85rem; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--text); text-align: left; cursor: pointer; }
+.module-card { min-height: 84px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 24px; align-items: center; gap: .85rem; padding: .85rem; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--text); text-align: left; text-decoration: none; cursor: pointer; }
 .module-card:hover, .module-card.selected { border-color: var(--accent); background: var(--surface-accent); }
 .module-card > span:first-child { align-self: stretch; display: grid; place-items: center; border-right: 1px solid var(--line); color: var(--accent); font-size: .76rem; font-weight: 900; }
 .module-card > span:nth-child(2) { min-width: 0; display: grid; gap: .35rem; }
@@ -380,8 +380,8 @@ main { min-width: 0; }
 .practice-card-progress > div:first-child { display: flex; justify-content: space-between; color: var(--muted); font-size: .7rem; font-weight: 750; }
 .practice-card-progress > div:last-child { height: 6px; overflow: hidden; background: var(--line); }
 .practice-card-progress > div:last-child span { display: block; height: 100%; background: var(--accent); }
-.practice-catalog-card > button { width: 100%; padding: .8rem 1rem; border: 1px solid var(--accent); background: var(--accent); color: white; font-weight: 800; text-align: left; cursor: pointer; }
-.practice-catalog-card > button:hover { background: var(--accent-strong); }
+.practice-catalog-card > a { width: 100%; padding: .8rem 1rem; border: 1px solid var(--accent); background: var(--accent); color: white; font-weight: 800; text-align: left; text-decoration: none; cursor: pointer; }
+.practice-catalog-card > a:hover { background: var(--accent-strong); }
 .practice-view { display: grid; gap: 1.35rem; padding: clamp(2rem, 5vw, 4.5rem) 0; }
 .practice-catalog-back { justify-self: start; padding: .4rem 0; border: 0; border-bottom: 1px solid currentColor; background: transparent; color: var(--accent-strong); font-weight: 750; cursor: pointer; }
 .practice-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
@@ -496,8 +496,8 @@ main { min-width: 0; }
 .exam-entry-card > div { max-width: 780px; }
 .exam-entry-card h2 { margin: .25rem 0 .45rem; font-size: clamp(1.45rem, 3vw, 2.1rem); }
 .exam-entry-card p:last-child { margin: 0; color: var(--muted); line-height: 1.55; }
-.exam-entry-card button, .exam-mode-grid button, .exam-result-actions button { flex: 0 0 auto; padding: .8rem 1rem; border: 1px solid var(--accent); background: var(--accent); color: white; font-weight: 800; cursor: pointer; }
-.exam-entry-card button:hover, .exam-mode-grid button:hover, .exam-result-actions button:hover { background: var(--accent-strong); }
+.exam-entry-card > a, .exam-mode-grid button, .exam-result-actions button { flex: 0 0 auto; padding: .8rem 1rem; border: 1px solid var(--accent); background: var(--accent); color: white; font-weight: 800; text-decoration: none; cursor: pointer; }
+.exam-entry-card > a:hover, .exam-mode-grid button:hover, .exam-result-actions button:hover { background: var(--accent-strong); }
 .dashboard-exam-entry { border-left: 4px solid var(--accent) !important; background: var(--surface-accent) !important; }
 .dashboard-exam-entry > strong { color: var(--accent-strong); font-size: .78rem; }
 
@@ -690,7 +690,7 @@ main { min-width: 0; }
   .practice-references button > em { white-space: normal; }
   .practice-continue { width: 100%; }
   .exam-entry-card, .exam-results-hero { align-items: stretch; flex-direction: column; }
-  .exam-entry-card button { width: 100%; }
+  .exam-entry-card > a { width: 100%; }
   .exam-mode-grid, .exam-domain-results > div { grid-template-columns: 1fr; }
   .exam-history > div { grid-template-columns: 1fr; }
   .exam-history article + article, .exam-history article:nth-child(4) { border-top: 1px solid var(--line); border-left: 0; }
