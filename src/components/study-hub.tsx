@@ -7,6 +7,7 @@ import { localProgressRepository } from "@/lib/progress/repository";
 import { ExamBlueprintView } from "@/components/exam-blueprint";
 import { PracticeLabView } from "@/components/practice-lab";
 import { DashboardView } from "@/components/dashboard";
+import { ExamSimulatorView } from "@/components/exam-simulator";
 import type { BlueprintReference, BlueprintReturnTarget, ExamBlueprint, LearningPath, Locale, PracticeStudyReference, StudyModule } from "@/lib/types";
 
 type ThemeChoice = "system" | "light" | "dark";
@@ -97,6 +98,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   const [blueprintReturnTarget, setBlueprintReturnTarget] = useState<BlueprintReturnTarget | null>(null);
   const [practiceReturnTarget, setPracticeReturnTarget] = useState<PracticeReturnTarget | null>(null);
   const [activePracticeLabId, setActivePracticeLabId] = useState<string | null>(null);
+  const [practiceExperience, setPracticeExperience] = useState<"labs" | "exam">("labs");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
@@ -217,6 +219,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   function openDashboardPracticeLab(labId: string, stageId?: string, stageTitle?: string) {
     setBlueprintReturnTarget(null);
     setActivePracticeLabId(labId);
+    setPracticeExperience("labs");
     setPracticeReturnTarget(stageId && stageTitle ? { stageId, stageTitle } : null);
     setActiveView("practice");
   }
@@ -239,6 +242,14 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
 
   function openPracticeLabs() {
     setBlueprintReturnTarget(null);
+    setPracticeExperience("labs");
+    setActiveView("practice");
+  }
+
+  function openExamSimulator() {
+    setBlueprintReturnTarget(null);
+    setPracticeReturnTarget(null);
+    setPracticeExperience("exam");
     setActiveView("practice");
   }
 
@@ -273,7 +284,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
       <main>
         <header className="topbar"><div className="topbar-controls"><LanguageControl locale={locale} /><ThemeControl locale={locale} /></div></header>
         <div className="content-shell" id="top">
-          {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} /> : activeView === "learning" ? <>
+          {activeView === "dashboard" ? <DashboardView locale={locale} learningPaths={learningPaths} completedUnitIds={completed} onOpenLearningPath={openDashboardLearningPath} onOpenPracticeLab={openDashboardPracticeLab} onOpenExamSimulator={openExamSimulator} /> : activeView === "learning" ? <>
           {blueprintReturnTarget && returnObjective && <button className="blueprint-return" type="button" onClick={() => setActiveView("blueprint")}><span aria-hidden="true">←</span><span><strong>{t.backToExamObjective}</strong><small>{returnObjective.text}</small></span></button>}
           {practiceReturnTarget && <button className="blueprint-return practice-return" type="button" onClick={() => setActiveView("practice")}><span aria-hidden="true">←</span><span><strong>{t.backToPracticeStage}</strong><small>{practiceReturnTarget.stageTitle}</small></span></button>}
           <section className="hero"><p className="eyebrow">{t.studyWorkspace}</p><h1>{t.heroTitle}</h1><p>{t.heroBody}</p></section>
@@ -318,7 +329,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
           {!selectedPathId && (
             <section className="empty-state"><span>⌁</span><div><h2>{t.noPathTitle}</h2><p>{t.noPathBody}</p></div></section>
           )}
-          </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={setActivePracticeLabId} onOpenReference={openPracticeReference} />}
+          </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : practiceExperience === "exam" ? <ExamSimulatorView locale={locale} learningPaths={learningPaths} onBack={() => setPracticeExperience("labs")} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={setActivePracticeLabId} onOpenReference={openPracticeReference} onOpenSimulator={openExamSimulator} />}
         </div>
       </main>
       <nav className="mobile-nav" aria-label={t.mobileNavigation}>

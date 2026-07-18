@@ -1,7 +1,8 @@
 import { practiceLabs as englishPracticeLabs } from "@/content/practice-labs";
+import { examQuestions as englishExamQuestions } from "@/content/exam-questions";
 import { remediationPacks as englishRemediationPacks, type RemediationPack } from "@/content/remediation-packs";
-import { spanishExamBlueprint, spanishLearningPaths, spanishPracticeLabs, spanishRemediationPacks } from "./es";
-import type { ExamBlueprint, LearningPath, Locale, PracticeLabScenario } from "@/lib/types";
+import { spanishExamBlueprint, spanishExamQuestions, spanishLearningPaths, spanishPracticeLabs, spanishRemediationPacks } from "./es";
+import type { ExamBlueprint, ExamQuestion, LearningPath, Locale, PracticeLabScenario } from "@/lib/types";
 
 function referenceKey(pathId: string, moduleId: string) {
   return `${pathId}/${moduleId}`;
@@ -62,6 +63,25 @@ export function localizeExamBlueprint(blueprint: ExamBlueprint, locale: Locale):
       };
     }),
   };
+}
+
+export function getExamQuestions(locale: Locale): ExamQuestion[] {
+  if (locale === "en") return englishExamQuestions;
+  return englishExamQuestions.map((question) => {
+    const translation = spanishExamQuestions[question.id];
+    if (!translation) return question;
+    return {
+      ...question,
+      domainTitle: translation.domainTitle ?? question.domainTitle,
+      prompt: translation.prompt ?? question.prompt,
+      options: question.options.map((option) => ({ ...option, text: translation.options?.[option.id]?.text ?? option.text })),
+      explanation: translation.explanation ?? question.explanation,
+      references: question.references.map((reference) => ({
+        ...reference,
+        reason: translation.references?.[`${reference.pathId}/${reference.moduleId}`]?.reason ?? reference.reason,
+      })),
+    };
+  });
 }
 
 export function getPracticeLabs(locale: Locale): PracticeLabScenario[] {

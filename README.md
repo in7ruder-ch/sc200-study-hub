@@ -40,6 +40,14 @@ Four guided security investigation scenarios covering:
 
 Each lab contains sequential investigation stages, expandable evidence, decision points, operational feedback, investigation outcomes, key takeaways, and study references. Progress is preserved between sessions.
 
+### Exam simulator
+
+- Quick practice with six balanced questions and immediate explanations.
+- A full 50-question simulation with results revealed at the end.
+- Weighted coverage aligned with the three official SC-200 exam-domain ranges.
+- Original bilingual questions with study references, never exam dumps.
+- Overall and per-domain scoring with locally stored attempt history.
+
 ### Interface
 
 - English and Spanish interface routes at `/en` and `/es`.
@@ -51,7 +59,7 @@ The interface is localized in both languages. All four Practice Labs, all nine L
 
 ## How progress works
 
-Study-unit completion and Practice Lab answers are stored in the browser through repository interfaces backed by `localStorage`. This keeps the current application private and account-free while leaving a clear path toward authenticated cloud synchronization later.
+Study-unit completion, Practice Lab answers, and Exam Simulator attempts are stored in the browser through repository interfaces backed by `localStorage`. This keeps the current application private and account-free while leaving a clear path toward authenticated cloud synchronization later.
 
 Clearing the browser's site data also clears locally stored progress.
 

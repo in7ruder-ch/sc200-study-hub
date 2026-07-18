@@ -22,6 +22,14 @@ export type ExamBlueprintTranslation = {
   }>;
 };
 
+export type ExamQuestionTranslation = {
+  domainTitle?: string;
+  prompt?: string;
+  options?: Record<string, { text?: string }>;
+  explanation?: string;
+  references?: Record<string, { reason?: string }>;
+};
+
 export type PracticeLabTranslation = {
   title?: string;
   subtitle?: string;
