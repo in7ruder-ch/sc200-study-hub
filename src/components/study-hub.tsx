@@ -13,6 +13,13 @@ type ThemeChoice = "system" | "light" | "dark";
 type AppView = "dashboard" | "learning" | "blueprint" | "practice";
 type PracticeReturnTarget = { stageId: string; stageTitle: string };
 
+function NavIcon({ view }: { view: AppView }) {
+  if (view === "dashboard") return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>;
+  if (view === "learning") return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v17H7.5A3.5 3.5 0 0 0 4 22V5.5Z" /><path d="M20 5.5A3.5 3.5 0 0 0 16.5 2H13v17h3.5A3.5 3.5 0 0 1 20 22V5.5Z" /></svg>;
+  if (view === "blueprint") return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 3.5h6M8.5 9h7M8.5 13h7M8.5 17h4" /></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.75 3h10.5A2 2 0 0 0 19 18l-5-9V3" /><path d="M7.5 16h9" /></svg>;
+}
+
 function ThemeControl({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const [theme, setTheme] = useState<ThemeChoice>("system");
@@ -84,11 +91,13 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   const [activeView, setActiveView] = useState<AppView>("dashboard");
   const [selectedPathId, setSelectedPathId] = useState<string | null>(null);
   const [selectedModules, setSelectedModules] = useState<Set<string>>(new Set());
+  const [moduleToFocus, setModuleToFocus] = useState<string | null>(null);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const [pendingReference, setPendingReference] = useState<BlueprintReference | null>(null);
   const [blueprintReturnTarget, setBlueprintReturnTarget] = useState<BlueprintReturnTarget | null>(null);
   const [practiceReturnTarget, setPracticeReturnTarget] = useState<PracticeReturnTarget | null>(null);
   const [activePracticeLabId, setActivePracticeLabId] = useState<string | null>(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -97,6 +106,12 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
     }, 0);
     return () => window.clearTimeout(update);
   }, [locale]);
+
+  useEffect(() => {
+    const collapsed = window.localStorage.getItem("sc200-sidebar-collapsed-v1") === "true";
+    const update = window.setTimeout(() => setSidebarCollapsed(collapsed), 0);
+    return () => window.clearTimeout(update);
+  }, []);
 
   useEffect(() => {
     if (!selectedPathId) return;
@@ -127,6 +142,15 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   }, [activeView, pendingReference]);
 
   useEffect(() => {
+    if (activeView !== "learning" || !moduleToFocus || !selectedModules.has(moduleToFocus)) return;
+    const timeout = window.setTimeout(() => {
+      document.getElementById(moduleToFocus)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setModuleToFocus((current) => current === moduleToFocus ? null : current);
+    }, 50);
+    return () => window.clearTimeout(timeout);
+  }, [activeView, moduleToFocus, selectedModules]);
+
+  useEffect(() => {
     if (activeView !== "practice" || !practiceReturnTarget) return;
     const timeout = window.setTimeout(() => {
       document.getElementById(practiceReturnTarget.stageId)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -141,11 +165,13 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   const clearBlueprintReturnTarget = useCallback(() => setBlueprintReturnTarget(null), []);
 
   function toggleModule(id: string) {
+    const opening = !selectedModules.has(id);
     setSelectedModules((current) => {
       const next = new Set(current);
       if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
+    setModuleToFocus(opening ? id : null);
   }
 
   function toggleUnit(id: string) {
@@ -160,6 +186,7 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
   function togglePath(id: string) {
     setSelectedPathId((current) => current === id ? null : id);
     setSelectedModules(new Set());
+    setModuleToFocus(null);
   }
 
   function openStudyReference(reference: BlueprintReference, returnTarget: BlueprintReturnTarget) {
@@ -201,8 +228,31 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
     window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
   }
 
+  function openLearningPaths() {
+    setActiveView("learning");
+  }
+
+  function openBlueprint() {
+    setPracticeReturnTarget(null);
+    setActiveView("blueprint");
+  }
+
+  function openPracticeLabs() {
+    setBlueprintReturnTarget(null);
+    setActiveView("practice");
+  }
+
+  function toggleSidebar() {
+    setSidebarCollapsed((current) => {
+      const next = !current;
+      window.localStorage.setItem("sc200-sidebar-collapsed-v1", String(next));
+      return next;
+    });
+  }
+
   return (
-    <div className="app-frame">
+    <div className={`app-frame ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+      <button className="sidebar-toggle" type="button" onClick={toggleSidebar} aria-label={sidebarCollapsed ? t.sidebarExpand : t.sidebarCollapse} aria-expanded={!sidebarCollapsed}><span aria-hidden="true">{sidebarCollapsed ? "›" : "‹"}</span></button>
       <aside className="sidebar">
         <div className="brand-lockup">
           <a className="brand" href={`/${locale}`}><span className="brand-mark">SC</span><span><strong>{t.product}</strong><small>{t.description}</small></span></a>
@@ -213,9 +263,9 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
         </div>
         <nav aria-label="Primary navigation">
           <button className={`nav-item ${activeView === "dashboard" ? "active" : ""}`} onClick={openDashboard} aria-pressed={activeView === "dashboard"}><span>00</span>{t.dashboard}</button>
-          <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={() => setActiveView("learning")} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
-          <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={() => { setPracticeReturnTarget(null); setActiveView("blueprint"); }} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
-          <button className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={() => { setBlueprintReturnTarget(null); setActiveView("practice"); }} aria-pressed={activeView === "practice"}><span>03</span>{t.practice}</button>
+          <button className={`nav-item ${activeView === "learning" ? "active" : ""}`} onClick={openLearningPaths} aria-pressed={activeView === "learning"}><span>01</span>{t.learningPaths}</button>
+          <button className={`nav-item ${activeView === "blueprint" ? "active" : ""}`} onClick={openBlueprint} aria-pressed={activeView === "blueprint"}><span>02</span>{t.blueprint}</button>
+          <button className={`nav-item ${activeView === "practice" ? "active" : ""}`} onClick={openPracticeLabs} aria-pressed={activeView === "practice"}><span>03</span>{t.practice}</button>
         </nav>
         <div className="sidebar-progress"><ProgressRing completed={completedCount} total={allUnits.length} /><div><strong>{completedCount} / {allUnits.length}</strong><span>{t.units} {t.complete}</span></div></div>
       </aside>
@@ -271,6 +321,12 @@ export function StudyHub({ locale, learningPaths, blueprint }: { locale: Locale;
           </> : activeView === "blueprint" ? <ExamBlueprintView blueprint={blueprint} learningPaths={learningPaths} locale={locale} onOpenReference={openStudyReference} returnTarget={blueprintReturnTarget} onReturnTargetRestored={clearBlueprintReturnTarget} /> : <PracticeLabView locale={locale} learningPaths={learningPaths} selectedLabId={activePracticeLabId} onSelectLab={setActivePracticeLabId} onOpenReference={openPracticeReference} />}
         </div>
       </main>
+      <nav className="mobile-nav" aria-label={t.mobileNavigation}>
+        <button type="button" className={activeView === "dashboard" ? "active" : ""} onClick={openDashboard} aria-current={activeView === "dashboard" ? "page" : undefined}><NavIcon view="dashboard" /><span>{t.dashboard}</span></button>
+        <button type="button" className={activeView === "learning" ? "active" : ""} onClick={openLearningPaths} aria-current={activeView === "learning" ? "page" : undefined}><NavIcon view="learning" /><span>{t.learningPaths}</span></button>
+        <button type="button" className={activeView === "blueprint" ? "active" : ""} onClick={openBlueprint} aria-current={activeView === "blueprint" ? "page" : undefined}><NavIcon view="blueprint" /><span>{t.blueprint}</span></button>
+        <button type="button" className={activeView === "practice" ? "active" : ""} onClick={openPracticeLabs} aria-current={activeView === "practice" ? "page" : undefined}><NavIcon view="practice" /><span>{t.practice}</span></button>
+      </nav>
       <a className="back-to-top" href="#top" aria-label={t.backToTop}>↑</a>
     </div>
   );
