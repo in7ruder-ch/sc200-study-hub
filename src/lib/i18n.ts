@@ -56,7 +56,7 @@ export const copy = {
     selectModule: "Seleccioná uno o más módulos",
     selectModuleBody: "Cada click agrega o quita un módulo del espacio de estudio. Las unidades permanecen cerradas hasta que las abras.",
     markComplete: "Marcar unidad como completada",
-    contentLanguage: "Las notas migradas permanecen en inglés mientras se prepara el contenido en español.",
+    contentLanguage: "Este learning path está disponible completamente en español.",
     officialObjectives: "Objetivos oficiales del examen", blueprintIntro: "Habilidades evaluadas por Microsoft, organizadas en tres dominios ponderados y nueve grupos funcionales.",
     openOfficialBlueprint: "Abrir blueprint oficial", effective: "Vigente desde", objectives: "objetivos", weightedDomains: "dominios ponderados", openStudyNotes: "Abrir notas de estudio",
     blueprintGuide: "Abrí un grupo funcional para explorar sus objetivos. Las notas de los learning paths están vinculadas directamente y los packs complementarios aparecen dentro de los objetivos que necesitan material adicional.",

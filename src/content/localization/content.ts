@@ -39,6 +39,7 @@ export function localizeExamBlueprint(blueprint: ExamBlueprint, locale: Locale):
   return {
     ...blueprint,
     title: spanishExamBlueprint.title ?? blueprint.title,
+    effectiveDate: spanishExamBlueprint.effectiveDate ?? blueprint.effectiveDate,
     domains: blueprint.domains.map((domain) => {
       const domainTranslation = spanishExamBlueprint.domains?.[domain.id];
       if (!domainTranslation) return domain;
